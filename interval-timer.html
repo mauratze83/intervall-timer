@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Intervall Timer">
+<title>Intervall Timer</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Space+Grotesk:wght@700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d0f14;
+    --surface: #161a22;
+    --surface2: #1e2330;
+    --border: #2a3040;
+    --work: #f97316;
+    --work-dim: rgba(249,115,22,0.15);
+    --rest: #22c55e;
+    --rest-dim: rgba(34,197,94,0.15);
+    --text: #f0f2f5;
+    --muted: #6b7280;
+    --radius: 16px;
+  }
+
+  html, body {
+    height: 100%; background: var(--bg); color: var(--text);
+    font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased;
+    overscroll-behavior: none;
+  }
+
+  body { display: flex; flex-direction: column; min-height: 100dvh; }
+
+  /* ── SCREENS ── */
+  .screen { display: none; flex-direction: column; flex: 1; padding: 24px 20px; gap: 20px; }
+  .screen.active { display: flex; }
+
+  /* ── HEADER ── */
+  .header { display: flex; align-items: center; justify-content: space-between; }
+  .logo { font-family: 'Space Grotesk', sans-serif; font-size: 22px; letter-spacing: -0.5px; }
+  .logo span { color: var(--work); }
+
+  /* ── SETUP SCREEN ── */
+  .section-label {
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 1.5px; color: var(--muted); margin-bottom: 10px;
+  }
+
+  .intervals-list { display: flex; flex-direction: column; gap: 10px; }
+
+  .interval-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 16px;
+    display: grid; grid-template-columns: 1fr 1fr auto; gap: 12px; align-items: center;
+    transition: border-color 0.2s;
+  }
+
+  .interval-card .field { display: flex; flex-direction: column; gap: 5px; }
+  .field label { font-size: 11px; color: var(--muted); font-weight: 500; }
+
+  .interval-card input[type="number"], .interval-card input[type="text"] {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 8px; color: var(--text); font-size: 15px; font-weight: 600;
+    padding: 8px 10px; width: 100%; outline: none; font-family: inherit;
+    -webkit-appearance: none; appearance: none;
+    transition: border-color 0.2s;
+  }
+  .interval-card input:focus { border-color: var(--work); }
+
+  .btn-remove {
+    background: none; border: none; color: var(--muted); cursor: pointer;
+    font-size: 20px; line-height: 1; padding: 4px; border-radius: 8px;
+    transition: color 0.2s, background 0.2s;
+  }
+  .btn-remove:active { color: #ef4444; background: rgba(239,68,68,0.12); }
+
+  /* color dot on card */
+  .interval-card.type-work { border-left: 3px solid var(--work); }
+  .interval-card.type-rest { border-left: 3px solid var(--rest); }
+
+  .type-toggle {
+    display: flex; gap: 6px; grid-column: 1 / -1;
+  }
+  .type-btn {
+    flex: 1; padding: 6px; border-radius: 8px; border: 1px solid var(--border);
+    background: transparent; color: var(--muted); font-size: 12px; font-weight: 600;
+    cursor: pointer; transition: all 0.15s; font-family: inherit;
+  }
+  .type-btn.work.active { background: var(--work-dim); border-color: var(--work); color: var(--work); }
+  .type-btn.rest.active { background: var(--rest-dim); border-color: var(--rest); color: var(--rest); }
+
+  /* global rounds */
+  .rounds-row {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 16px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .rounds-row span { font-size: 14px; }
+  .stepper { display: flex; align-items: center; gap: 14px; }
+  .step-btn {
+    width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--border);
+    background: var(--surface2); color: var(--text); font-size: 20px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: background 0.15s; user-select: none;
+  }
+  .step-btn:active { background: var(--work-dim); border-color: var(--work); }
+  .step-val { font-size: 22px; font-weight: 700; min-width: 32px; text-align: center; }
+
+  /* buttons */
+  .btn-add {
+    background: var(--surface2); border: 1px dashed var(--border);
+    border-radius: var(--radius); color: var(--muted); font-size: 14px;
+    padding: 13px; cursor: pointer; font-family: inherit; font-weight: 500;
+    transition: all 0.15s;
+  }
+  .btn-add:active { border-color: var(--work); color: var(--work); }
+
+  .btn-start {
+    background: var(--work); border: none; border-radius: var(--radius);
+    color: #fff; font-size: 17px; font-weight: 700; padding: 17px;
+    cursor: pointer; font-family: inherit; letter-spacing: 0.3px;
+    transition: opacity 0.15s;
+  }
+  .btn-start:active { opacity: 0.85; }
+
+  /* ── TIMER SCREEN ── */
+  #timerScreen {
+    justify-content: space-between;
+    background: var(--bg);
+  }
+
+  .timer-header { display: flex; align-items: center; justify-content: space-between; }
+  .btn-back {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; color: var(--text); font-size: 13px; font-weight: 600;
+    padding: 9px 16px; cursor: pointer; font-family: inherit;
+    transition: background 0.15s;
+  }
+  .btn-back:active { background: var(--surface2); }
+
+  .round-badge {
+    font-size: 13px; color: var(--muted); font-weight: 500;
+  }
+  .round-badge span { color: var(--text); font-weight: 700; }
+
+  /* big ring */
+  .ring-wrap {
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; flex: 1; gap: 8px;
+  }
+
+  .ring-svg { width: min(300px, 80vw); height: min(300px, 80vw); }
+
+  .ring-track { fill: none; stroke: var(--surface2); }
+  .ring-progress {
+    fill: none; stroke: var(--work);
+    stroke-linecap: round;
+    transform: rotate(-90deg); transform-origin: 50% 50%;
+    transition: stroke-dashoffset 0.9s linear, stroke 0.3s;
+  }
+
+  .ring-center {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+  }
+  .ring-container { position: relative; display: flex; }
+
+  .timer-time {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(52px, 18vw, 80px);
+    font-weight: 700; letter-spacing: -2px; line-height: 1;
+  }
+  .timer-phase {
+    font-size: 13px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 2px; margin-top: 6px;
+  }
+  .timer-phase.work { color: var(--work); }
+  .timer-phase.rest { color: var(--rest); }
+
+  /* next up */
+  .next-up {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 12px 16px;
+    display: flex; align-items: center; justify-content: space-between;
+    min-height: 52px;
+  }
+  .next-up .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+  .next-up .value { font-size: 14px; font-weight: 600; }
+
+  /* controls */
+  .timer-controls { display: flex; gap: 12px; }
+  .btn-control {
+    flex: 1; border-radius: var(--radius); border: none;
+    font-size: 16px; font-weight: 700; padding: 17px;
+    cursor: pointer; font-family: inherit; transition: opacity 0.15s;
+  }
+  .btn-control:active { opacity: 0.8; }
+  .btn-pause { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+  .btn-skip  { background: var(--border); color: var(--muted); }
+
+  /* done screen */
+  #doneScreen { align-items: center; justify-content: center; gap: 24px; text-align: center; }
+  .done-icon { font-size: 64px; line-height: 1; }
+  .done-title { font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; }
+  .done-sub { color: var(--muted); font-size: 15px; }
+  .btn-again {
+    background: var(--work); border: none; border-radius: var(--radius);
+    color: #fff; font-size: 16px; font-weight: 700; padding: 15px 40px;
+    cursor: pointer; font-family: inherit;
+  }
+
+  /* progress dots */
+  .phase-dots { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; padding: 0 4px; }
+  .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--surface2); border: 1px solid var(--border);
+    transition: all 0.3s;
+  }
+  .dot.done-work { background: var(--work); border-color: var(--work); }
+  .dot.done-rest { background: var(--rest); border-color: var(--rest); }
+  .dot.current { transform: scale(1.35); box-shadow: 0 0 0 2px var(--bg), 0 0 0 3px currentColor; }
+  .dot.current.work { color: var(--work); background: var(--work); border-color: var(--work); }
+  .dot.current.rest { color: var(--rest); background: var(--rest); border-color: var(--rest); }
+
+  /* scrollable list area */
+  .list-area { overflow-y: auto; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .bottom-area { display: flex; flex-direction: column; gap: 12px; margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ SETUP SCREEN ═══════════════ -->
+<div id="setupScreen" class="screen active">
+  <div class="header">
+    <div class="logo">Intervall<span>.</span></div>
+  </div>
+
+  <div>
+    <div class="section-label">Runden</div>
+    <div class="rounds-row">
+      <span>Wiederholungen</span>
+      <div class="stepper">
+        <button class="step-btn" onclick="changeRounds(-1)">−</button>
+        <div class="step-val" id="roundsVal">3</div>
+        <button class="step-btn" onclick="changeRounds(1)">+</button>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;flex:1;gap:10px;overflow:hidden;">
+    <div class="section-label">Intervalle (pro Runde)</div>
+    <div class="list-area" id="intervalList"></div>
+  </div>
+
+  <div class="bottom-area">
+    <button class="btn-add" onclick="addInterval()">+ Intervall hinzufügen</button>
+    <button class="btn-start" onclick="startTimer()">▶ Timer starten</button>
+  </div>
+</div>
+
+<!-- ═══════════════ TIMER SCREEN ═══════════════ -->
+<div id="timerScreen" class="screen">
+  <div class="timer-header">
+    <button class="btn-back" onclick="goBack()">✕ Beenden</button>
+    <div class="round-badge">Runde <span id="currentRound">1</span> / <span id="totalRounds">3</span></div>
+  </div>
+
+  <div class="ring-wrap">
+    <div class="phase-dots" id="phaseDots"></div>
+    <div class="ring-container" style="margin-top:12px;">
+      <svg class="ring-svg" viewBox="0 0 200 200" id="ringEl">
+        <circle class="ring-track" cx="100" cy="100" r="84" stroke-width="10"/>
+        <circle class="ring-progress" cx="100" cy="100" r="84" stroke-width="10"
+          id="ringProg" stroke-dasharray="527.8" stroke-dashoffset="0"/>
+      </svg>
+      <div class="ring-center">
+        <div class="timer-time" id="timerTime">00:00</div>
+        <div class="timer-phase" id="timerPhase">Bereit</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="next-up" id="nextUpBox">
+    <div>
+      <div class="label">Nächstes</div>
+      <div class="value" id="nextUpVal">–</div>
+    </div>
+    <div style="color:var(--muted);font-size:20px;">›</div>
+  </div>
+
+  <div class="timer-controls">
+    <button class="btn-control btn-pause" id="pauseBtn" onclick="togglePause()">⏸ Pause</button>
+    <button class="btn-control btn-skip" onclick="skipPhase()">Überspringen ›</button>
+  </div>
+</div>
+
+<!-- ═══════════════ DONE SCREEN ═══════════════ -->
+<div id="doneScreen" class="screen">
+  <div class="done-icon">🔥</div>
+  <div class="done-title">Geschafft!</div>
+  <div class="done-sub" id="doneSub">Alle Runden abgeschlossen.</div>
+  <button class="btn-again" onclick="goBack()">Nochmal starten</button>
+</div>
+
+<script>
+// ── STATE ──
+let intervals = [];
+let rounds = 3;
+let timer = null;
+let phases = [];
+let phaseIdx = 0;
+let remaining = 0;
+let paused = false;
+
+const CIRCUMFERENCE = 2 * Math.PI * 84; // 527.8
+
+// ── WAKE LOCK ──
+let wakeLock = null;
+
+async function requestWakeLock() {
+  if ('wakeLock' in navigator) {
+    try {
+      wakeLock = await navigator.wakeLock.request('screen');
+    } catch (e) { /* not critical */ }
+  }
+}
+
+function releaseWakeLock() {
+  if (wakeLock) { wakeLock.release(); wakeLock = null; }
+}
+
+// re-acquire on visibility change (iOS releases it when tab goes background)
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible' && timer && !paused) requestWakeLock();
+});
+
+// ── AUDIO BEEPS ──
+let audioCtx = null;
+
+function getAudioCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  // iOS requires resume after user gesture
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  return audioCtx;
+}
+
+function beep(frequency = 880, duration = 0.12, volume = 0.6, type = 'sine') {
+  try {
+    const ctx = getAudioCtx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.type = type;
+    osc.frequency.setValueAtTime(frequency, ctx.currentTime);
+    gain.gain.setValueAtTime(volume, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + duration);
+  } catch(e) { /* audio not available */ }
+}
+
+// Unlock audio context on first user tap (iOS requirement)
+document.addEventListener('touchstart', () => { getAudioCtx(); }, { once: true });
+document.addEventListener('click',      () => { getAudioCtx(); }, { once: true });
+
+let countdownBeepedSet = new Set();
+
+function maybeCountdown(rem) {
+  if (rem <= 5 && rem >= 1 && !countdownBeepedSet.has(rem)) {
+    countdownBeepedSet.add(rem);
+    if (rem === 1) {
+      // last second: higher pitch double-beep
+      beep(1200, 0.18, 0.7);
+    } else {
+      beep(880, 0.10, 0.5);
+    }
+  }
+}
+
+// ── SETUP ──
+function addInterval(name = 'Arbeit', duration = 30, type = 'work') {
+  intervals.push({ name, duration, type });
+  renderList();
+}
+
+function removeInterval(i) {
+  intervals.splice(i, 1);
+  renderList();
+}
+
+function changeRounds(d) {
+  rounds = Math.max(1, Math.min(99, rounds + d));
+  document.getElementById('roundsVal').textContent = rounds;
+}
+
+function renderList() {
+  const el = document.getElementById('intervalList');
+  el.innerHTML = '';
+  intervals.forEach((iv, i) => {
+    const card = document.createElement('div');
+    card.className = `interval-card type-${iv.type}`;
+    card.innerHTML = `
+      <div class="type-toggle">
+        <button class="type-btn work ${iv.type==='work'?'active':''}" onclick="setType(${i},'work')">💪 Arbeit</button>
+        <button class="type-btn rest ${iv.type==='rest'?'active':''}" onclick="setType(${i},'rest')">😮‍💨 Pause</button>
+      </div>
+      <div class="field">
+        <label>Name</label>
+        <input type="text" value="${iv.name}" onchange="intervals[${i}].name=this.value;renderList()" style="width:100%">
+      </div>
+      <div class="field">
+        <label>Sekunden</label>
+        <input type="number" min="1" max="3600" value="${iv.duration}" onchange="intervals[${i}].duration=parseInt(this.value)||1;renderList()">
+      </div>
+      <button class="btn-remove" onclick="removeInterval(${i})">×</button>
+    `;
+    el.appendChild(card);
+  });
+}
+
+function setType(i, type) {
+  intervals[i].type = type;
+  renderList();
+}
+
+// ── TIMER ──
+function buildPhases() {
+  phases = [];
+  for (let r = 0; r < rounds; r++) {
+    intervals.forEach(iv => phases.push({ ...iv, round: r + 1 }));
+  }
+}
+
+function startTimer() {
+  if (intervals.length === 0) { alert('Füge mindestens ein Intervall hinzu.'); return; }
+  buildPhases();
+  phaseIdx = 0;
+  paused = false;
+  document.getElementById('totalRounds').textContent = rounds;
+  buildDots();
+  showScreen('timerScreen');
+  requestWakeLock();
+  beginPhase();
+}
+
+function buildDots() {
+  const el = document.getElementById('phaseDots');
+  el.innerHTML = '';
+  phases.forEach((p, i) => {
+    const d = document.createElement('div');
+    d.className = `dot ${p.type}`;
+    d.id = `dot-${i}`;
+    el.appendChild(d);
+  });
+}
+
+function updateDots() {
+  phases.forEach((p, i) => {
+    const d = document.getElementById(`dot-${i}`);
+    if (!d) return;
+    d.className = 'dot';
+    if (i < phaseIdx) d.classList.add(`done-${p.type}`);
+    else if (i === phaseIdx) { d.classList.add('current', p.type); }
+  });
+}
+
+function beginPhase() {
+  if (phaseIdx >= phases.length) { showDone(); return; }
+  const p = phases[phaseIdx];
+  remaining = p.duration;
+  countdownBeepedSet = new Set();
+  document.getElementById('currentRound').textContent = p.round;
+  document.getElementById('pauseBtn').textContent = '⏸ Pause';
+  paused = false;
+  updateDots();
+  updateRingColor(p.type);
+  tick();
+  clearInterval(timer);
+  timer = setInterval(tick, 1000);
+}
+
+function tick() {
+  if (paused) return;
+  const p = phases[phaseIdx];
+  const phase = document.getElementById('timerPhase');
+  phase.textContent = p.name;
+  phase.className = `timer-phase ${p.type}`;
+  document.getElementById('timerTime').textContent = formatTime(remaining);
+
+  // ring
+  const frac = remaining / p.duration;
+  const offset = CIRCUMFERENCE * (1 - frac);
+  document.getElementById('ringProg').style.strokeDashoffset = offset;
+
+  // next up
+  const next = phases[phaseIdx + 1];
+  document.getElementById('nextUpVal').textContent = next
+    ? `${next.name} · ${formatTime(next.duration)}` : 'Letztes Intervall';
+
+  maybeCountdown(remaining);
+
+  if (remaining <= 0) {
+    clearInterval(timer);
+    vibrate();
+    beep(520, 0.35, 0.8); // end-of-interval lower tone
+    phaseIdx++;
+    setTimeout(beginPhase, 300);
+  } else {
+    remaining--;
+  }
+}
+
+function togglePause() {
+  paused = !paused;
+  document.getElementById('pauseBtn').textContent = paused ? '▶ Weiter' : '⏸ Pause';
+}
+
+function skipPhase() {
+  clearInterval(timer);
+  phaseIdx++;
+  beginPhase();
+}
+
+function updateRingColor(type) {
+  const el = document.getElementById('ringProg');
+  el.style.stroke = type === 'work' ? 'var(--work)' : 'var(--rest)';
+}
+
+function showDone() {
+  clearInterval(timer);
+  releaseWakeLock();
+  const total = phases.reduce((s, p) => s + p.duration, 0);
+  document.getElementById('doneSub').textContent =
+    `${rounds} Runde${rounds > 1 ? 'n' : ''} · ${formatTime(total)} Gesamtzeit`;
+  showScreen('doneScreen');
+}
+
+function goBack() {
+  clearInterval(timer);
+  releaseWakeLock();
+  paused = false;
+  showScreen('setupScreen');
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function formatTime(s) {
+  const m = Math.floor(s / 60);
+  const sec = s % 60;
+  return `${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+}
+
+function vibrate() {
+  if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+}
+
+// ── INIT ──
+addInterval('Arbeit', 40, 'work');
+addInterval('Pause', 20, 'rest');
+</script>
+</body>
+</html>
