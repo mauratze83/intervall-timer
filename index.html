@@ -356,11 +356,12 @@ function findById(id) {
 
 /* SETUP */
 function addInterval(name, dur, type) {
+  collectFormData();
   intervals.push({name: name||'Arbeit', duration: dur||30, type: type||'work'});
   renderList();
 }
 
-function removeInterval(i) { intervals.splice(i,1); renderList(); }
+function removeInterval(i) { collectFormData(); intervals.splice(i,1); renderList(); }
 
 function changeRounds(d) {
   rounds = Math.max(1, Math.min(99, rounds+d));
