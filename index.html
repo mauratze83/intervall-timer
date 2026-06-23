@@ -467,8 +467,8 @@ function beep(frequency = 880, duration = 0.12, volume = 0.6) {
     osc.start(ctx.currentTime); osc.stop(ctx.currentTime + duration);
   } catch {}
 }
-document.addEventListener('touchstart', () => getAudioCtx(), { once: true });
-document.addEventListener('click',      () => getAudioCtx(), { once: true });
+document.addEventListener('touchstart', () => { getAudioCtx(); unlockSpeech(); }, { once: true });
+document.addEventListener('click',      () => { getAudioCtx(); unlockSpeech(); }, { once: true });
 
 let countdownBeepedSet = new Set();
 function maybeCountdown(rem) {
@@ -759,15 +759,29 @@ function skipPhase() {
   beginPhase();
 }
 
+// ── SPEECH ──
+let speechUnlocked = false;
+function unlockSpeech() {
+  if (speechUnlocked || !window.speechSynthesis) return;
+  const u = new SpeechSynthesisUtterance(' ');
+  u.volume = 0;
+  u.lang = 'de-DE';
+  window.speechSynthesis.speak(u);
+  speechUnlocked = true;
+}
+
 function speakMotivation() {
   if (!window.speechSynthesis) return;
-  const u = new SpeechSynthesisUtterance('Geil gemacht, du bist eine Maschine!');
-  u.lang = 'de-DE';
-  u.rate = 0.95;
-  u.pitch = 1.2;
-  u.volume = 1;
   window.speechSynthesis.cancel();
-  window.speechSynthesis.speak(u);
+  // Small delay so cancel() has time to flush, then speak
+  setTimeout(() => {
+    const u = new SpeechSynthesisUtterance('Geil gemacht, du bist eine Maschine!');
+    u.lang = 'de-DE';
+    u.rate = 0.95;
+    u.pitch = 1.2;
+    u.volume = 1;
+    window.speechSynthesis.speak(u);
+  }, 100);
 }
 
 function showDone() {
@@ -776,7 +790,6 @@ function showDone() {
   document.getElementById('doneSub').textContent =
     `${rounds} Runde${rounds > 1 ? 'n' : ''} · ${formatTime(total)} Gesamtzeit`;
   showScreen('doneScreen');
-  setTimeout(speakMotivation, 600);
 }
 
 function goBack() {
