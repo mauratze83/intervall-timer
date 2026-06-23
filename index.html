@@ -14,6 +14,7 @@
   --bg:#0d0f14;--surface:#161a22;--surface2:#1e2330;--border:#2a3040;
   --work:#f97316;--work-dim:rgba(249,115,22,0.15);
   --rest:#22c55e;--rest-dim:rgba(34,197,94,0.15);
+  --kb:#a78bfa;--kb-dim:rgba(167,139,250,0.15);
   --err:#ef4444;--err-dim:rgba(239,68,68,0.15);
   --text:#f0f2f5;--muted:#6b7280;--radius:16px;
 }
@@ -25,21 +26,33 @@ body{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direct
 .logo span{color:var(--work);}
 .header{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:space-between;justify-content:space-between;-webkit-flex-shrink:0;flex-shrink:0;}
 .section-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:10px;-webkit-flex-shrink:0;flex-shrink:0;}
-/* HOME */
-.training-list{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;gap:10px;overflow-y:auto;-webkit-flex:1;flex:1;}
+
+/* TAB BAR */
+.tab-bar{display:-webkit-flex;display:flex;gap:8px;-webkit-flex-shrink:0;flex-shrink:0;}
+.tab-btn{-webkit-flex:1;flex:1;padding:10px;border-radius:12px;border:1px solid var(--border);background:var(--surface2);color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;}
+.tab-btn.active-timer{border-color:var(--work);background:var(--work-dim);color:var(--work);}
+.tab-btn.active-kb{border-color:var(--kb);background:var(--kb-dim);color:var(--kb);}
+
+/* LISTS */
+.training-list{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;gap:10px;overflow-y:auto;-webkit-overflow-scrolling:touch;-webkit-flex:1;flex:1;}
 .training-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;gap:14px;cursor:pointer;-webkit-flex-shrink:0;flex-shrink:0;}
 .training-card:active{border-color:var(--work);}
+.training-card.kb-card:active{border-color:var(--kb);}
 .training-info{-webkit-flex:1;flex:1;min-width:0;}
 .training-name{font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .training-meta{font-size:12px;color:var(--muted);margin-top:3px;}
 .training-actions{display:-webkit-flex;display:flex;gap:8px;-webkit-flex-shrink:0;flex-shrink:0;}
+.card-badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;letter-spacing:0.5px;}
+.badge-work{background:var(--work-dim);color:var(--work);}
+.badge-rest{background:var(--rest-dim);color:var(--rest);}
+.badge-kb{background:var(--kb-dim);color:var(--kb);}
 .btn-icon{width:36px;height:36px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);color:var(--muted);display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;cursor:pointer;-webkit-flex-shrink:0;flex-shrink:0;padding:0;}
 .btn-icon:active{border-color:var(--work);color:var(--work);}
 .btn-icon.danger:active{border-color:var(--err);color:var(--err);}
 .btn-icon svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
 .empty-state{-webkit-flex:1;flex:1;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;gap:12px;color:var(--muted);text-align:center;}
-.empty-icon{font-size:40px;line-height:1;}
 .empty-text{font-size:15px;line-height:1.5;}
+
 /* SETUP */
 .interval-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;display:grid;grid-template-columns:1fr 1fr auto;gap:12px;-webkit-align-items:center;align-items:center;-webkit-flex-shrink:0;flex-shrink:0;}
 .interval-card.type-work{border-left:3px solid var(--work);}
@@ -62,7 +75,7 @@ body{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direct
 .step-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:20px;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;cursor:pointer;-webkit-user-select:none;user-select:none;font-family:inherit;}
 .step-btn:active{background:var(--work-dim);border-color:var(--work);}
 .step-val{font-size:22px;font-weight:700;min-width:32px;text-align:center;}
-.name-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:4px 16px;-webkit-flex-shrink:0;flex-shrink:0;transition:border-color 0.2s;}
+.name-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:4px 16px;-webkit-flex-shrink:0;flex-shrink:0;}
 .name-row.error{border-color:var(--err);background:var(--err-dim);}
 .name-row input{background:transparent;border:none;color:var(--text);font-size:16px;font-weight:600;width:100%;outline:none;font-family:inherit;padding:10px 0;}
 .name-row input::-webkit-input-placeholder{color:var(--muted);}
@@ -81,6 +94,7 @@ body{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direct
 .btn-row .btn-secondary{-webkit-flex:1;flex:1;}
 .btn-back{background:var(--surface);border:1px solid var(--border);border-radius:12px;color:var(--text);font-size:13px;font-weight:600;padding:9px 16px;cursor:pointer;font-family:inherit;}
 .btn-back:active{background:var(--surface2);}
+
 /* TIMER */
 #timerScreen{-webkit-justify-content:space-between;justify-content:space-between;}
 .timer-header{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:space-between;justify-content:space-between;-webkit-flex-shrink:0;flex-shrink:0;}
@@ -104,12 +118,13 @@ body{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direct
 .btn-control:active{opacity:0.8;}
 .btn-pause{background:var(--surface2);color:var(--text);border:1px solid var(--border);}
 .btn-skip{background:var(--border);color:var(--muted);}
+
 /* DONE */
-#doneScreen{-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;gap:24px;text-align:center;}
-.done-icon{font-size:56px;line-height:1;}
+#doneScreen{-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;gap:20px;text-align:center;}
 .done-title{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;}
 .done-sub{color:var(--muted);font-size:15px;}
 .btn-again{background:var(--work);border:none;border-radius:var(--radius);color:#fff;font-size:16px;font-weight:700;padding:15px 40px;cursor:pointer;font-family:inherit;}
+
 /* DOTS */
 .phase-dots{display:-webkit-flex;display:flex;gap:6px;-webkit-flex-wrap:wrap;flex-wrap:wrap;-webkit-justify-content:center;justify-content:center;padding:0 4px;}
 .dot{width:10px;height:10px;border-radius:50%;background:var(--surface2);border:1px solid var(--border);-webkit-transition:all 0.3s;transition:all 0.3s;}
@@ -118,28 +133,85 @@ body{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direct
 .dot.current{-webkit-transform:scale(1.35);transform:scale(1.35);box-shadow:0 0 0 2px var(--bg),0 0 0 3px currentColor;}
 .dot.current.work{color:var(--work);background:var(--work);border-color:var(--work);}
 .dot.current.rest{color:var(--rest);background:var(--rest);border-color:var(--rest);}
-/* NEW btn */
+
+/* NEW BTN */
 .btn-new{background:none;border:1px solid var(--work);border-radius:10px;color:var(--work);font-size:13px;font-weight:600;padding:8px 14px;cursor:pointer;font-family:inherit;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;gap:5px;}
 .btn-new:active{background:var(--work-dim);}
 .btn-new svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;}
+.btn-new.kb{border-color:var(--kb);color:var(--kb);}
+.btn-new.kb:active{background:var(--kb-dim);}
+
+/* KETTLEBELL SETUP */
+.kb-option-row{display:-webkit-flex;display:flex;gap:8px;-webkit-flex-shrink:0;flex-shrink:0;}
+.kb-opt{-webkit-flex:1;flex:1;padding:12px 8px;border-radius:12px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;text-align:center;}
+.kb-opt.active{border-color:var(--kb);background:var(--kb-dim);color:var(--kb);}
+.kb-dur-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:space-between;justify-content:space-between;-webkit-flex-shrink:0;flex-shrink:0;}
+.kb-dur-row span{font-size:14px;}
+.preview-list{overflow-y:auto;-webkit-overflow-scrolling:touch;-webkit-flex:1;flex:1;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;gap:8px;}
+.preview-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;gap:12px;-webkit-flex-shrink:0;flex-shrink:0;}
+.preview-card-info{-webkit-flex:1;flex:1;min-width:0;}
+.preview-card-name{font-size:14px;font-weight:600;}
+.preview-card-meta{font-size:11px;color:var(--muted);margin-top:2px;}
+.preview-card-dur{font-size:13px;font-weight:700;color:var(--kb);-webkit-flex-shrink:0;flex-shrink:0;}
+
+/* KB EXERCISE SCREEN */
+#kbExScreen{-webkit-justify-content:space-between;justify-content:space-between;gap:12px;}
+.kb-ex-header{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:space-between;justify-content:space-between;-webkit-flex-shrink:0;flex-shrink:0;}
+.kb-progress-bar{height:4px;background:var(--surface2);border-radius:2px;-webkit-flex-shrink:0;flex-shrink:0;overflow:hidden;}
+.kb-progress-fill{height:100%;background:var(--kb);border-radius:2px;-webkit-transition:width 0.5s;transition:width 0.5s;}
+.kb-anim-wrap{-webkit-flex:1;flex:1;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;min-height:0;}
+.kb-anim-wrap svg{width:min(220px,60vw);height:min(220px,60vw);}
+.kb-info{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;-webkit-flex-shrink:0;flex-shrink:0;}
+.kb-ex-name{font-size:18px;font-weight:700;font-family:'Space Grotesk',sans-serif;}
+.kb-ex-desc{font-size:13px;color:var(--muted);margin-top:6px;line-height:1.5;}
+.kb-timer-row{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:space-between;justify-content:space-between;-webkit-flex-shrink:0;flex-shrink:0;}
+.kb-timer-big{font-family:'Space Grotesk',sans-serif;font-size:clamp(48px,16vw,72px);font-weight:700;letter-spacing:-2px;color:var(--kb);}
+.kb-timer-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;text-align:right;}
+.kb-next-label{font-size:12px;color:var(--muted);}
+.kb-next-name{font-size:14px;font-weight:600;margin-top:2px;}
+.kb-controls{display:-webkit-flex;display:flex;gap:10px;-webkit-flex-shrink:0;flex-shrink:0;}
+.kb-controls .btn-control{font-size:15px;padding:15px;}
+.kb-rest-overlay{background:var(--rest-dim);border:1px solid var(--rest);border-radius:var(--radius);padding:16px;text-align:center;-webkit-flex-shrink:0;flex-shrink:0;}
+.kb-rest-label{font-size:11px;color:var(--rest);text-transform:uppercase;letter-spacing:1px;font-weight:600;}
+.kb-rest-time{font-family:'Space Grotesk',sans-serif;font-size:48px;font-weight:700;color:var(--rest);}
 </style>
 </head>
 <body>
 
-<!-- HOME -->
+<!-- ===== HOME ===== -->
 <div id="homeScreen" class="screen active">
   <div class="header">
     <div class="logo">Intervall<span>.</span></div>
-    <button class="btn-new" onclick="newTraining()">
-      <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      Neu
-    </button>
   </div>
-  <div class="section-label">Meine Trainings</div>
-  <div class="training-list" id="trainingList"></div>
+  <div class="tab-bar">
+    <button class="tab-btn active-timer" id="tabTimer" onclick="switchTab('timer')">Timer</button>
+    <button class="tab-btn" id="tabKb" onclick="switchTab('kb')">Kettlebell</button>
+  </div>
+
+  <!-- Timer tab content -->
+  <div id="timerTab" style="display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;-webkit-flex:1;flex:1;gap:16px;overflow:hidden;">
+    <div style="display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:space-between;justify-content:space-between;-webkit-flex-shrink:0;flex-shrink:0;">
+      <div class="section-label" style="margin:0;">Meine Trainings</div>
+      <button class="btn-new" onclick="newTraining()">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Neu
+      </button>
+    </div>
+    <div class="training-list" id="trainingList"></div>
+  </div>
+
+  <!-- Kettlebell tab content -->
+  <div id="kbTab" style="display:none;-webkit-flex-direction:column;flex-direction:column;-webkit-flex:1;flex:1;gap:16px;overflow:hidden;">
+    <div style="display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:space-between;justify-content:space-between;-webkit-flex-shrink:0;flex-shrink:0;">
+      <div class="section-label" style="margin:0;">Kettlebell Workouts</div>
+      <button class="btn-new kb" onclick="showKbSetup()">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Neu
+      </button>
+    </div>
+    <div class="training-list" id="kbList"></div>
+  </div>
 </div>
 
-<!-- SETUP -->
+<!-- ===== TIMER SETUP ===== -->
 <div id="setupScreen" class="screen">
   <div class="header">
     <button class="btn-back" onclick="goHome()">Zurueck</button>
@@ -148,7 +220,7 @@ body{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direct
   <div class="name-row" id="nameRow">
     <input type="text" id="trainingNameInput" placeholder="Training benennen...">
   </div>
-  <div style="flex-shrink:0;">
+  <div style="-webkit-flex-shrink:0;flex-shrink:0;">
     <div class="section-label">Runden</div>
     <div class="rounds-row">
       <span>Wiederholungen</span>
@@ -159,7 +231,7 @@ body{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direct
       </div>
     </div>
   </div>
-  <div style="flex-shrink:0;"><div class="section-label">Intervalle (pro Runde)</div></div>
+  <div style="-webkit-flex-shrink:0;flex-shrink:0;"><div class="section-label">Intervalle (pro Runde)</div></div>
   <div class="list-area" id="intervalList"></div>
   <div class="bottom-area">
     <button class="btn-add" onclick="addInterval()">+ Intervall hinzufuegen</button>
@@ -170,7 +242,48 @@ body{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direct
   </div>
 </div>
 
-<!-- TIMER -->
+<!-- ===== KETTLEBELL SETUP ===== -->
+<div id="kbSetupScreen" class="screen">
+  <div class="header">
+    <button class="btn-back" onclick="goHome()">Zurueck</button>
+    <div style="font-size:13px;color:var(--muted);font-weight:500;">Kettlebell Workout</div>
+  </div>
+  <div class="name-row" id="kbNameRow">
+    <input type="text" id="kbNameInput" placeholder="Workout benennen...">
+  </div>
+  <div style="-webkit-flex-shrink:0;flex-shrink:0;">
+    <div class="section-label">Schwierigkeitsgrad</div>
+    <div class="kb-option-row" id="kbLevelRow">
+      <button class="kb-opt active" onclick="setKbLevel('beginner')">Anfaenger</button>
+      <button class="kb-opt" onclick="setKbLevel('intermediate')">Mittel</button>
+      <button class="kb-opt" onclick="setKbLevel('advanced')">Fortgeschritten</button>
+    </div>
+  </div>
+  <div style="-webkit-flex-shrink:0;flex-shrink:0;">
+    <div class="section-label">Dauer</div>
+    <div class="kb-dur-row">
+      <span id="kbDurLabel">20 Minuten</span>
+      <div class="stepper">
+        <button class="step-btn" onclick="changeKbDur(-5)">-</button>
+        <div class="step-val" id="kbDurVal">20</div>
+        <button class="step-btn" onclick="changeKbDur(5)">+</button>
+      </div>
+    </div>
+  </div>
+  <div style="-webkit-flex-shrink:0;flex-shrink:0;">
+    <div class="section-label">Vorschau</div>
+  </div>
+  <div class="preview-list" id="kbPreviewList"></div>
+  <div class="bottom-area">
+    <button class="btn-add" onclick="generateKbWorkout()" style="border-color:var(--kb);color:var(--kb);">Neu generieren</button>
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="saveKbWorkout()">Speichern</button>
+      <button class="btn-primary" onclick="saveAndStartKb()" style="background:var(--kb);">Starten</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TIMER SCREEN ===== -->
 <div id="timerScreen" class="screen">
   <div class="timer-header">
     <button class="btn-back" onclick="goBack()">Beenden</button>
@@ -199,365 +312,568 @@ body{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direct
   </div>
 </div>
 
-<!-- DONE -->
+<!-- ===== KB EXERCISE SCREEN ===== -->
+<div id="kbExScreen" class="screen">
+  <div class="kb-ex-header">
+    <button class="btn-back" onclick="stopKbWorkout()">Beenden</button>
+    <div class="round-badge"><span id="kbExIdx">1</span> / <span id="kbExTotal">8</span></div>
+  </div>
+  <div class="kb-progress-bar"><div class="kb-progress-fill" id="kbProgressFill" style="width:0%"></div></div>
+  <div class="kb-anim-wrap" id="kbAnimWrap"></div>
+  <div class="kb-info">
+    <div class="kb-ex-name" id="kbExName">Swing</div>
+    <div class="kb-ex-desc" id="kbExDesc"></div>
+  </div>
+  <div class="kb-timer-row">
+    <div>
+      <div class="kb-next-label">Naechste Uebung</div>
+      <div class="kb-next-name" id="kbNextName">-</div>
+    </div>
+    <div style="text-align:right;">
+      <div class="kb-timer-big" id="kbTimerBig">00:40</div>
+      <div class="kb-timer-label" id="kbTimerLabel">ARBEIT</div>
+    </div>
+  </div>
+  <div class="kb-controls timer-controls">
+    <button class="btn-control btn-pause" id="kbPauseBtn" onclick="toggleKbPause()">Pause</button>
+    <button class="btn-control btn-skip" onclick="skipKbPhase()">Ueberspringen</button>
+  </div>
+</div>
+
+<!-- ===== DONE ===== -->
 <div id="doneScreen" class="screen">
-  <div class="done-icon">&#x1F3C6;</div>
   <div class="done-title">Geschafft!</div>
   <div class="done-sub" id="doneSub">Alle Runden abgeschlossen.</div>
-  <button class="btn-again" onclick="goBack()">Nochmal starten</button>
+  <button class="btn-again" id="doneAgainBtn" onclick="goBack()">Nochmal starten</button>
 </div>
 
 <script>
+/* ===================== STORAGE ===================== */
 var STORAGE_KEY = 'intervall_trainings';
+var KB_KEY = 'kb_workouts';
 var trainings = [];
-var editingId = null;
-var intervals = [];
-var rounds = 3;
-var timer = null;
-var phases = [];
-var phaseIdx = 0;
-var remaining = 0;
-var paused = false;
-var CIRC = 2 * Math.PI * 84; // 527.8
+var kbWorkouts = [];
+try { trainings = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch(e){ trainings=[]; }
+try { kbWorkouts = JSON.parse(localStorage.getItem(KB_KEY)) || []; } catch(e){ kbWorkouts=[]; }
+function persist(){ try{ localStorage.setItem(STORAGE_KEY,JSON.stringify(trainings)); }catch(e){} }
+function persistKb(){ try{ localStorage.setItem(KB_KEY,JSON.stringify(kbWorkouts)); }catch(e){} }
 
-try { trainings = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch(e) { trainings = []; }
-
-function persist() {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(trainings)); } catch(e) {}
+/* ===================== WAKE LOCK ===================== */
+var wakeLock=null;
+function requestWakeLock(){
+  if('wakeLock' in navigator){ navigator.wakeLock.request('screen').then(function(wl){wakeLock=wl;}).catch(function(){}); }
 }
-
-/* WAKE LOCK */
-var wakeLock = null;
-function requestWakeLock() {
-  if ('wakeLock' in navigator) {
-    navigator.wakeLock.request('screen').then(function(wl){ wakeLock = wl; }).catch(function(){});
-  }
-}
-function releaseWakeLock() {
-  if (wakeLock) { try { wakeLock.release(); } catch(e){} wakeLock = null; }
-}
-document.addEventListener('visibilitychange', function() {
-  if (document.visibilityState === 'visible' && timer && !paused) requestWakeLock();
+function releaseWakeLock(){ if(wakeLock){try{wakeLock.release();}catch(e){} wakeLock=null;} }
+document.addEventListener('visibilitychange',function(){
+  if(document.visibilityState==='visible'&&(timer||kbTimer)&&!paused) requestWakeLock();
 });
 
-/* AUDIO */
-var audioCtx = null;
-function getAudioCtx() {
-  if (!audioCtx) {
-    try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e){ return null; }
-  }
-  if (audioCtx.state === 'suspended') { try { audioCtx.resume(); } catch(e){} }
+/* ===================== AUDIO ===================== */
+var audioCtx=null;
+function getAudioCtx(){
+  if(!audioCtx){try{audioCtx=new(window.AudioContext||window.webkitAudioContext)();}catch(e){return null;}}
+  if(audioCtx.state==='suspended'){try{audioCtx.resume();}catch(e){}}
   return audioCtx;
 }
-function beep(freq, dur, vol) {
-  var ctx = getAudioCtx(); if (!ctx) return;
-  try {
-    var osc = ctx.createOscillator();
-    var gain = ctx.createGain();
-    osc.connect(gain); gain.connect(ctx.destination);
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(freq, ctx.currentTime);
-    gain.gain.setValueAtTime(vol, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
-    osc.start(ctx.currentTime); osc.stop(ctx.currentTime + dur);
-  } catch(e){}
+function beep(freq,dur,vol){
+  var ctx=getAudioCtx();if(!ctx)return;
+  try{
+    var osc=ctx.createOscillator(),gain=ctx.createGain();
+    osc.connect(gain);gain.connect(ctx.destination);
+    osc.type='sine';osc.frequency.setValueAtTime(freq,ctx.currentTime);
+    gain.gain.setValueAtTime(vol,ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+dur);
+    osc.start(ctx.currentTime);osc.stop(ctx.currentTime+dur);
+  }catch(e){}
 }
-document.addEventListener('touchstart', function(){ getAudioCtx(); }, {once:true,passive:true});
-document.addEventListener('click', function(){ getAudioCtx(); }, {once:true});
-
-var beeped = [];
-function maybeBeep(rem) {
-  if (rem >= 1 && rem <= 5 && beeped.indexOf(rem) === -1) {
+document.addEventListener('touchstart',function(){getAudioCtx();},{once:true,passive:true});
+document.addEventListener('click',function(){getAudioCtx();},{once:true});
+var beeped=[];
+function maybeBeep(rem){
+  if(rem>=1&&rem<=5&&beeped.indexOf(rem)===-1){
     beeped.push(rem);
-    beep(rem === 1 ? 1200 : 880, rem === 1 ? 0.18 : 0.10, rem === 1 ? 0.7 : 0.5);
+    beep(rem===1?1200:880,rem===1?0.18:0.10,rem===1?0.7:0.5);
   }
 }
 
-/* SVG ICONS */
-var ICON_EDIT = '<svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>';
-var ICON_DEL  = '<svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>';
-var ICON_PLAY = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/></svg>';
-var ICON_CLOSE= '<svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+/* ===================== SVG ICONS ===================== */
+var ICON_EDIT='<svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>';
+var ICON_DEL='<svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>';
+var ICON_CLOSE='<svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
 
-/* HOME */
-function renderHome() {
-  var el = document.getElementById('trainingList');
-  if (trainings.length === 0) {
-    el.innerHTML = '<div class="empty-state"><div class="empty-icon">&#x1F3CB;</div><div class="empty-text">Noch keine Trainings.<br>Tippe auf + Neu um zu starten.</div></div>';
+/* ===================== KB EXERCISE DATABASE ===================== */
+var KB_DB = {
+  beginner: [
+    {id:'swing',name:'Kettlebell Swing',desc:'Fuesse schulterbreit, KB zwischen den Beinen. Huefte nach hinten schieben, dann explosiv nach vorne schnellen und KB bis Schulterhoehe schwingen. Ruecken gerade halten.',workSec:30,restSec:20},
+    {id:'deadlift',name:'KB Deadlift',desc:'KB vor den Fuessen, Huefte zurueck, Ruecken gerade. KB vom Boden heben, Huefte strecken, oben aufrichten. Kontrolliert absenken.',workSec:30,restSec:20},
+    {id:'goblet',name:'Goblet Squat',desc:'KB mit beiden Haenden vor der Brust halten. Tief in die Kniebeuge gehen, Brust aufrecht, Knie nach aussen druecken. Hoch druecken.',workSec:30,restSec:20},
+    {id:'rdl',name:'KB Romanian Deadlift',desc:'KB in beiden Haenden, leichte Kniebeugung. Rumpf nach vorne kippen, KB an den Beinen entlang nach unten fuehren, Gesaess nach hinten. Wieder aufrichten.',workSec:30,restSec:20},
+    {id:'row',name:'KB Single Row',desc:'Eine Hand auf Bank oder Knie stuetzen, KB in anderer Hand. Ellenbogen nah am Koerper nach hinten ziehen. Pro Seite wechseln.',workSec:30,restSec:20},
+    {id:'press',name:'KB Floor Press',desc:'Auf dem Ruecken liegen, KB in einer Hand, Ellenbogen 45 Grad abgewinkelt. KB nach oben druecken, langsam absenken. Seite wechseln.',workSec:30,restSec:20},
+    {id:'halo',name:'KB Halo',desc:'KB mit beiden Haenden am Boden halten und um den Kopf kreisen lassen. Langsam und kontrolliert, Richtung abwechseln. Rumpf angespannt.',workSec:25,restSec:20},
+    {id:'suitcase',name:'Suitcase Carry',desc:'KB in einer Hand, aufrecht gehen ohne zu kippen. Schulter und Huefte level halten. Seite wechseln.',workSec:25,restSec:20}
+  ],
+  intermediate: [
+    {id:'swing',name:'Kettlebell Swing',desc:'Explosive Huefte, KB bis Augenhoehe. Auf harten Abschluss oben achten, Gesaess und Core fest anspannen.',workSec:40,restSec:20},
+    {id:'clean',name:'KB Clean',desc:'KB vom Boden explosiv mit der Huefte hochziehen und in die Rack Position bringen. KB liegt locker auf Unterarm, kein Schlagen. Seite wechseln.',workSec:40,restSec:20},
+    {id:'press',name:'KB Press',desc:'Rack Position, KB mit einer Hand nach oben druecken. Ellenbogen leicht nach innen rotieren oben. Langsam absenken in Rack.',workSec:35,restSec:20},
+    {id:'goblet',name:'Goblet Squat',desc:'Tief in die Kniebeuge, Pause unten halten, dann explosiv hochdruecken. Fersen am Boden, Brust aufrecht.',workSec:35,restSec:20},
+    {id:'lunge',name:'KB Lunge',desc:'KB in einer oder beiden Haenden. Grossen Schritt nach vorne, hinteres Knie fast auf den Boden. Aufrecht bleiben, zurueck in Startposition.',workSec:40,restSec:20},
+    {id:'deadlift2',name:'Single Leg Deadlift',desc:'KB in einer Hand, auf einem Bein stehen. Rumpf nach vorne kippen, KB nahe am Bein entlang. Ruecken gerade, freies Bein geht nach hinten.',workSec:35,restSec:20},
+    {id:'row',name:'KB Bent Row',desc:'Leicht in Kniebeuge, Rumpf nach vorne geneigt. KB beidhaendig oder einseitig zum Bauch ziehen. Schulterblatt am Ende zusammenzuziehen.',workSec:35,restSec:20},
+    {id:'situp',name:'KB Russian Twist',desc:'Auf dem Boden sitzen, Oberkoel im Winkel, KB mit beiden Haenden. Oberkoel nach links und rechts rotieren, KB begleitet die Bewegung.',workSec:30,restSec:20},
+    {id:'swing2',name:'Single Arm Swing',desc:'Einarmschwung: KB mit einer Hand schwingen, oben Griff wechseln oder Seite nach jeder Runde wechseln. Schulter stabilisiert.',workSec:35,restSec:20}
+  ],
+  advanced: [
+    {id:'snatch',name:'KB Snatch',desc:'Explosiver Hochzug vom Swing, KB dreht sich um die Hand und landet ueber dem Kopf. Arm gerade, Schulter aktiv. Eine der anspruchsvollsten KB-Uebungen.',workSec:45,restSec:15},
+    {id:'clean',name:'KB Clean',desc:'Saubere Technik: KB bleibt nah am Koerper, Huefte treibt den Zug. Weiche Landung in der Rack Position. Keine geschlagene Hand.',workSec:45,restSec:15},
+    {id:'press',name:'KB Press',desc:'Strenge Press: keine Beinarbeit. KB langsam nach oben druecken, Latzmuskel aktivieren. Seitenabwechsel.',workSec:40,restSec:15},
+    {id:'windmill',name:'KB Windmill',desc:'KB ueber dem Kopf, Fuss unter der KB-Seite nach aussen zeigen. Langsam seitlich hinunter beugen, KB-Arm bleibt gerade oben. Fortgeschrittene Stabilitaetsuebung.',workSec:35,restSec:15},
+    {id:'tgu',name:'Turkish Get Up',desc:'KB gerade ueber dem Kopf, auf dem Ruecken liegend. Langsam aufstehen ohne KB zu senken. Dann kontrolliert zurueck. Eine Seite pro Satz.',workSec:50,restSec:20},
+    {id:'swing3',name:'Double KB Swing',desc:'Zwei KBs zwischen den Beinen, beide gleichzeitig schwingen. Mehr Last, mehr Stabilitaetsanforderung. Ruecken gerade halten.',workSec:40,restSec:15},
+    {id:'clean2',name:'KB Clean and Press',desc:'Clean in Rack, dann direkt Press. Verbundene Bewegung ohne Pause. Maximale Kraftausdauer.',workSec:45,restSec:15},
+    {id:'lunge',name:'KB Lunge Komplex',desc:'KB in Rack halten, Ausfallschritt, dann Knieheben zurueck, direkt naechster Schritt. Fliessendes Tempo, Core angespannt.',workSec:40,restSec:15},
+    {id:'situp',name:'KB Sit Up',desc:'KB vor der Brust halten, komplettes Aufrichten aus der Lage. KB am Ende nach oben strecken. Langsam absenken.',workSec:35,restSec:15}
+  ]
+};
+
+/* ===================== KB SVG ANIMATIONS ===================== */
+function getKbAnim(id){
+  var anims = {
+    swing: '<svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg"><style>.kb{fill:#a78bfa;}.bd{fill:#f0f2f5;stroke:#2a3040;stroke-width:1.5;}.ln{stroke:#a78bfa;stroke-width:3;stroke-linecap:round;fill:none;}@keyframes sw{0%,100%{transform:rotate(-30deg)}50%{transform:rotate(20deg)}}@keyframes bd{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}.arm{transform-origin:100px 120px;animation:sw 1.6s ease-in-out infinite;}.body{animation:bd 1.6s ease-in-out infinite;}</style><g class="body"><ellipse class="bd" cx="100" cy="85" rx="22" ry="28"/><circle class="bd" cx="100" cy="50" r="16"/><rect class="bd" x="78" y="110" width="44" height="55" rx="8"/><rect class="bd" x="78" y="155" width="20" height="30" rx="6"/><rect class="bd" x="102" y="155" width="20" height="30" rx="6"/></g><g class="arm"><line class="ln" x1="100" y1="120" x2="100" y2="170"/><circle cx="100" cy="180" r="12" fill="#a78bfa"/><rect x="93" y="175" width="14" height="10" rx="3" fill="#7c3aed"/></g></svg>',
+    deadlift: '<svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg"><style>.bd{fill:#f0f2f5;stroke:#2a3040;stroke-width:1.5;}.kb{fill:#a78bfa;}.ln{stroke:#a78bfa;stroke-width:3;stroke-linecap:round;fill:none;}@keyframes dl{0%{transform:translateY(20px) rotate(30deg)}50%,100%{transform:translateY(0) rotate(0deg)}}.fig{animation:dl 2s ease-in-out infinite alternate;transform-origin:100px 180px;}</style><g class="fig"><ellipse class="bd" cx="100" cy="75" rx="22" ry="28"/><circle class="bd" cx="100" cy="42" r="16"/><rect class="bd" x="78" y="100" width="44" height="55" rx="8"/><rect class="bd" x="78" y="148" width="20" height="35" rx="6"/><rect class="bd" x="102" y="148" width="20" height="35" rx="6"/><line class="ln" x1="78" y1="115" x2="55" y2="155"/><line class="ln" x1="122" y1="115" x2="145" y2="155"/><circle cx="52" cy="163" r="11" fill="#a78bfa"/><circle cx="148" cy="163" r="11" fill="#a78bfa"/></g></svg>',
+    goblet: '<svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg"><style>.bd{fill:#f0f2f5;stroke:#2a3040;stroke-width:1.5;}.kb{fill:#a78bfa;}.ln{stroke:#a78bfa;stroke-width:3;stroke-linecap:round;fill:none;}@keyframes sq{0%,100%{transform:scaleY(1) translateY(0)}50%{transform:scaleY(0.85) translateY(12px)}}.fig{transform-origin:100px 150px;animation:sq 2s ease-in-out infinite;}</style><g class="fig"><circle class="bd" cx="100" cy="38" r="16"/><ellipse class="bd" cx="100" cy="72" rx="22" ry="26"/><rect class="bd" x="82" y="95" width="36" height="50" rx="6"/><rect class="bd" x="82" y="140" width="17" height="38" rx="6"/><rect class="bd" x="101" y="140" width="17" height="38" rx="6"/><rect x="84" y="88" width="32" height="22" rx="5" fill="#a78bfa"/><circle cx="100" cy="82" r="9" fill="#7c3aed"/></g></svg>',
+    clean: '<svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg"><style>.bd{fill:#f0f2f5;stroke:#2a3040;stroke-width:1.5;}.ln{stroke:#a78bfa;stroke-width:3;stroke-linecap:round;fill:none;}@keyframes cl{0%{transform:translateY(30px)}60%,100%{transform:translateY(0)}}.fig{animation:cl 1.8s ease-in-out infinite alternate;transform-origin:100px 180px;}</style><g class="fig"><circle class="bd" cx="100" cy="40" r="16"/><ellipse class="bd" cx="100" cy="74" rx="22" ry="28"/><rect class="bd" x="78" y="98" width="44" height="55" rx="8"/><rect class="bd" x="78" y="146" width="20" height="35" rx="6"/><rect class="bd" x="102" y="146" width="20" height="35" rx="6"/><line class="ln" x1="78" y1="108" x2="58" y2="90"/><circle cx="52" cy="82" r="11" fill="#a78bfa"/><rect x="45" y="78" width="14" height="9" rx="3" fill="#7c3aed"/></g></svg>',
+    press: '<svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg"><style>.bd{fill:#f0f2f5;stroke:#2a3040;stroke-width:1.5;}.ln{stroke:#a78bfa;stroke-width:3;stroke-linecap:round;fill:none;}@keyframes pr{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}.arm{transform-origin:78px 100px;animation:pr 2s ease-in-out infinite;}</style><g><circle class="bd" cx="100" cy="90" r="16"/><ellipse class="bd" cx="100" cy="124" rx="22" ry="28"/><rect class="bd" x="78" y="148" width="44" height="50" rx="8"/><rect class="bd" x="78" y="192" width="20" height="22" rx="6"/><rect class="bd" x="102" y="192" width="20" height="22" rx="6"/></g><g class="arm"><line class="ln" x1="78" y1="110" x2="62" y2="55"/><circle cx="62" cy="44" r="11" fill="#a78bfa"/></g></svg>',
+    snatch: '<svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg"><style>.bd{fill:#f0f2f5;stroke:#2a3040;stroke-width:1.5;}.ln{stroke:#a78bfa;stroke-width:3;stroke-linecap:round;fill:none;}@keyframes sn{0%{transform:translateY(40px) rotate(20deg)}60%,100%{transform:translateY(0) rotate(0deg)}}.fig{animation:sn 1.6s ease-in-out infinite alternate;transform-origin:100px 180px;}</style><g class="fig"><circle class="bd" cx="100" cy="42" r="16"/><ellipse class="bd" cx="100" cy="76" rx="22" ry="28"/><rect class="bd" x="78" y="100" width="44" height="55" rx="8"/><rect class="bd" x="78" y="148" width="20" height="35" rx="6"/><rect class="bd" x="102" y="148" width="20" height="35" rx="6"/><line class="ln" x1="78" y1="108" x2="55" y2="30"/><circle cx="55" cy="19" r="11" fill="#a78bfa"/></g></svg>',
+    tgu: '<svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg"><style>.bd{fill:#f0f2f5;stroke:#2a3040;stroke-width:1.5;}.ln{stroke:#a78bfa;stroke-width:3;stroke-linecap:round;fill:none;}@keyframes tg{0%,100%{transform:rotate(0deg)}50%{transform:rotate(-15deg)}}.fig{transform-origin:100px 160px;animation:tg 3s ease-in-out infinite;}</style><g class="fig"><circle class="bd" cx="100" cy="55" r="16"/><ellipse class="bd" cx="100" cy="89" rx="22" ry="28"/><rect class="bd" x="78" y="114" width="44" height="55" rx="8"/><rect class="bd" x="78" y="162" width="20" height="35" rx="6"/><rect class="bd" x="102" y="162" width="20" height="35" rx="6"/><line class="ln" x1="78" y1="120" x2="55" y2="28"/><circle cx="55" cy="17" r="11" fill="#a78bfa"/></g></svg>',
+    windmill: '<svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg"><style>.bd{fill:#f0f2f5;stroke:#2a3040;stroke-width:1.5;}.ln{stroke:#a78bfa;stroke-width:3;stroke-linecap:round;fill:none;}@keyframes wm{0%,100%{transform:rotate(0deg)}50%{transform:rotate(25deg)}}.fig{transform-origin:100px 130px;animation:wm 3s ease-in-out infinite;}</style><g class="fig"><circle class="bd" cx="100" cy="50" r="16"/><ellipse class="bd" cx="100" cy="84" rx="22" ry="28"/><rect class="bd" x="78" y="108" width="44" height="55" rx="8"/><rect class="bd" x="78" y="156" width="20" height="35" rx="6"/><rect class="bd" x="102" y="156" width="20" height="35" rx="6"/><line class="ln" x1="122" y1="108" x2="145" y2="22"/><circle cx="145" cy="11" r="11" fill="#a78bfa"/><line class="ln" x1="78" y1="118" x2="55" y2="168"/><circle cx="55" cy="178" r="9" fill="#a78bfa"/></g></svg>',
+    lunge: '<svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg"><style>.bd{fill:#f0f2f5;stroke:#2a3040;stroke-width:1.5;}.ln{stroke:#a78bfa;stroke-width:3;stroke-linecap:round;fill:none;}@keyframes lg{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}.fig{animation:lg 2s ease-in-out infinite;transform-origin:100px 100px;}</style><g class="fig"><circle class="bd" cx="100" cy="38" r="16"/><ellipse class="bd" cx="100" cy="72" rx="22" ry="26"/><rect class="bd" x="82" y="95" width="36" height="45" rx="6"/><rect class="bd" x="82" y="134" width="17" height="50" rx="6"/><rect class="bd" x="120" y="110" width="17" height="35" rx="6"/><rect class="bd" x="120" y="140" width="17" height="40" rx="5"/></g></svg>',
+    rdl: '<svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg"><style>.bd{fill:#f0f2f5;stroke:#2a3040;stroke-width:1.5;}.ln{stroke:#a78bfa;stroke-width:3;stroke-linecap:round;fill:none;}@keyframes rd{0%,100%{transform:rotate(0deg)}50%{transform:rotate(35deg)}}.fig{transform-origin:100px 155px;animation:rd 2.5s ease-in-out infinite;}</style><g class="fig"><circle class="bd" cx="100" cy="38" r="16"/><ellipse class="bd" cx="100" cy="72" rx="22" ry="26"/><rect class="bd" x="82" y="95" width="36" height="60" rx="6"/><rect class="bd" x="82" y="148" width="17" height="40" rx="6"/><rect class="bd" x="101" y="148" width="17" height="40" rx="6"/><line class="ln" x1="82" y1="110" x2="55" y2="135"/><line class="ln" x1="118" y1="110" x2="145" y2="135"/><circle cx="50" cy="142" r="10" fill="#a78bfa"/><circle cx="150" cy="142" r="10" fill="#a78bfa"/></g></svg>',
+    halo: '<svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg"><style>.bd{fill:#f0f2f5;stroke:#2a3040;stroke-width:1.5;}.ln{stroke:#a78bfa;stroke-width:3;stroke-linecap:round;fill:none;stroke-dasharray:8 4;}@keyframes hl{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}.ring{transform-origin:100px 52px;animation:hl 2s linear infinite;}</style><g><circle class="bd" cx="100" cy="52" r="16"/><ellipse class="bd" cx="100" cy="86" rx="22" ry="26"/><rect class="bd" x="82" y="108" width="36" height="55" rx="6"/><rect class="bd" x="82" y="156" width="16" height="38" rx="6"/><rect class="bd" x="102" y="156" width="16" height="38" rx="6"/></g><g class="ring"><circle cx="100" cy="52" r="28" fill="none" stroke="#a78bfa" stroke-width="4" stroke-dasharray="12 5"/><circle cx="100" cy="24" r="9" fill="#a78bfa"/></g></svg>',
+    row: '<svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg"><style>.bd{fill:#f0f2f5;stroke:#2a3040;stroke-width:1.5;}.ln{stroke:#a78bfa;stroke-width:3;stroke-linecap:round;fill:none;}@keyframes rw{0%,100%{transform:translateX(0)}50%{transform:translateX(-14px)}}.arm{animation:rw 1.8s ease-in-out infinite;transform-origin:80px 100px;}</style><g><circle class="bd" cx="100" cy="55" r="16"/><ellipse class="bd" cx="100" cy="90" rx="22" ry="28" transform="rotate(-25,100,90)"/><rect class="bd" x="78" y="135" width="44" height="45" rx="8"/><rect class="bd" x="78" y="174" width="20" height="30" rx="6"/><rect class="bd" x="102" y="174" width="20" height="30" rx="6"/></g><g class="arm"><line class="ln" x1="80" y1="100" x2="45" y2="100"/><circle cx="36" cy="100" r="11" fill="#a78bfa"/></g></svg>',
+    situp: '<svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg"><style>.bd{fill:#f0f2f5;stroke:#2a3040;stroke-width:1.5;}.ln{stroke:#a78bfa;stroke-width:3;stroke-linecap:round;fill:none;}@keyframes ru{0%,100%{transform:rotate(0deg)}50%{transform:rotate(-40deg)}}.torso{transform-origin:100px 160px;animation:ru 2s ease-in-out infinite;}</style><g><rect class="bd" x="60" y="165" width="80" height="18" rx="6"/><rect class="bd" x="60" y="177" width="35" height="28" rx="6"/><rect class="bd" x="105" y="177" width="35" height="28" rx="6"/></g><g class="torso"><rect class="bd" x="78" y="100" width="44" height="65" rx="8"/><circle class="bd" cx="100" cy="84" r="16"/><line class="ln" x1="78" y1="115" x2="55" y2="95"/><circle cx="46" cy="88" r="9" fill="#a78bfa"/></g></svg>',
+    suitcase: '<svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg"><style>.bd{fill:#f0f2f5;stroke:#2a3040;stroke-width:1.5;}.ln{stroke:#a78bfa;stroke-width:3;stroke-linecap:round;fill:none;}@keyframes sc{0%,100%{transform:translateX(0)}50%{transform:translateX(12px)}}.fig{animation:sc 1.5s ease-in-out infinite;}</style><g class="fig"><circle class="bd" cx="100" cy="45" r="16"/><ellipse class="bd" cx="100" cy="79" rx="22" ry="28"/><rect class="bd" x="78" y="103" width="44" height="55" rx="8"/><rect class="bd" x="78" y="151" width="20" height="40" rx="6"/><rect class="bd" x="102" y="151" width="20" height="40" rx="6"/><line class="ln" x1="122" y1="120" x2="150" y2="145"/><circle cx="158" cy="152" r="11" fill="#a78bfa"/><rect x="151" y="148" width="14" height="10" rx="3" fill="#7c3aed"/></g></svg>',
+    deadlift2: '<svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg"><style>.bd{fill:#f0f2f5;stroke:#2a3040;stroke-width:1.5;}.ln{stroke:#a78bfa;stroke-width:3;stroke-linecap:round;fill:none;}@keyframes sl{0%,100%{transform:rotate(0deg)}50%{transform:rotate(30deg)}}.fig{transform-origin:100px 155px;animation:sl 2.5s ease-in-out infinite;}</style><g class="fig"><circle class="bd" cx="100" cy="40" r="16"/><ellipse class="bd" cx="100" cy="74" rx="22" ry="26"/><rect class="bd" x="82" y="97" width="36" height="58" rx="6"/><rect class="bd" x="82" y="148" width="17" height="45" rx="6"/><line class="ln" x1="99" y1="110" x2="75" y2="145"/><circle cx="68" cy="153" r="10" fill="#a78bfa"/></g></svg>',
+    swing2: '<svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg"><style>.bd{fill:#f0f2f5;stroke:#2a3040;stroke-width:1.5;}.ln{stroke:#a78bfa;stroke-width:3;stroke-linecap:round;fill:none;}@keyframes sw2{0%,100%{transform:rotate(-25deg)}50%{transform:rotate(15deg)}}.arm{transform-origin:100px 120px;animation:sw2 1.4s ease-in-out infinite;}</style><g><ellipse class="bd" cx="100" cy="85" rx="22" ry="28"/><circle class="bd" cx="100" cy="50" r="16"/><rect class="bd" x="78" y="110" width="44" height="55" rx="8"/><rect class="bd" x="78" y="155" width="20" height="30" rx="6"/><rect class="bd" x="102" y="155" width="20" height="30" rx="6"/></g><g class="arm"><line class="ln" x1="100" y1="120" x2="100" y2="172"/><circle cx="100" cy="182" r="12" fill="#a78bfa"/></g></svg>',
+    swing3: '<svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg"><style>.bd{fill:#f0f2f5;stroke:#2a3040;stroke-width:1.5;}.ln{stroke:#a78bfa;stroke-width:3;stroke-linecap:round;fill:none;}@keyframes sw3{0%,100%{transform:rotate(-30deg)}50%{transform:rotate(18deg)}}.arm{transform-origin:100px 118px;animation:sw3 1.6s ease-in-out infinite;}</style><g><ellipse class="bd" cx="100" cy="82" rx="22" ry="28"/><circle class="bd" cx="100" cy="48" r="16"/><rect class="bd" x="78" y="107" width="44" height="55" rx="8"/><rect class="bd" x="78" y="154" width="20" height="30" rx="6"/><rect class="bd" x="102" y="154" width="20" height="30" rx="6"/></g><g class="arm"><line class="ln" x1="85" y1="118" x2="70" y2="172"/><circle cx="62" cy="182" r="11" fill="#a78bfa"/><line class="ln" x1="115" y1="118" x2="130" y2="172"/><circle cx="138" cy="182" r="11" fill="#a78bfa"/></g></svg>',
+    clean2: '<svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg"><style>.bd{fill:#f0f2f5;stroke:#2a3040;stroke-width:1.5;}.ln{stroke:#a78bfa;stroke-width:3;stroke-linecap:round;fill:none;}@keyframes cp{0%{transform:translateY(25px)}50%{transform:translateY(0)}100%{transform:translateY(-10px)}}.fig{animation:cp 2s ease-in-out infinite alternate;transform-origin:100px 170px;}</style><g class="fig"><circle class="bd" cx="100" cy="42" r="16"/><ellipse class="bd" cx="100" cy="76" rx="22" ry="28"/><rect class="bd" x="78" y="100" width="44" height="55" rx="8"/><rect class="bd" x="78" y="148" width="20" height="35" rx="6"/><rect class="bd" x="102" y="148" width="20" height="35" rx="6"/><line class="ln" x1="78" y1="108" x2="55" y2="55"/><circle cx="50" cy="44" r="11" fill="#a78bfa"/></g></svg>'
+  };
+  return anims[id] || anims['swing'];
+}
+
+/* ===================== TAB SWITCHING ===================== */
+var currentTab = 'timer';
+function switchTab(tab){
+  currentTab = tab;
+  document.getElementById('timerTab').style.display = tab==='timer' ? '-webkit-flex' : 'none';
+  document.getElementById('timerTab').style.display = tab==='timer' ? 'flex' : 'none';
+  document.getElementById('kbTab').style.display = tab==='kb' ? '-webkit-flex' : 'none';
+  document.getElementById('kbTab').style.display = tab==='kb' ? 'flex' : 'none';
+  document.getElementById('tabTimer').className = 'tab-btn' + (tab==='timer'?' active-timer':'');
+  document.getElementById('tabKb').className = 'tab-btn' + (tab==='kb'?' active-kb':'');
+  if(tab==='kb') renderKbList();
+}
+
+/* ===================== HOME / TIMER LIST ===================== */
+function renderHome(){
+  var el=document.getElementById('trainingList');
+  if(trainings.length===0){
+    el.innerHTML='<div class="empty-state"><div class="empty-text">Noch keine Trainings.<br>Tippe auf + Neu.</div></div>';
     return;
   }
-  el.innerHTML = '';
-  for (var i = 0; i < trainings.length; i++) {
-    (function(t) {
-      var total = t.rounds * t.intervals.reduce(function(s,iv){ return s+iv.duration; },0);
-      var card = document.createElement('div');
-      card.className = 'training-card';
-      card.innerHTML =
-        '<div class="training-info">' +
-          '<div class="training-name">' + escHtml(t.name) + '</div>' +
-          '<div class="training-meta">' + t.intervals.length + ' Intervalle &nbsp;|&nbsp; ' + t.rounds + ' Runden &nbsp;|&nbsp; ' + fmt(total) + '</div>' +
-        '</div>' +
-        '<div class="training-actions">' +
-          '<button class="btn-icon" title="Bearbeiten" onclick="event.stopPropagation();editTraining(\'' + t.id + '\')">' + ICON_EDIT + '</button>' +
-          '<button class="btn-icon danger" title="Loeschen" onclick="event.stopPropagation();deleteTraining(\'' + t.id + '\')">' + ICON_DEL + '</button>' +
-        '</div>';
-      card.addEventListener('click', function(){ startById(t.id); });
+  el.innerHTML='';
+  for(var i=0;i<trainings.length;i++){
+    (function(t){
+      var total=t.rounds*t.intervals.reduce(function(s,iv){return s+iv.duration;},0);
+      var card=document.createElement('div');
+      card.className='training-card';
+      card.innerHTML='<div class="training-info"><div class="training-name">'+escHtml(t.name)+'</div><div class="training-meta">'+t.intervals.length+' Intervalle | '+t.rounds+' Runden | '+fmt(total)+'</div></div><div class="training-actions"><button class="btn-icon" onclick="event.stopPropagation();editTraining(\''+t.id+'\')">'+ICON_EDIT+'</button><button class="btn-icon danger" onclick="event.stopPropagation();deleteTraining(\''+t.id+'\')">'+ICON_DEL+'</button></div>';
+      card.addEventListener('click',function(){startById(t.id);});
       el.appendChild(card);
     })(trainings[i]);
   }
 }
 
-function goHome() { renderHome(); showScreen('homeScreen'); }
+function goHome(){ renderHome(); renderKbList(); showScreen('homeScreen'); }
 
-function newTraining() {
-  editingId = null;
-  intervals = [{name:'Arbeit',duration:40,type:'work'},{name:'Pause',duration:20,type:'rest'}];
-  rounds = 3;
-  document.getElementById('trainingNameInput').value = '';
-  document.getElementById('roundsVal').textContent = '3';
-  document.getElementById('setupTitle').textContent = 'Neues Training';
-  clearErrors();
-  renderList();
-  showScreen('setupScreen');
+/* ===================== TIMER TRAINING CRUD ===================== */
+var editingId=null,intervals=[],rounds=3;
+
+function newTraining(){
+  editingId=null;
+  intervals=[{name:'Arbeit',duration:40,type:'work'},{name:'Pause',duration:20,type:'rest'}];
+  rounds=3;
+  document.getElementById('trainingNameInput').value='';
+  document.getElementById('roundsVal').textContent='3';
+  document.getElementById('setupTitle').textContent='Neues Training';
+  clearErrors(); renderList(); showScreen('setupScreen');
 }
 
-function editTraining(id) {
-  var t = findById(id); if (!t) return;
-  editingId = id;
-  intervals = JSON.parse(JSON.stringify(t.intervals));
-  rounds = t.rounds;
-  document.getElementById('trainingNameInput').value = t.name;
-  document.getElementById('roundsVal').textContent = rounds;
-  document.getElementById('setupTitle').textContent = 'Training bearbeiten';
-  clearErrors();
-  renderList();
-  showScreen('setupScreen');
+function editTraining(id){
+  var t=findById(id,trainings);if(!t)return;
+  editingId=id; intervals=JSON.parse(JSON.stringify(t.intervals)); rounds=t.rounds;
+  document.getElementById('trainingNameInput').value=t.name;
+  document.getElementById('roundsVal').textContent=rounds;
+  document.getElementById('setupTitle').textContent='Training bearbeiten';
+  clearErrors(); renderList(); showScreen('setupScreen');
 }
 
-function deleteTraining(id) {
-  if (!confirm('Training wirklich loeschen?')) return;
-  for (var i = 0; i < trainings.length; i++) {
-    if (trainings[i].id === id) { trainings.splice(i,1); break; }
-  }
+function deleteTraining(id){
+  if(!confirm('Training wirklich loeschen?'))return;
+  for(var i=0;i<trainings.length;i++){if(trainings[i].id===id){trainings.splice(i,1);break;}}
   persist(); renderHome();
 }
 
-function startById(id) {
-  var t = findById(id); if (!t) return;
-  intervals = JSON.parse(JSON.stringify(t.intervals));
-  rounds = t.rounds;
-  launchTimer();
+function startById(id){
+  var t=findById(id,trainings);if(!t)return;
+  intervals=JSON.parse(JSON.stringify(t.intervals)); rounds=t.rounds; launchTimer();
 }
 
-function findById(id) {
-  for (var i = 0; i < trainings.length; i++) { if (trainings[i].id === id) return trainings[i]; }
-  return null;
-}
-
-/* SETUP */
-function addInterval(name, dur, type) {
+function addInterval(name,dur,type){
   collectFormData();
-  intervals.push({name: name||'Arbeit', duration: dur||30, type: type||'work'});
+  intervals.push({name:name||'Arbeit',duration:dur||30,type:type||'work'});
   renderList();
 }
 
-function removeInterval(i) { collectFormData(); intervals.splice(i,1); renderList(); }
+function removeInterval(i){ collectFormData(); intervals.splice(i,1); renderList(); }
 
-function changeRounds(d) {
-  rounds = Math.max(1, Math.min(99, rounds+d));
-  document.getElementById('roundsVal').textContent = rounds;
-}
+function changeRounds(d){ rounds=Math.max(1,Math.min(99,rounds+d)); document.getElementById('roundsVal').textContent=rounds; }
 
-function renderList() {
-  var el = document.getElementById('intervalList');
-  el.innerHTML = '';
-  for (var i = 0; i < intervals.length; i++) {
-    (function(iv, idx) {
-      var card = document.createElement('div');
-      card.className = 'interval-card type-' + iv.type;
-      card.innerHTML =
-        '<div class="type-toggle">' +
-          '<button class="type-btn work' + (iv.type==='work'?' active':'') + '" onclick="setType('+idx+',\'work\')">Arbeit</button>' +
-          '<button class="type-btn rest' + (iv.type==='rest'?' active':'') + '" onclick="setType('+idx+',\'rest\')">Pause</button>' +
-        '</div>' +
-        '<div class="field"><label>Name</label><input type="text" id="n'+idx+'" value="'+escHtml(iv.name)+'"></div>' +
-        '<div class="field"><label>Sekunden</label><input type="text" inputmode="numeric" pattern="[0-9]*" id="d'+idx+'" value="'+iv.duration+'"></div>' +
-        '<button class="btn-remove" onclick="removeInterval('+idx+')">' + ICON_CLOSE + '</button>';
+function renderList(){
+  var el=document.getElementById('intervalList'); el.innerHTML='';
+  for(var i=0;i<intervals.length;i++){
+    (function(iv,idx){
+      var card=document.createElement('div');
+      card.className='interval-card type-'+iv.type;
+      card.innerHTML='<div class="type-toggle"><button class="type-btn work'+(iv.type==='work'?' active':'')+'" onclick="setType('+idx+',\'work\')">Arbeit</button><button class="type-btn rest'+(iv.type==='rest'?' active':'')+'" onclick="setType('+idx+',\'rest\')">Pause</button></div><div class="field"><label>Name</label><input type="text" id="n'+idx+'" value="'+escHtml(iv.name)+'"></div><div class="field"><label>Sekunden</label><input type="text" inputmode="numeric" pattern="[0-9]*" id="d'+idx+'" value="'+iv.duration+'"></div><button class="btn-remove" onclick="removeInterval('+idx+')">'+ICON_CLOSE+'</button>';
       el.appendChild(card);
-    })(intervals[i], i);
+    })(intervals[i],i);
   }
 }
 
-function setType(i, type) {
-  collectFormData(); intervals[i].type = type; renderList();
-}
+function setType(i,type){ collectFormData(); intervals[i].type=type; renderList(); }
 
-function collectFormData() {
-  for (var i = 0; i < intervals.length; i++) {
-    var n = document.getElementById('n'+i);
-    var d = document.getElementById('d'+i);
-    if (n) intervals[i].name = n.value;
-    if (d) intervals[i].duration = parseInt(d.value) || intervals[i].duration;
+function collectFormData(){
+  for(var i=0;i<intervals.length;i++){
+    var n=document.getElementById('n'+i),d=document.getElementById('d'+i);
+    if(n) intervals[i].name=n.value;
+    if(d) intervals[i].duration=parseInt(d.value)||intervals[i].duration;
   }
 }
 
-/* VALIDATION */
-function clearErrors() {
-  var nr = document.getElementById('nameRow');
-  if (nr) nr.classList.remove('error');
-}
+function clearErrors(){ var nr=document.getElementById('nameRow'); if(nr) nr.classList.remove('error'); }
 
-function validate() {
+function validate(){
   collectFormData();
-  var ok = true;
-  var nr = document.getElementById('nameRow');
-  var nameVal = document.getElementById('trainingNameInput').value.trim();
-  if (!nameVal) { nr.classList.add('error'); ok = false; } else { nr.classList.remove('error'); }
-  if (intervals.length === 0) { alert('Fuege mindestens ein Intervall hinzu.'); return false; }
-  for (var i = 0; i < intervals.length; i++) {
-    var nEl = document.getElementById('n'+i);
-    var dEl = document.getElementById('d'+i);
-    if (nEl) {
-      if (!intervals[i].name.trim()) { nEl.classList.add('error'); ok = false; } else { nEl.classList.remove('error'); }
-    }
-    if (dEl) {
-      var dur = parseInt(dEl.value);
-      if (!dur || dur < 1) { dEl.classList.add('error'); ok = false; } else { dEl.classList.remove('error'); }
-    }
+  var ok=true,nr=document.getElementById('nameRow'),nameVal=document.getElementById('trainingNameInput').value.trim();
+  if(!nameVal){nr.classList.add('error');ok=false;}else{nr.classList.remove('error');}
+  if(intervals.length===0){alert('Fuege mindestens ein Intervall hinzu.');return false;}
+  for(var i=0;i<intervals.length;i++){
+    var nEl=document.getElementById('n'+i),dEl=document.getElementById('d'+i);
+    if(nEl){if(!intervals[i].name.trim()){nEl.classList.add('error');ok=false;}else{nEl.classList.remove('error');}}
+    if(dEl){var dur=parseInt(dEl.value);if(!dur||dur<1){dEl.classList.add('error');ok=false;}else{dEl.classList.remove('error');}}
   }
   return ok;
 }
 
-function upsertTraining(name) {
-  if (editingId) {
-    for (var i = 0; i < trainings.length; i++) {
-      if (trainings[i].id === editingId) {
-        trainings[i] = {id:editingId, name:name, rounds:rounds, intervals:JSON.parse(JSON.stringify(intervals))};
-        break;
-      }
-    }
-  } else {
-    var id = 'T' + Date.now();
-    trainings.push({id:id, name:name, rounds:rounds, intervals:JSON.parse(JSON.stringify(intervals))});
-    editingId = id;
+function upsertTraining(name){
+  if(editingId){
+    for(var i=0;i<trainings.length;i++){if(trainings[i].id===editingId){trainings[i]={id:editingId,name:name,rounds:rounds,intervals:JSON.parse(JSON.stringify(intervals))};break;}}
+  }else{
+    var id='T'+Date.now();
+    trainings.push({id:id,name:name,rounds:rounds,intervals:JSON.parse(JSON.stringify(intervals))});
+    editingId=id;
   }
   persist();
 }
 
-function saveTraining() {
-  if (!validate()) return;
-  var name = document.getElementById('trainingNameInput').value.trim();
-  upsertTraining(name);
-  renderHome(); showScreen('homeScreen');
+function saveTraining(){ if(!validate())return; upsertTraining(document.getElementById('trainingNameInput').value.trim()); renderHome(); showScreen('homeScreen'); }
+function saveAndStart(){ if(!validate())return; upsertTraining(document.getElementById('trainingNameInput').value.trim()); launchTimer(); }
+
+/* ===================== KB WORKOUT CRUD ===================== */
+var kbLevel='beginner', kbDurMin=20, kbEditId=null, kbGenerated=[];
+
+function showKbSetup(){
+  kbEditId=null; kbLevel='beginner'; kbDurMin=20;
+  document.getElementById('kbNameInput').value='';
+  document.getElementById('kbDurVal').textContent='20';
+  document.getElementById('kbDurLabel').textContent='20 Minuten';
+  document.getElementById('kbNameRow').classList.remove('error');
+  var btns=document.getElementById('kbLevelRow').querySelectorAll('.kb-opt');
+  for(var i=0;i<btns.length;i++) btns[i].classList.remove('active');
+  btns[0].classList.add('active');
+  generateKbWorkout();
+  showScreen('kbSetupScreen');
 }
 
-function saveAndStart() {
-  if (!validate()) return;
-  var name = document.getElementById('trainingNameInput').value.trim();
-  upsertTraining(name);
-  launchTimer();
+function setKbLevel(lvl){
+  kbLevel=lvl;
+  var btns=document.getElementById('kbLevelRow').querySelectorAll('.kb-opt');
+  var map={beginner:0,intermediate:1,advanced:2};
+  for(var i=0;i<btns.length;i++) btns[i].classList.remove('active');
+  btns[map[lvl]].classList.add('active');
+  generateKbWorkout();
 }
 
-/* TIMER */
-function launchTimer() {
-  phases = [];
-  for (var r = 0; r < rounds; r++) {
-    for (var j = 0; j < intervals.length; j++) {
-      phases.push({name:intervals[j].name, duration:intervals[j].duration, type:intervals[j].type, round:r+1});
+function changeKbDur(d){
+  kbDurMin=Math.max(20,Math.min(30,kbDurMin+d));
+  document.getElementById('kbDurVal').textContent=kbDurMin;
+  document.getElementById('kbDurLabel').textContent=kbDurMin+' Minuten';
+  generateKbWorkout();
+}
+
+function generateKbWorkout(){
+  var pool=KB_DB[kbLevel].slice();
+  var totalSec=kbDurMin*60;
+  var result=[];
+  var used=[];
+  while(true){
+    var available=pool.filter(function(ex){ return used.indexOf(ex.id)===-1; });
+    if(available.length===0){ used=[]; available=pool.slice(); }
+    var idx=Math.floor(Math.random()*available.length);
+    var ex=available[idx];
+    used.push(ex.id);
+    result.push({id:ex.id,name:ex.name,desc:ex.desc,workSec:ex.workSec,restSec:ex.restSec});
+    var spent=result.reduce(function(s,e){return s+e.workSec+e.restSec;},0);
+    if(spent>=totalSec) break;
+    if(result.length>40) break;
+  }
+  kbGenerated=result;
+  renderKbPreview();
+}
+
+function renderKbPreview(){
+  var el=document.getElementById('kbPreviewList'); el.innerHTML='';
+  for(var i=0;i<kbGenerated.length;i++){
+    var ex=kbGenerated[i];
+    var card=document.createElement('div');
+    card.className='preview-card';
+    card.innerHTML='<div class="preview-card-info"><div class="preview-card-name">'+escHtml(ex.name)+'</div><div class="preview-card-meta">'+ex.workSec+'s Arbeit + '+ex.restSec+'s Pause</div></div><div class="preview-card-dur">'+fmt(ex.workSec+ex.restSec)+'</div>';
+    el.appendChild(card);
+  }
+}
+
+function saveKbWorkout(){
+  var name=document.getElementById('kbNameInput').value.trim();
+  if(!name){ document.getElementById('kbNameRow').classList.add('error'); return; }
+  document.getElementById('kbNameRow').classList.remove('error');
+  if(kbGenerated.length===0){ generateKbWorkout(); }
+  var total=kbGenerated.reduce(function(s,e){return s+e.workSec+e.restSec;},0);
+  var w={id:'KB'+Date.now(),name:name,level:kbLevel,durationMin:kbDurMin,totalSec:total,exercises:JSON.parse(JSON.stringify(kbGenerated))};
+  if(kbEditId){
+    for(var i=0;i<kbWorkouts.length;i++){if(kbWorkouts[i].id===kbEditId){kbWorkouts[i]=w;w.id=kbEditId;break;}}
+  }else{
+    kbWorkouts.push(w);
+  }
+  persistKb(); renderKbList(); showScreen('homeScreen'); switchTab('kb');
+}
+
+function saveAndStartKb(){
+  var name=document.getElementById('kbNameInput').value.trim()||'Kettlebell Workout';
+  if(kbGenerated.length===0) generateKbWorkout();
+  var total=kbGenerated.reduce(function(s,e){return s+e.workSec+e.restSec;},0);
+  var w={id:'KB'+Date.now(),name:name,level:kbLevel,durationMin:kbDurMin,totalSec:total,exercises:JSON.parse(JSON.stringify(kbGenerated))};
+  kbWorkouts.push(w); persistKb();
+  launchKbWorkout(w.exercises);
+}
+
+function renderKbList(){
+  var el=document.getElementById('kbList');
+  if(kbWorkouts.length===0){
+    el.innerHTML='<div class="empty-state"><div class="empty-text">Noch keine Kettlebell Workouts.<br>Tippe auf + Neu.</div></div>';
+    return;
+  }
+  el.innerHTML='';
+  var lvlLabel={beginner:'Anfaenger',intermediate:'Mittel',advanced:'Fortgeschritten'};
+  for(var i=0;i<kbWorkouts.length;i++){
+    (function(w){
+      var card=document.createElement('div');
+      card.className='training-card kb-card';
+      card.innerHTML='<div class="training-info"><div class="training-name">'+escHtml(w.name)+'</div><div class="training-meta">'+lvlLabel[w.level]+' | '+w.exercises.length+' Uebungen | ca. '+w.durationMin+' Min</div></div><div class="training-actions"><button class="btn-icon danger" onclick="event.stopPropagation();deleteKbWorkout(\''+w.id+'\')">'+ICON_DEL+'</button></div>';
+      card.addEventListener('click',function(){launchKbWorkout(w.exercises);});
+      el.appendChild(card);
+    })(kbWorkouts[i]);
+  }
+}
+
+function deleteKbWorkout(id){
+  if(!confirm('Workout loeschen?'))return;
+  for(var i=0;i<kbWorkouts.length;i++){if(kbWorkouts[i].id===id){kbWorkouts.splice(i,1);break;}}
+  persistKb(); renderKbList();
+}
+
+/* ===================== KB WORKOUT RUNNER ===================== */
+var kbTimer=null, kbPhases=[], kbPhaseIdx=0, kbRemaining=0, kbPaused=false;
+
+function launchKbWorkout(exercises){
+  kbPhases=[];
+  for(var i=0;i<exercises.length;i++){
+    kbPhases.push({type:'work',ex:exercises[i],duration:exercises[i].workSec});
+    if(i<exercises.length-1) kbPhases.push({type:'rest',ex:exercises[i],nextEx:exercises[i+1],duration:exercises[i].restSec});
+  }
+  kbPhaseIdx=0; kbPaused=false;
+  document.getElementById('kbExTotal').textContent=exercises.length;
+  showScreen('kbExScreen');
+  requestWakeLock();
+  beginKbPhase();
+}
+
+function beginKbPhase(){
+  if(kbPhaseIdx>=kbPhases.length){showKbDone();return;}
+  var p=kbPhases[kbPhaseIdx];
+  kbRemaining=p.duration; beeped=[];
+  kbPaused=false;
+  document.getElementById('kbPauseBtn').textContent='Pause';
+
+  var exIdx=0,count=0;
+  for(var i=0;i<=kbPhaseIdx;i++){if(kbPhases[i].type==='work') count++;}
+  document.getElementById('kbExIdx').textContent=count;
+
+  var pct=Math.round((kbPhaseIdx/kbPhases.length)*100);
+  document.getElementById('kbProgressFill').style.width=pct+'%';
+
+  if(p.type==='work'){
+    document.getElementById('kbExName').textContent=p.ex.name;
+    document.getElementById('kbExDesc').textContent=p.ex.desc;
+    document.getElementById('kbAnimWrap').innerHTML=getKbAnim(p.ex.id);
+    document.getElementById('kbTimerLabel').textContent='ARBEIT';
+    document.getElementById('kbTimerBig').style.color='var(--kb)';
+    var nextP=kbPhases[kbPhaseIdx+1];
+    document.getElementById('kbNextName').textContent=nextP?(nextP.type==='rest'?'Pause':''+nextP.ex.name):'-';
+  } else {
+    document.getElementById('kbTimerLabel').textContent='PAUSE';
+    document.getElementById('kbTimerBig').style.color='var(--rest)';
+    document.getElementById('kbNextName').textContent=p.nextEx?p.nextEx.name:'-';
+  }
+  document.getElementById('kbTimerBig').textContent=fmt(kbRemaining);
+
+  clearInterval(kbTimer);
+  kbTimer=setInterval(tickKb,1000);
+}
+
+function tickKb(){
+  if(kbPaused)return;
+  kbRemaining--;
+  document.getElementById('kbTimerBig').textContent=fmt(kbRemaining);
+  maybeBeep(kbRemaining);
+  if(kbRemaining<=0){
+    clearInterval(kbTimer);
+    if(navigator.vibrate){try{navigator.vibrate([80,40,80]);}catch(e){}}
+    beep(kbPhases[kbPhaseIdx].type==='work'?440:600,0.3,0.7);
+    kbPhaseIdx++;
+    setTimeout(beginKbPhase,400);
+  }
+}
+
+function toggleKbPause(){
+  kbPaused=!kbPaused;
+  document.getElementById('kbPauseBtn').textContent=kbPaused?'Weiter':'Pause';
+}
+
+function skipKbPhase(){ clearInterval(kbTimer); kbPhaseIdx++; beginKbPhase(); }
+
+function stopKbWorkout(){ clearInterval(kbTimer); releaseWakeLock(); kbPaused=false; renderKbList(); switchTab('kb'); showScreen('homeScreen'); }
+
+function showKbDone(){
+  clearInterval(kbTimer); releaseWakeLock();
+  document.getElementById('doneSub').textContent='Kettlebell Workout abgeschlossen!';
+  document.getElementById('doneAgainBtn').style.display='none';
+  showScreen('doneScreen');
+  setTimeout(function(){ document.getElementById('doneAgainBtn').style.display=''; goHome(); },4000);
+}
+
+/* ===================== INTERVAL TIMER ===================== */
+var timer=null,phases=[],phaseIdx=0,remaining=0,paused=false;
+var CIRC=2*Math.PI*84;
+
+function launchTimer(){
+  phases=[];
+  for(var r=0;r<rounds;r++){
+    for(var j=0;j<intervals.length;j++){
+      phases.push({name:intervals[j].name,duration:intervals[j].duration,type:intervals[j].type,round:r+1});
     }
   }
-  phaseIdx = 0; paused = false;
-  document.getElementById('totalRounds').textContent = rounds;
+  phaseIdx=0;paused=false;
+  document.getElementById('totalRounds').textContent=rounds;
   buildDots(); showScreen('timerScreen'); requestWakeLock(); beginPhase();
 }
 
-function buildDots() {
-  var el = document.getElementById('phaseDots'); el.innerHTML = '';
-  for (var i = 0; i < phases.length; i++) {
-    var d = document.createElement('div');
-    d.className = 'dot ' + phases[i].type; d.id = 'dot-'+i;
-    el.appendChild(d);
+function buildDots(){
+  var el=document.getElementById('phaseDots');el.innerHTML='';
+  for(var i=0;i<phases.length;i++){
+    var d=document.createElement('div');d.className='dot '+phases[i].type;d.id='dot-'+i;el.appendChild(d);
   }
 }
 
-function updateDots() {
-  for (var i = 0; i < phases.length; i++) {
-    var d = document.getElementById('dot-'+i); if (!d) continue;
-    d.className = 'dot';
-    if (i < phaseIdx) d.className += ' done-' + phases[i].type;
-    else if (i === phaseIdx) d.className += ' current ' + phases[i].type;
+function updateDots(){
+  for(var i=0;i<phases.length;i++){
+    var d=document.getElementById('dot-'+i);if(!d)continue;
+    d.className='dot';
+    if(i<phaseIdx)d.className+=' done-'+phases[i].type;
+    else if(i===phaseIdx)d.className+=' current '+phases[i].type;
   }
 }
 
-function beginPhase() {
-  if (phaseIdx >= phases.length) { showDone(); return; }
-  var p = phases[phaseIdx];
-  remaining = p.duration; beeped = [];
-  document.getElementById('currentRound').textContent = p.round;
-  document.getElementById('pauseBtn').textContent = 'Pause';
-  paused = false; updateDots();
-  document.getElementById('ringProg').style.stroke = p.type==='work' ? 'var(--work)' : 'var(--rest)';
-  document.getElementById('timerTime').textContent = fmt(remaining);
-  document.getElementById('timerPhase').textContent = p.name;
-  document.getElementById('timerPhase').className = 'timer-phase ' + p.type;
-  document.getElementById('ringProg').style.strokeDashoffset = '0';
+function beginPhase(){
+  if(phaseIdx>=phases.length){showDone();return;}
+  var p=phases[phaseIdx];
+  remaining=p.duration;beeped=[];
+  document.getElementById('currentRound').textContent=p.round;
+  document.getElementById('pauseBtn').textContent='Pause';
+  paused=false;updateDots();
+  document.getElementById('ringProg').style.stroke=p.type==='work'?'var(--work)':'var(--rest)';
+  document.getElementById('timerTime').textContent=fmt(remaining);
+  document.getElementById('timerPhase').textContent=p.name;
+  document.getElementById('timerPhase').className='timer-phase '+p.type;
+  document.getElementById('ringProg').style.strokeDashoffset='0';
   clearInterval(timer);
-  timer = setInterval(tick, 1000);
+  timer=setInterval(tick,1000);
 }
 
-function tick() {
-  if (paused) return;
-  var p = phases[phaseIdx];
+function tick(){
+  if(paused)return;
+  var p=phases[phaseIdx];
   remaining--;
-  document.getElementById('timerTime').textContent = fmt(remaining);
-  document.getElementById('timerPhase').textContent = p.name;
-  document.getElementById('timerPhase').className = 'timer-phase ' + p.type;
-  document.getElementById('ringProg').style.strokeDashoffset = CIRC * (1 - remaining / p.duration);
-  var next = phases[phaseIdx+1];
-  document.getElementById('nextUpVal').textContent = next ? next.name + ' - ' + fmt(next.duration) : 'Letztes Intervall';
+  document.getElementById('timerTime').textContent=fmt(remaining);
+  document.getElementById('timerPhase').textContent=p.name;
+  document.getElementById('timerPhase').className='timer-phase '+p.type;
+  document.getElementById('ringProg').style.strokeDashoffset=CIRC*(1-remaining/p.duration);
+  var next=phases[phaseIdx+1];
+  document.getElementById('nextUpVal').textContent=next?next.name+' - '+fmt(next.duration):'Letztes Intervall';
   maybeBeep(remaining);
-  if (remaining <= 0) {
+  if(remaining<=0){
     clearInterval(timer);
-    if (navigator.vibrate) { try { navigator.vibrate([100,50,100]); } catch(e){} }
-    beep(520, 0.35, 0.8);
+    if(navigator.vibrate){try{navigator.vibrate([100,50,100]);}catch(e){}}
+    beep(520,0.35,0.8);
     phaseIdx++;
-    if (phaseIdx >= phases.length) { setTimeout(showDone, 400); }
-    else { setTimeout(beginPhase, 400); }
+    if(phaseIdx>=phases.length){setTimeout(showDone,400);}
+    else{setTimeout(beginPhase,400);}
   }
 }
 
-function togglePause() {
-  paused = !paused;
-  document.getElementById('pauseBtn').textContent = paused ? 'Weiter' : 'Pause';
-}
-function skipPhase() { clearInterval(timer); phaseIdx++; beginPhase(); }
+function togglePause(){ paused=!paused; document.getElementById('pauseBtn').textContent=paused?'Weiter':'Pause'; }
+function skipPhase(){ clearInterval(timer); phaseIdx++; beginPhase(); }
 
-function showDone() {
-  clearInterval(timer); releaseWakeLock();
-  var total = 0;
-  for (var i = 0; i < phases.length; i++) total += phases[i].duration;
-  document.getElementById('doneSub').textContent = rounds + (rounds>1?' Runden':' Runde') + ' - ' + fmt(total) + ' Gesamtzeit';
+function showDone(){
+  clearInterval(timer);releaseWakeLock();
+  var total=0;for(var i=0;i<phases.length;i++)total+=phases[i].duration;
+  document.getElementById('doneSub').textContent=rounds+(rounds>1?' Runden':' Runde')+' - '+fmt(total)+' Gesamtzeit';
+  document.getElementById('doneAgainBtn').style.display='';
   showScreen('doneScreen');
 }
 
-function goBack() {
-  clearInterval(timer); releaseWakeLock(); paused = false;
-  renderHome(); showScreen('homeScreen');
-}
+function goBack(){ clearInterval(timer);releaseWakeLock();paused=false;renderHome();showScreen('homeScreen'); }
 
-/* UTILS */
-function showScreen(id) {
-  var all = document.querySelectorAll('.screen');
-  for (var i = 0; i < all.length; i++) all[i].classList.remove('active');
+/* ===================== UTILS ===================== */
+function showScreen(id){
+  var all=document.querySelectorAll('.screen');
+  for(var i=0;i<all.length;i++) all[i].classList.remove('active');
   document.getElementById(id).classList.add('active');
 }
-function fmt(s) {
-  var m = Math.floor(s/60), sec = s%60;
-  return (m<10?'0':'')+m+':'+(sec<10?'0':'')+sec;
-}
-function escHtml(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
+function fmt(s){ var m=Math.floor(s/60),sec=s%60;return(m<10?'0':'')+m+':'+(sec<10?'0':'')+sec; }
+function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function findById(id,arr){ for(var i=0;i<arr.length;i++){if(arr[i].id===id)return arr[i];}return null; }
 
 renderHome();
 </script>
