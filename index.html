@@ -9,120 +9,143 @@
 <title>Intervall Timer</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Space+Grotesk:wght@700&display=swap');
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --bg: #0d0f14; --surface: #161a22; --surface2: #1e2330; --border: #2a3040;
-  --work: #f97316; --work-dim: rgba(249,115,22,0.15);
-  --rest: #22c55e; --rest-dim: rgba(34,197,94,0.15);
-  --text: #f0f2f5; --muted: #6b7280; --radius: 16px;
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0d0f14;--surface:#161a22;--surface2:#1e2330;--border:#2a3040;
+  --work:#f97316;--work-dim:rgba(249,115,22,0.15);
+  --rest:#22c55e;--rest-dim:rgba(34,197,94,0.15);
+  --err:#ef4444;--err-dim:rgba(239,68,68,0.15);
+  --text:#f0f2f5;--muted:#6b7280;--radius:16px;
 }
-html, body { height: 100%; background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; overscroll-behavior: none; }
-body { display: flex; flex-direction: column; min-height: 100dvh; }
-.screen { display: none; flex-direction: column; flex: 1; padding: 24px 20px; gap: 20px; overflow: hidden; }
-.screen.active { display: flex; }
-.logo { font-family: 'Space Grotesk', sans-serif; font-size: 22px; letter-spacing: -0.5px; }
-.logo span { color: var(--work); }
-.header { display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
-.section-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 10px; flex-shrink: 0; }
-.training-list { display: flex; flex-direction: column; gap: 10px; overflow-y: auto; flex: 1; }
-.training-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; display: flex; align-items: center; gap: 14px; cursor: pointer; transition: border-color 0.2s; flex-shrink: 0; }
-.training-card:active { border-color: var(--work); }
-.training-info { flex: 1; min-width: 0; }
-.training-name { font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.training-meta { font-size: 12px; color: var(--muted); margin-top: 3px; }
-.training-actions { display: flex; gap: 8px; flex-shrink: 0; }
-.btn-icon { width: 44px; height: 34px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface2); color: var(--muted); font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.15s; font-family: inherit; }
-.btn-icon:active { border-color: var(--work); color: var(--work); }
-.btn-icon.danger:active { border-color: #ef4444; color: #ef4444; }
-.empty-state { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; color: var(--muted); text-align: center; }
-.empty-text { font-size: 15px; }
-.interval-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; display: grid; grid-template-columns: 1fr 1fr auto; gap: 12px; align-items: center; flex-shrink: 0; }
-.interval-card.type-work { border-left: 3px solid var(--work); }
-.interval-card.type-rest { border-left: 3px solid var(--rest); }
-.interval-card .field { display: flex; flex-direction: column; gap: 5px; }
-.field label { font-size: 11px; color: var(--muted); font-weight: 500; }
-.interval-card input[type="text"] { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 15px; font-weight: 600; padding: 8px 10px; width: 100%; outline: none; font-family: inherit; -webkit-appearance: none; appearance: none; }
-.interval-card input:focus { border-color: var(--work); }
-.btn-remove { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 18px; font-weight: 700; padding: 4px 8px; border-radius: 8px; }
-.btn-remove:active { color: #ef4444; }
-.type-toggle { display: flex; gap: 6px; grid-column: 1 / -1; }
-.type-btn { flex: 1; padding: 6px; border-radius: 8px; border: 1px solid var(--border); background: transparent; color: var(--muted); font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.15s; font-family: inherit; }
-.type-btn.work.active { background: var(--work-dim); border-color: var(--work); color: var(--work); }
-.type-btn.rest.active { background: var(--rest-dim); border-color: var(--rest); color: var(--rest); }
-.rounds-row { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
-.rounds-row span { font-size: 14px; }
-.stepper { display: flex; align-items: center; gap: 14px; }
-.step-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--border); background: var(--surface2); color: var(--text); font-size: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none; font-family: inherit; }
-.step-btn:active { background: var(--work-dim); border-color: var(--work); }
-.step-val { font-size: 22px; font-weight: 700; min-width: 32px; text-align: center; }
-.name-row { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 4px 16px; flex-shrink: 0; }
-.name-row input { background: transparent; border: none; color: var(--text); font-size: 16px; font-weight: 600; width: 100%; outline: none; font-family: inherit; padding: 10px 0; }
-.name-row input::placeholder { color: var(--muted); }
-.btn-add { background: var(--surface2); border: 1px dashed var(--border); border-radius: var(--radius); color: var(--muted); font-size: 14px; padding: 13px; cursor: pointer; font-family: inherit; font-weight: 500; flex-shrink: 0; }
-.btn-add:active { border-color: var(--work); color: var(--work); }
-.btn-primary { background: var(--work); border: none; border-radius: var(--radius); color: #fff; font-size: 17px; font-weight: 700; padding: 17px; cursor: pointer; font-family: inherit; flex-shrink: 0; }
-.btn-primary:active { opacity: 0.85; }
-.btn-secondary { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); font-size: 15px; font-weight: 600; padding: 14px; cursor: pointer; font-family: inherit; flex-shrink: 0; }
-.btn-secondary:active { background: var(--border); }
-.list-area { overflow-y: auto; display: flex; flex-direction: column; gap: 10px; flex: 1; }
-.bottom-area { display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; margin-top: 4px; }
-.btn-row { display: flex; gap: 10px; }
-.btn-row .btn-primary { flex: 2; }
-.btn-row .btn-secondary { flex: 1; }
-.btn-back { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; color: var(--text); font-size: 13px; font-weight: 600; padding: 9px 16px; cursor: pointer; font-family: inherit; }
-.btn-back:active { background: var(--surface2); }
-#timerScreen { justify-content: space-between; }
-.timer-header { display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
-.round-badge { font-size: 13px; color: var(--muted); font-weight: 500; }
-.round-badge span { color: var(--text); font-weight: 700; }
-.ring-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; gap: 8px; }
-.ring-svg { width: min(300px, 80vw); height: min(300px, 80vw); }
-.ring-track { fill: none; stroke: var(--surface2); }
-.ring-progress { fill: none; stroke: var(--work); stroke-linecap: round; transform: rotate(-90deg); transform-origin: 50% 50%; transition: stroke-dashoffset 0.9s linear, stroke 0.3s; }
-.ring-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-.ring-container { position: relative; display: flex; }
-.timer-time { font-family: 'Space Grotesk', sans-serif; font-size: clamp(52px, 18vw, 80px); font-weight: 700; letter-spacing: -2px; line-height: 1; }
-.timer-phase { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-top: 6px; }
-.timer-phase.work { color: var(--work); }
-.timer-phase.rest { color: var(--rest); }
-.next-up { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; min-height: 52px; flex-shrink: 0; }
-.next-up .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
-.next-up .value { font-size: 14px; font-weight: 600; margin-top: 3px; }
-.timer-controls { display: flex; gap: 12px; flex-shrink: 0; }
-.btn-control { flex: 1; border-radius: var(--radius); border: none; font-size: 16px; font-weight: 700; padding: 17px; cursor: pointer; font-family: inherit; }
-.btn-control:active { opacity: 0.8; }
-.btn-pause { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
-.btn-skip { background: var(--border); color: var(--muted); }
-#doneScreen { align-items: center; justify-content: center; gap: 24px; text-align: center; }
-.done-title { font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; }
-.done-sub { color: var(--muted); font-size: 15px; }
-.btn-again { background: var(--work); border: none; border-radius: var(--radius); color: #fff; font-size: 16px; font-weight: 700; padding: 15px 40px; cursor: pointer; font-family: inherit; }
-.phase-dots { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; padding: 0 4px; }
-.dot { width: 10px; height: 10px; border-radius: 50%; background: var(--surface2); border: 1px solid var(--border); transition: all 0.3s; }
-.dot.done-work { background: var(--work); border-color: var(--work); }
-.dot.done-rest { background: var(--rest); border-color: var(--rest); }
-.dot.current { transform: scale(1.35); box-shadow: 0 0 0 2px var(--bg), 0 0 0 3px currentColor; }
-.dot.current.work { color: var(--work); background: var(--work); border-color: var(--work); }
-.dot.current.rest { color: var(--rest); background: var(--rest); border-color: var(--rest); }
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;overscroll-behavior:none;}
+body{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;min-height:100vh;min-height:100dvh;}
+.screen{display:none;-webkit-flex-direction:column;flex-direction:column;-webkit-flex:1;flex:1;padding:24px 20px;gap:20px;overflow:hidden;}
+.screen.active{display:-webkit-flex;display:flex;}
+.logo{font-family:'Space Grotesk',sans-serif;font-size:22px;letter-spacing:-0.5px;}
+.logo span{color:var(--work);}
+.header{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:space-between;justify-content:space-between;-webkit-flex-shrink:0;flex-shrink:0;}
+.section-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:10px;-webkit-flex-shrink:0;flex-shrink:0;}
+/* HOME */
+.training-list{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;gap:10px;overflow-y:auto;-webkit-flex:1;flex:1;}
+.training-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;gap:14px;cursor:pointer;-webkit-flex-shrink:0;flex-shrink:0;}
+.training-card:active{border-color:var(--work);}
+.training-info{-webkit-flex:1;flex:1;min-width:0;}
+.training-name{font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.training-meta{font-size:12px;color:var(--muted);margin-top:3px;}
+.training-actions{display:-webkit-flex;display:flex;gap:8px;-webkit-flex-shrink:0;flex-shrink:0;}
+.btn-icon{width:36px;height:36px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);color:var(--muted);display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;cursor:pointer;-webkit-flex-shrink:0;flex-shrink:0;padding:0;}
+.btn-icon:active{border-color:var(--work);color:var(--work);}
+.btn-icon.danger:active{border-color:var(--err);color:var(--err);}
+.btn-icon svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.empty-state{-webkit-flex:1;flex:1;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;gap:12px;color:var(--muted);text-align:center;}
+.empty-icon{font-size:40px;line-height:1;}
+.empty-text{font-size:15px;line-height:1.5;}
+/* SETUP */
+.interval-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;display:grid;grid-template-columns:1fr 1fr auto;gap:12px;-webkit-align-items:center;align-items:center;-webkit-flex-shrink:0;flex-shrink:0;}
+.interval-card.type-work{border-left:3px solid var(--work);}
+.interval-card.type-rest{border-left:3px solid var(--rest);}
+.interval-card .field{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;gap:5px;}
+.field label{font-size:11px;color:var(--muted);font-weight:500;}
+.interval-card input[type="text"]{background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:15px;font-weight:600;padding:8px 10px;width:100%;outline:none;font-family:inherit;-webkit-appearance:none;appearance:none;}
+.interval-card input:focus{border-color:var(--work);}
+.interval-card input.error{border-color:var(--err);background:var(--err-dim);}
+.btn-remove{background:none;border:none;color:var(--muted);cursor:pointer;padding:4px;border-radius:8px;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;}
+.btn-remove:active{color:var(--err);}
+.btn-remove svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;}
+.type-toggle{display:-webkit-flex;display:flex;gap:6px;grid-column:1 / -1;}
+.type-btn{-webkit-flex:1;flex:1;padding:6px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;}
+.type-btn.work.active{background:var(--work-dim);border-color:var(--work);color:var(--work);}
+.type-btn.rest.active{background:var(--rest-dim);border-color:var(--rest);color:var(--rest);}
+.rounds-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:space-between;justify-content:space-between;-webkit-flex-shrink:0;flex-shrink:0;}
+.rounds-row span{font-size:14px;}
+.stepper{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;gap:14px;}
+.step-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:20px;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;cursor:pointer;-webkit-user-select:none;user-select:none;font-family:inherit;}
+.step-btn:active{background:var(--work-dim);border-color:var(--work);}
+.step-val{font-size:22px;font-weight:700;min-width:32px;text-align:center;}
+.name-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:4px 16px;-webkit-flex-shrink:0;flex-shrink:0;transition:border-color 0.2s;}
+.name-row.error{border-color:var(--err);background:var(--err-dim);}
+.name-row input{background:transparent;border:none;color:var(--text);font-size:16px;font-weight:600;width:100%;outline:none;font-family:inherit;padding:10px 0;}
+.name-row input::-webkit-input-placeholder{color:var(--muted);}
+.name-row input::-moz-placeholder{color:var(--muted);}
+.name-row input::placeholder{color:var(--muted);}
+.btn-add{background:var(--surface2);border:1px dashed var(--border);border-radius:var(--radius);color:var(--muted);font-size:14px;padding:13px;cursor:pointer;font-family:inherit;font-weight:500;-webkit-flex-shrink:0;flex-shrink:0;width:100%;}
+.btn-add:active{border-color:var(--work);color:var(--work);}
+.btn-primary{background:var(--work);border:none;border-radius:var(--radius);color:#fff;font-size:17px;font-weight:700;padding:17px;cursor:pointer;font-family:inherit;-webkit-flex-shrink:0;flex-shrink:0;}
+.btn-primary:active{opacity:0.85;}
+.btn-secondary{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:15px;font-weight:600;padding:14px;cursor:pointer;font-family:inherit;-webkit-flex-shrink:0;flex-shrink:0;}
+.btn-secondary:active{background:var(--border);}
+.list-area{overflow-y:auto;-webkit-overflow-scrolling:touch;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;gap:10px;-webkit-flex:1;flex:1;}
+.bottom-area{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;gap:10px;-webkit-flex-shrink:0;flex-shrink:0;margin-top:4px;}
+.btn-row{display:-webkit-flex;display:flex;gap:10px;}
+.btn-row .btn-primary{-webkit-flex:2;flex:2;}
+.btn-row .btn-secondary{-webkit-flex:1;flex:1;}
+.btn-back{background:var(--surface);border:1px solid var(--border);border-radius:12px;color:var(--text);font-size:13px;font-weight:600;padding:9px 16px;cursor:pointer;font-family:inherit;}
+.btn-back:active{background:var(--surface2);}
+/* TIMER */
+#timerScreen{-webkit-justify-content:space-between;justify-content:space-between;}
+.timer-header{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:space-between;justify-content:space-between;-webkit-flex-shrink:0;flex-shrink:0;}
+.round-badge{font-size:13px;color:var(--muted);font-weight:500;}
+.round-badge span{color:var(--text);font-weight:700;}
+.ring-wrap{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;-webkit-flex:1;flex:1;gap:8px;}
+.ring-svg{width:min(300px,80vw);height:min(300px,80vw);}
+.ring-track{fill:none;stroke:var(--surface2);}
+.ring-progress{fill:none;stroke:var(--work);stroke-linecap:round;-webkit-transform:rotate(-90deg);transform:rotate(-90deg);-webkit-transform-origin:50% 50%;transform-origin:50% 50%;-webkit-transition:stroke-dashoffset 0.9s linear,stroke 0.3s;transition:stroke-dashoffset 0.9s linear,stroke 0.3s;}
+.ring-center{position:absolute;top:0;left:0;right:0;bottom:0;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;}
+.ring-container{position:relative;display:-webkit-flex;display:flex;}
+.timer-time{font-family:'Space Grotesk',sans-serif;font-size:clamp(52px,18vw,80px);font-weight:700;letter-spacing:-2px;line-height:1;}
+.timer-phase{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:2px;margin-top:6px;}
+.timer-phase.work{color:var(--work);}
+.timer-phase.rest{color:var(--rest);}
+.next-up{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 16px;min-height:52px;-webkit-flex-shrink:0;flex-shrink:0;}
+.next-up .label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+.next-up .value{font-size:14px;font-weight:600;margin-top:3px;}
+.timer-controls{display:-webkit-flex;display:flex;gap:12px;-webkit-flex-shrink:0;flex-shrink:0;}
+.btn-control{-webkit-flex:1;flex:1;border-radius:var(--radius);border:none;font-size:16px;font-weight:700;padding:17px;cursor:pointer;font-family:inherit;}
+.btn-control:active{opacity:0.8;}
+.btn-pause{background:var(--surface2);color:var(--text);border:1px solid var(--border);}
+.btn-skip{background:var(--border);color:var(--muted);}
+/* DONE */
+#doneScreen{-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;gap:24px;text-align:center;}
+.done-icon{font-size:56px;line-height:1;}
+.done-title{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;}
+.done-sub{color:var(--muted);font-size:15px;}
+.btn-again{background:var(--work);border:none;border-radius:var(--radius);color:#fff;font-size:16px;font-weight:700;padding:15px 40px;cursor:pointer;font-family:inherit;}
+/* DOTS */
+.phase-dots{display:-webkit-flex;display:flex;gap:6px;-webkit-flex-wrap:wrap;flex-wrap:wrap;-webkit-justify-content:center;justify-content:center;padding:0 4px;}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--surface2);border:1px solid var(--border);-webkit-transition:all 0.3s;transition:all 0.3s;}
+.dot.done-work{background:var(--work);border-color:var(--work);}
+.dot.done-rest{background:var(--rest);border-color:var(--rest);}
+.dot.current{-webkit-transform:scale(1.35);transform:scale(1.35);box-shadow:0 0 0 2px var(--bg),0 0 0 3px currentColor;}
+.dot.current.work{color:var(--work);background:var(--work);border-color:var(--work);}
+.dot.current.rest{color:var(--rest);background:var(--rest);border-color:var(--rest);}
+/* NEW btn */
+.btn-new{background:none;border:1px solid var(--work);border-radius:10px;color:var(--work);font-size:13px;font-weight:600;padding:8px 14px;cursor:pointer;font-family:inherit;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;gap:5px;}
+.btn-new:active{background:var(--work-dim);}
+.btn-new svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;}
 </style>
 </head>
 <body>
 
+<!-- HOME -->
 <div id="homeScreen" class="screen active">
   <div class="header">
     <div class="logo">Intervall<span>.</span></div>
-    <button class="btn-icon" onclick="newTraining()" style="width:auto;padding:0 14px;color:var(--work);border-color:var(--work);">+ Neu</button>
+    <button class="btn-new" onclick="newTraining()">
+      <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Neu
+    </button>
   </div>
   <div class="section-label">Meine Trainings</div>
   <div class="training-list" id="trainingList"></div>
 </div>
 
+<!-- SETUP -->
 <div id="setupScreen" class="screen">
   <div class="header">
     <button class="btn-back" onclick="goHome()">Zurueck</button>
     <div style="font-size:13px;color:var(--muted);font-weight:500;" id="setupTitle">Neues Training</div>
   </div>
-  <div class="name-row">
+  <div class="name-row" id="nameRow">
     <input type="text" id="trainingNameInput" placeholder="Training benennen...">
   </div>
   <div style="flex-shrink:0;">
@@ -147,6 +170,7 @@ body { display: flex; flex-direction: column; min-height: 100dvh; }
   </div>
 </div>
 
+<!-- TIMER -->
 <div id="timerScreen" class="screen">
   <div class="timer-header">
     <button class="btn-back" onclick="goBack()">Beenden</button>
@@ -175,7 +199,9 @@ body { display: flex; flex-direction: column; min-height: 100dvh; }
   </div>
 </div>
 
+<!-- DONE -->
 <div id="doneScreen" class="screen">
+  <div class="done-icon">&#x1F3C6;</div>
   <div class="done-title">Geschafft!</div>
   <div class="done-sub" id="doneSub">Alle Runden abgeschlossen.</div>
   <button class="btn-again" onclick="goBack()">Nochmal starten</button>
@@ -192,39 +218,40 @@ var phases = [];
 var phaseIdx = 0;
 var remaining = 0;
 var paused = false;
-var CIRCUMFERENCE = 2 * Math.PI * 84;
+var CIRC = 2 * Math.PI * 84; // 527.8
 
-// load from localStorage on start
 try { trainings = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch(e) { trainings = []; }
 
 function persist() {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(trainings)); } catch(e) {}
 }
 
-// WAKE LOCK
+/* WAKE LOCK */
 var wakeLock = null;
 function requestWakeLock() {
   if ('wakeLock' in navigator) {
-    navigator.wakeLock.request('screen').then(function(wl) { wakeLock = wl; }).catch(function(){});
+    navigator.wakeLock.request('screen').then(function(wl){ wakeLock = wl; }).catch(function(){});
   }
 }
 function releaseWakeLock() {
-  if (wakeLock) { wakeLock.release(); wakeLock = null; }
+  if (wakeLock) { try { wakeLock.release(); } catch(e){} wakeLock = null; }
 }
 document.addEventListener('visibilitychange', function() {
   if (document.visibilityState === 'visible' && timer && !paused) requestWakeLock();
 });
 
-// AUDIO
+/* AUDIO */
 var audioCtx = null;
 function getAudioCtx() {
-  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  if (audioCtx.state === 'suspended') audioCtx.resume();
+  if (!audioCtx) {
+    try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e){ return null; }
+  }
+  if (audioCtx.state === 'suspended') { try { audioCtx.resume(); } catch(e){} }
   return audioCtx;
 }
 function beep(freq, dur, vol) {
+  var ctx = getAudioCtx(); if (!ctx) return;
   try {
-    var ctx = getAudioCtx();
     var osc = ctx.createOscillator();
     var gain = ctx.createGain();
     osc.connect(gain); gain.connect(ctx.destination);
@@ -233,76 +260,76 @@ function beep(freq, dur, vol) {
     gain.gain.setValueAtTime(vol, ctx.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
     osc.start(ctx.currentTime); osc.stop(ctx.currentTime + dur);
-  } catch(e) {}
+  } catch(e){}
 }
-document.addEventListener('touchstart', function() { getAudioCtx(); }, { once: true });
-document.addEventListener('click', function() { getAudioCtx(); }, { once: true });
+document.addEventListener('touchstart', function(){ getAudioCtx(); }, {once:true,passive:true});
+document.addEventListener('click', function(){ getAudioCtx(); }, {once:true});
 
-var countdownBeepedSet = [];
-function maybeCountdown(rem) {
-  if (rem <= 5 && rem >= 1 && countdownBeepedSet.indexOf(rem) === -1) {
-    countdownBeepedSet.push(rem);
+var beeped = [];
+function maybeBeep(rem) {
+  if (rem >= 1 && rem <= 5 && beeped.indexOf(rem) === -1) {
+    beeped.push(rem);
     beep(rem === 1 ? 1200 : 880, rem === 1 ? 0.18 : 0.10, rem === 1 ? 0.7 : 0.5);
   }
 }
 
-// HOME
+/* SVG ICONS */
+var ICON_EDIT = '<svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>';
+var ICON_DEL  = '<svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>';
+var ICON_PLAY = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/></svg>';
+var ICON_CLOSE= '<svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+
+/* HOME */
 function renderHome() {
   var el = document.getElementById('trainingList');
   if (trainings.length === 0) {
-    el.innerHTML = '<div class="empty-state"><div class="empty-text">Noch keine Trainings gespeichert.<br>Tippe auf + Neu um loszulegen.</div></div>';
+    el.innerHTML = '<div class="empty-state"><div class="empty-icon">&#x1F3CB;</div><div class="empty-text">Noch keine Trainings.<br>Tippe auf + Neu um zu starten.</div></div>';
     return;
   }
   el.innerHTML = '';
   for (var i = 0; i < trainings.length; i++) {
     (function(t) {
-      var totalSec = t.rounds * t.intervals.reduce(function(s, iv) { return s + iv.duration; }, 0);
+      var total = t.rounds * t.intervals.reduce(function(s,iv){ return s+iv.duration; },0);
       var card = document.createElement('div');
       card.className = 'training-card';
       card.innerHTML =
         '<div class="training-info">' +
           '<div class="training-name">' + escHtml(t.name) + '</div>' +
-          '<div class="training-meta">' + t.intervals.length + ' Intervalle - ' + t.rounds + ' Runden - ' + formatTime(totalSec) + '</div>' +
+          '<div class="training-meta">' + t.intervals.length + ' Intervalle &nbsp;|&nbsp; ' + t.rounds + ' Runden &nbsp;|&nbsp; ' + fmt(total) + '</div>' +
         '</div>' +
         '<div class="training-actions">' +
-          '<button class="btn-icon" onclick="event.stopPropagation();editTraining(\'' + t.id + '\')">Edit</button>' +
-          '<button class="btn-icon danger" onclick="event.stopPropagation();deleteTraining(\'' + t.id + '\')">Del</button>' +
+          '<button class="btn-icon" title="Bearbeiten" onclick="event.stopPropagation();editTraining(\'' + t.id + '\')">' + ICON_EDIT + '</button>' +
+          '<button class="btn-icon danger" title="Loeschen" onclick="event.stopPropagation();deleteTraining(\'' + t.id + '\')">' + ICON_DEL + '</button>' +
         '</div>';
-      card.addEventListener('click', function() { startTrainingById(t.id); });
+      card.addEventListener('click', function(){ startById(t.id); });
       el.appendChild(card);
     })(trainings[i]);
   }
 }
 
-function goHome() {
-  showScreen('homeScreen');
-  renderHome();
-}
+function goHome() { renderHome(); showScreen('homeScreen'); }
 
 function newTraining() {
   editingId = null;
-  intervals = [
-    { name: 'Arbeit', duration: 40, type: 'work' },
-    { name: 'Pause', duration: 20, type: 'rest' }
-  ];
+  intervals = [{name:'Arbeit',duration:40,type:'work'},{name:'Pause',duration:20,type:'rest'}];
   rounds = 3;
   document.getElementById('trainingNameInput').value = '';
   document.getElementById('roundsVal').textContent = '3';
   document.getElementById('setupTitle').textContent = 'Neues Training';
+  clearErrors();
   renderList();
   showScreen('setupScreen');
 }
 
 function editTraining(id) {
-  var t = null;
-  for (var i = 0; i < trainings.length; i++) { if (trainings[i].id === id) { t = trainings[i]; break; } }
-  if (!t) return;
+  var t = findById(id); if (!t) return;
   editingId = id;
   intervals = JSON.parse(JSON.stringify(t.intervals));
   rounds = t.rounds;
   document.getElementById('trainingNameInput').value = t.name;
   document.getElementById('roundsVal').textContent = rounds;
   document.getElementById('setupTitle').textContent = 'Training bearbeiten';
+  clearErrors();
   renderList();
   showScreen('setupScreen');
 }
@@ -310,34 +337,33 @@ function editTraining(id) {
 function deleteTraining(id) {
   if (!confirm('Training wirklich loeschen?')) return;
   for (var i = 0; i < trainings.length; i++) {
-    if (trainings[i].id === id) { trainings.splice(i, 1); break; }
+    if (trainings[i].id === id) { trainings.splice(i,1); break; }
   }
-  persist();
-  renderHome();
+  persist(); renderHome();
 }
 
-function startTrainingById(id) {
-  var t = null;
-  for (var i = 0; i < trainings.length; i++) { if (trainings[i].id === id) { t = trainings[i]; break; } }
-  if (!t) return;
+function startById(id) {
+  var t = findById(id); if (!t) return;
   intervals = JSON.parse(JSON.stringify(t.intervals));
   rounds = t.rounds;
   launchTimer();
 }
 
-// SETUP
-function addInterval(name, duration, type) {
-  intervals.push({ name: name || 'Arbeit', duration: duration || 30, type: type || 'work' });
+function findById(id) {
+  for (var i = 0; i < trainings.length; i++) { if (trainings[i].id === id) return trainings[i]; }
+  return null;
+}
+
+/* SETUP */
+function addInterval(name, dur, type) {
+  intervals.push({name: name||'Arbeit', duration: dur||30, type: type||'work'});
   renderList();
 }
 
-function removeInterval(i) {
-  intervals.splice(i, 1);
-  renderList();
-}
+function removeInterval(i) { intervals.splice(i,1); renderList(); }
 
 function changeRounds(d) {
-  rounds = Math.max(1, Math.min(99, rounds + d));
+  rounds = Math.max(1, Math.min(99, rounds+d));
   document.getElementById('roundsVal').textContent = rounds;
 }
 
@@ -350,103 +376,112 @@ function renderList() {
       card.className = 'interval-card type-' + iv.type;
       card.innerHTML =
         '<div class="type-toggle">' +
-          '<button class="type-btn work ' + (iv.type === 'work' ? 'active' : '') + '" onclick="setType(' + idx + ',\'work\')">Arbeit</button>' +
-          '<button class="type-btn rest ' + (iv.type === 'rest' ? 'active' : '') + '" onclick="setType(' + idx + ',\'rest\')">Pause</button>' +
+          '<button class="type-btn work' + (iv.type==='work'?' active':'') + '" onclick="setType('+idx+',\'work\')">Arbeit</button>' +
+          '<button class="type-btn rest' + (iv.type==='rest'?' active':'') + '" onclick="setType('+idx+',\'rest\')">Pause</button>' +
         '</div>' +
-        '<div class="field"><label>Name</label><input type="text" id="iv-name-' + idx + '" value="' + escHtml(iv.name) + '"></div>' +
-        '<div class="field"><label>Sekunden</label><input type="text" inputmode="numeric" pattern="[0-9]*" id="iv-dur-' + idx + '" value="' + iv.duration + '"></div>' +
-        '<button class="btn-remove" onclick="removeInterval(' + idx + ')">X</button>';
+        '<div class="field"><label>Name</label><input type="text" id="n'+idx+'" value="'+escHtml(iv.name)+'"></div>' +
+        '<div class="field"><label>Sekunden</label><input type="text" inputmode="numeric" pattern="[0-9]*" id="d'+idx+'" value="'+iv.duration+'"></div>' +
+        '<button class="btn-remove" onclick="removeInterval('+idx+')">' + ICON_CLOSE + '</button>';
       el.appendChild(card);
     })(intervals[i], i);
   }
 }
 
 function setType(i, type) {
-  collectFormData();
-  intervals[i].type = type;
-  renderList();
+  collectFormData(); intervals[i].type = type; renderList();
 }
 
 function collectFormData() {
   for (var i = 0; i < intervals.length; i++) {
-    var nameEl = document.getElementById('iv-name-' + i);
-    var durEl = document.getElementById('iv-dur-' + i);
-    if (nameEl) intervals[i].name = nameEl.value || intervals[i].name;
-    if (durEl) intervals[i].duration = parseInt(durEl.value) || intervals[i].duration;
+    var n = document.getElementById('n'+i);
+    var d = document.getElementById('d'+i);
+    if (n) intervals[i].name = n.value;
+    if (d) intervals[i].duration = parseInt(d.value) || intervals[i].duration;
   }
 }
 
-function saveTraining() {
+/* VALIDATION */
+function clearErrors() {
+  var nr = document.getElementById('nameRow');
+  if (nr) nr.classList.remove('error');
+}
+
+function validate() {
   collectFormData();
-  var name = document.getElementById('trainingNameInput').value.trim() || 'Unbenanntes Training';
-  if (intervals.length === 0) { alert('Fuege mindestens ein Intervall hinzu.'); return; }
+  var ok = true;
+  var nr = document.getElementById('nameRow');
+  var nameVal = document.getElementById('trainingNameInput').value.trim();
+  if (!nameVal) { nr.classList.add('error'); ok = false; } else { nr.classList.remove('error'); }
+  if (intervals.length === 0) { alert('Fuege mindestens ein Intervall hinzu.'); return false; }
+  for (var i = 0; i < intervals.length; i++) {
+    var nEl = document.getElementById('n'+i);
+    var dEl = document.getElementById('d'+i);
+    if (nEl) {
+      if (!intervals[i].name.trim()) { nEl.classList.add('error'); ok = false; } else { nEl.classList.remove('error'); }
+    }
+    if (dEl) {
+      var dur = parseInt(dEl.value);
+      if (!dur || dur < 1) { dEl.classList.add('error'); ok = false; } else { dEl.classList.remove('error'); }
+    }
+  }
+  return ok;
+}
+
+function upsertTraining(name) {
   if (editingId) {
     for (var i = 0; i < trainings.length; i++) {
       if (trainings[i].id === editingId) {
-        trainings[i] = { id: editingId, name: name, rounds: rounds, intervals: JSON.parse(JSON.stringify(intervals)) };
+        trainings[i] = {id:editingId, name:name, rounds:rounds, intervals:JSON.parse(JSON.stringify(intervals))};
         break;
       }
     }
   } else {
     var id = 'T' + Date.now();
-    trainings.push({ id: id, name: name, rounds: rounds, intervals: JSON.parse(JSON.stringify(intervals)) });
+    trainings.push({id:id, name:name, rounds:rounds, intervals:JSON.parse(JSON.stringify(intervals))});
     editingId = id;
   }
   persist();
-  renderHome();
-  showScreen('homeScreen');
+}
+
+function saveTraining() {
+  if (!validate()) return;
+  var name = document.getElementById('trainingNameInput').value.trim();
+  upsertTraining(name);
+  renderHome(); showScreen('homeScreen');
 }
 
 function saveAndStart() {
-  collectFormData();
-  if (intervals.length === 0) { alert('Fuege mindestens ein Intervall hinzu.'); return; }
-  var name = document.getElementById('trainingNameInput').value.trim() || 'Unbenanntes Training';
-  if (editingId) {
-    for (var i = 0; i < trainings.length; i++) {
-      if (trainings[i].id === editingId) {
-        trainings[i] = { id: editingId, name: name, rounds: rounds, intervals: JSON.parse(JSON.stringify(intervals)) };
-        break;
-      }
-    }
-  } else {
-    var id2 = 'T' + Date.now();
-    trainings.push({ id: id2, name: name, rounds: rounds, intervals: JSON.parse(JSON.stringify(intervals)) });
-  }
-  persist();
+  if (!validate()) return;
+  var name = document.getElementById('trainingNameInput').value.trim();
+  upsertTraining(name);
   launchTimer();
 }
 
-// TIMER
+/* TIMER */
 function launchTimer() {
   phases = [];
   for (var r = 0; r < rounds; r++) {
     for (var j = 0; j < intervals.length; j++) {
-      phases.push({ name: intervals[j].name, duration: intervals[j].duration, type: intervals[j].type, round: r + 1 });
+      phases.push({name:intervals[j].name, duration:intervals[j].duration, type:intervals[j].type, round:r+1});
     }
   }
   phaseIdx = 0; paused = false;
   document.getElementById('totalRounds').textContent = rounds;
-  buildDots();
-  showScreen('timerScreen');
-  requestWakeLock();
-  beginPhase();
+  buildDots(); showScreen('timerScreen'); requestWakeLock(); beginPhase();
 }
 
 function buildDots() {
-  var el = document.getElementById('phaseDots');
-  el.innerHTML = '';
+  var el = document.getElementById('phaseDots'); el.innerHTML = '';
   for (var i = 0; i < phases.length; i++) {
     var d = document.createElement('div');
-    d.className = 'dot ' + phases[i].type;
-    d.id = 'dot-' + i;
+    d.className = 'dot ' + phases[i].type; d.id = 'dot-'+i;
     el.appendChild(d);
   }
 }
 
 function updateDots() {
   for (var i = 0; i < phases.length; i++) {
-    var d = document.getElementById('dot-' + i);
-    if (!d) continue;
+    var d = document.getElementById('dot-'+i); if (!d) continue;
     d.className = 'dot';
     if (i < phaseIdx) d.className += ' done-' + phases[i].type;
     else if (i === phaseIdx) d.className += ' current ' + phases[i].type;
@@ -456,17 +491,15 @@ function updateDots() {
 function beginPhase() {
   if (phaseIdx >= phases.length) { showDone(); return; }
   var p = phases[phaseIdx];
-  remaining = p.duration;
-  countdownBeepedSet = [];
+  remaining = p.duration; beeped = [];
   document.getElementById('currentRound').textContent = p.round;
   document.getElementById('pauseBtn').textContent = 'Pause';
-  paused = false;
-  updateDots();
-  document.getElementById('ringProg').style.stroke = p.type === 'work' ? 'var(--work)' : 'var(--rest)';
-  document.getElementById('timerTime').textContent = formatTime(remaining);
+  paused = false; updateDots();
+  document.getElementById('ringProg').style.stroke = p.type==='work' ? 'var(--work)' : 'var(--rest)';
+  document.getElementById('timerTime').textContent = fmt(remaining);
   document.getElementById('timerPhase').textContent = p.name;
   document.getElementById('timerPhase').className = 'timer-phase ' + p.type;
-  document.getElementById('ringProg').style.strokeDashoffset = 0;
+  document.getElementById('ringProg').style.strokeDashoffset = '0';
   clearInterval(timer);
   timer = setInterval(tick, 1000);
 }
@@ -475,20 +508,19 @@ function tick() {
   if (paused) return;
   var p = phases[phaseIdx];
   remaining--;
-  document.getElementById('timerTime').textContent = formatTime(remaining);
+  document.getElementById('timerTime').textContent = fmt(remaining);
   document.getElementById('timerPhase').textContent = p.name;
   document.getElementById('timerPhase').className = 'timer-phase ' + p.type;
-  document.getElementById('ringProg').style.strokeDashoffset = CIRCUMFERENCE * (1 - remaining / p.duration);
-  var next = phases[phaseIdx + 1];
-  document.getElementById('nextUpVal').textContent = next ? next.name + ' - ' + formatTime(next.duration) : 'Letztes Intervall';
-  maybeCountdown(remaining);
+  document.getElementById('ringProg').style.strokeDashoffset = CIRC * (1 - remaining / p.duration);
+  var next = phases[phaseIdx+1];
+  document.getElementById('nextUpVal').textContent = next ? next.name + ' - ' + fmt(next.duration) : 'Letztes Intervall';
+  maybeBeep(remaining);
   if (remaining <= 0) {
     clearInterval(timer);
-    if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+    if (navigator.vibrate) { try { navigator.vibrate([100,50,100]); } catch(e){} }
     beep(520, 0.35, 0.8);
     phaseIdx++;
-    var isLast = phaseIdx >= phases.length;
-    if (isLast) { setTimeout(showDone, 400); }
+    if (phaseIdx >= phases.length) { setTimeout(showDone, 400); }
     else { setTimeout(beginPhase, 400); }
   }
 }
@@ -497,39 +529,31 @@ function togglePause() {
   paused = !paused;
   document.getElementById('pauseBtn').textContent = paused ? 'Weiter' : 'Pause';
 }
-
-function skipPhase() {
-  clearInterval(timer);
-  phaseIdx++;
-  beginPhase();
-}
+function skipPhase() { clearInterval(timer); phaseIdx++; beginPhase(); }
 
 function showDone() {
   clearInterval(timer); releaseWakeLock();
   var total = 0;
   for (var i = 0; i < phases.length; i++) total += phases[i].duration;
-  document.getElementById('doneSub').textContent = rounds + (rounds > 1 ? ' Runden' : ' Runde') + ' - ' + formatTime(total) + ' Gesamtzeit';
+  document.getElementById('doneSub').textContent = rounds + (rounds>1?' Runden':' Runde') + ' - ' + fmt(total) + ' Gesamtzeit';
   showScreen('doneScreen');
 }
 
 function goBack() {
   clearInterval(timer); releaseWakeLock(); paused = false;
-  renderHome();
-  showScreen('homeScreen');
+  renderHome(); showScreen('homeScreen');
 }
 
+/* UTILS */
 function showScreen(id) {
-  var screens = document.querySelectorAll('.screen');
-  for (var i = 0; i < screens.length; i++) screens[i].classList.remove('active');
+  var all = document.querySelectorAll('.screen');
+  for (var i = 0; i < all.length; i++) all[i].classList.remove('active');
   document.getElementById(id).classList.add('active');
 }
-
-function formatTime(s) {
-  var m = Math.floor(s / 60);
-  var sec = s % 60;
-  return (m < 10 ? '0' : '') + m + ':' + (sec < 10 ? '0' : '') + sec;
+function fmt(s) {
+  var m = Math.floor(s/60), sec = s%60;
+  return (m<10?'0':'')+m+':'+(sec<10?'0':'')+sec;
 }
-
 function escHtml(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
