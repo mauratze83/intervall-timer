@@ -372,7 +372,7 @@
   </div>
 
   <div class="timer-controls">
-    <button class="btn-control btn-pause" id="pauseBtn" onclick="togglePause()">&#x23F8; Pause</button>
+    <button class="btn-control btn-pause" id="pauseBtn" onclick="togglePause()">Pause</button>
     <button class="btn-control btn-skip" onclick="skipPhase()">&Uuml;berspringen &#x203A;</button>
   </div>
 </div>
@@ -708,7 +708,7 @@ function beginPhase() {
   remaining = p.duration;
   countdownBeepedSet = new Set();
   document.getElementById('currentRound').textContent = p.round;
-  document.getElementById('pauseBtn').textContent = '&#x23F8; Pause';
+  document.getElementById('pauseBtn').textContent = 'Pause';
   paused = false;
   updateDots();
   document.getElementById('ringProg').style.stroke = p.type === 'work' ? 'var(--work)' : 'var(--rest)';
@@ -749,7 +749,7 @@ function tick() {
 
 function togglePause() {
   paused = !paused;
-  document.getElementById('pauseBtn').textContent = paused ? '&#x25B6; Weiter' : '&#x23F8; Pause';
+  document.getElementById('pauseBtn').textContent = paused ? 'Weiter' : 'Pause';
 }
 
 function skipPhase() {
