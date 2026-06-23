@@ -335,8 +335,8 @@
   <div class="bottom-area">
     <button class="btn-add" onclick="addInterval()">+ Intervall hinzuf&uuml;gen</button>
     <div class="btn-row">
-      <button class="btn-secondary" onclick="saveTraining()">&#x1F4BE; Speichern</button>
-      <button class="btn-primary" onclick="saveAndStart()">&#x25B6; Starten</button>
+      <button class="btn-secondary" onclick="saveTraining()">Speichern</button>
+      <button class="btn-primary" onclick="saveAndStart()">Starten</button>
     </div>
   </div>
 </div>
@@ -344,7 +344,7 @@
 <!-- =============== TIMER SCREEN =============== -->
 <div id="timerScreen" class="screen">
   <div class="timer-header">
-    <button class="btn-back" onclick="goBack()">&#x2715; Beenden</button>
+    <button class="btn-back" onclick="goBack()">Beenden</button>
     <div class="round-badge">Runde <span id="currentRound">1</span> / <span id="totalRounds">3</span></div>
   </div>
 
@@ -378,7 +378,7 @@
 
 <!-- =============== DONE SCREEN =============== -->
 <div id="doneScreen" class="screen">
-  <div class="done-icon">&#x1F525;</div>
+  <div class="done-icon">:)</div>
   <div class="done-title">Geschafft!</div>
   <div class="done-sub" id="doneSub">Alle Runden abgeschlossen.</div>
   <button class="btn-again" onclick="goBack()">Nochmal starten</button>
@@ -487,7 +487,7 @@ function renderHome() {
   if (trainings.length === 0) {
     el.innerHTML = `
       <div class="empty-state">
-        <div class="empty-icon">&#x1F3CB;&#xFE0F;</div>
+        <div class="empty-icon">:)</div>
         <div class="empty-text">Noch keine Trainings gespeichert.<br>Tippe auf "+ Neu" um loszulegen.</div>
       </div>`;
     return;
@@ -499,14 +499,13 @@ function renderHome() {
     const card = document.createElement('div');
     card.className = 'training-card';
     card.innerHTML = `
-      <div class="training-icon">&#x1F4AA;</div>
       <div class="training-info">
         <div class="training-name">${escHtml(t.name)}</div>
-        <div class="training-meta">${t.intervals.length} Intervalle &middot; ${t.rounds} Runden &middot; ${formatTime(totalSec)}</div>
+        <div class="training-meta">${t.intervals.length} Intervalle - ${t.rounds} Runden - ${formatTime(totalSec)}</div>
       </div>
       <div class="training-actions">
-        <button class="btn-icon" onclick="event.stopPropagation();editTraining('${t.id}')" title="Bearbeiten">&#x270F;&#xFE0F;</button>
-        <button class="btn-icon danger" onclick="event.stopPropagation();deleteTraining('${t.id}')" title="L&ouml;schen">&#x1F5D1;&#xFE0F;</button>
+        <button class="btn-icon" onclick="event.stopPropagation();editTraining('${t.id}')" title="Bearbeiten">Edit</button>
+        <button class="btn-icon danger" onclick="event.stopPropagation();deleteTraining('${t.id}')" title="L&ouml;schen">Del</button>
       </div>
     `;
     card.addEventListener('click', () => startTrainingById(t.id));
@@ -582,8 +581,8 @@ function renderList() {
     card.className = `interval-card type-${iv.type}`;
     card.innerHTML = `
       <div class="type-toggle">
-        <button class="type-btn work ${iv.type==='work'?'active':''}" onclick="setType(${i},'work')">&#x1F4AA; Arbeit</button>
-        <button class="type-btn rest ${iv.type==='rest'?'active':''}" onclick="setType(${i},'rest')">&#x1F62E;&#x200D;&#x1F4A8; Pause</button>
+        <button class="type-btn work ${iv.type==='work'?'active':''}" onclick="setType(${i},'work')">Arbeit</button>
+        <button class="type-btn rest ${iv.type==='rest'?'active':''}" onclick="setType(${i},'rest')">Pause</button>
       </div>
       <div class="field">
         <label>Name</label>
@@ -594,7 +593,7 @@ function renderList() {
         <input type="text" inputmode="numeric" pattern="[0-9]*" value="${iv.duration}"
           onchange="intervals[${i}].duration=parseInt(this.value)||1">
       </div>
-      <button class="btn-remove" onclick="removeInterval(${i})">&#xD7;</button>
+      <button class="btn-remove" onclick="removeInterval(${i})">X</button>
     `;
     el.appendChild(card);
   });
