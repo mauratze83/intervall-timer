@@ -414,7 +414,7 @@ function renderList() {
       </div>
       <div class="field">
         <label>Sekunden</label>
-        <input type="number" min="1" max="3600" inputmode="numeric" pattern="[0-9]*" value="${iv.duration}" onchange="intervals[${i}].duration=parseInt(this.value)||1;renderList()">
+        <input type="text" inputmode="numeric" pattern="[0-9]*" value="${iv.duration}" onchange="intervals[${i}].duration=parseInt(this.value)||1;renderList()">
       </div>
       <button class="btn-remove" onclick="removeInterval(${i})">×</button>
     `;
