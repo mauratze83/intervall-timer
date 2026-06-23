@@ -45,7 +45,7 @@
     letter-spacing: 1.5px; color: var(--muted); margin-bottom: 10px; flex-shrink: 0;
   }
 
-  /* ── HOME SCREEN ── */
+  /* -- HOME SCREEN -- */
   .training-list { display: flex; flex-direction: column; gap: 10px; overflow-y: auto; flex: 1; }
 
   .training-card {
@@ -84,7 +84,7 @@
   .empty-icon { font-size: 48px; }
   .empty-text { font-size: 15px; }
 
-  /* ── SETUP SCREEN ── */
+  /* -- SETUP SCREEN -- */
   .interval-card {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: var(--radius); padding: 14px 16px;
@@ -180,7 +180,7 @@
   .btn-row .btn-primary { flex: 2; }
   .btn-row .btn-secondary { flex: 1; }
 
-  /* ── TIMER SCREEN ── */
+  /* -- TIMER SCREEN -- */
   #timerScreen { justify-content: space-between; }
 
   .timer-header { display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
@@ -242,7 +242,7 @@
   .btn-pause { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
   .btn-skip  { background: var(--border); color: var(--muted); }
 
-  /* ── DONE SCREEN ── */
+  /* -- DONE SCREEN -- */
   #doneScreen { align-items: center; justify-content: center; gap: 24px; text-align: center; }
   .done-icon { font-size: 64px; line-height: 1; }
   .done-title { font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; }
@@ -265,7 +265,7 @@
   .dot.current.work { color: var(--work); background: var(--work); border-color: var(--work); }
   .dot.current.rest { color: var(--rest); background: var(--rest); border-color: var(--rest); }
 
-  /* ── MODAL ── */
+  /* -- MODAL -- */
   .modal-backdrop {
     display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7);
     align-items: flex-end; justify-content: center; z-index: 100;
@@ -292,7 +292,7 @@
 </head>
 <body>
 
-<!-- ═══════════════ HOME SCREEN ═══════════════ -->
+<!-- =============== HOME SCREEN =============== -->
 <div id="homeScreen" class="screen active">
   <div class="header">
     <div class="logo">Intervall<span>.</span></div>
@@ -306,15 +306,15 @@
   <div class="training-list" id="trainingList"></div>
 </div>
 
-<!-- ═══════════════ SETUP SCREEN ═══════════════ -->
+<!-- =============== SETUP SCREEN =============== -->
 <div id="setupScreen" class="screen">
   <div class="header" style="flex-shrink:0;">
-    <button class="btn-back" onclick="showScreen('homeScreen')">&#x2190; Zurück</button>
+    <button class="btn-back" onclick="showScreen('homeScreen')">&#x2190; Zur&uuml;ck</button>
     <div style="font-size:13px;color:var(--muted);font-weight:500;" id="setupTitle">Neues Training</div>
   </div>
 
   <div class="name-row" style="flex-shrink:0;">
-    <input type="text" id="trainingNameInput" placeholder="Training benennen…">
+    <input type="text" id="trainingNameInput" placeholder="Training benennen...">
   </div>
 
   <div style="flex-shrink:0;">
@@ -322,7 +322,7 @@
     <div class="rounds-row">
       <span>Wiederholungen</span>
       <div class="stepper">
-        <button class="step-btn" onclick="changeRounds(-1)">−</button>
+        <button class="step-btn" onclick="changeRounds(-1)">-</button>
         <div class="step-val" id="roundsVal">3</div>
         <button class="step-btn" onclick="changeRounds(1)">+</button>
       </div>
@@ -333,7 +333,7 @@
   <div class="list-area" id="intervalList"></div>
 
   <div class="bottom-area">
-    <button class="btn-add" onclick="addInterval()">+ Intervall hinzufügen</button>
+    <button class="btn-add" onclick="addInterval()">+ Intervall hinzuf&uuml;gen</button>
     <div class="btn-row">
       <button class="btn-secondary" onclick="saveTraining()">&#x1F4BE; Speichern</button>
       <button class="btn-primary" onclick="saveAndStart()">&#x25B6; Starten</button>
@@ -341,7 +341,7 @@
   </div>
 </div>
 
-<!-- ═══════════════ TIMER SCREEN ═══════════════ -->
+<!-- =============== TIMER SCREEN =============== -->
 <div id="timerScreen" class="screen">
   <div class="timer-header">
     <button class="btn-back" onclick="goBack()">&#x2715; Beenden</button>
@@ -365,19 +365,19 @@
 
   <div class="next-up">
     <div>
-      <div class="label">Nächstes</div>
-      <div class="value" id="nextUpVal">–</div>
+      <div class="label">N&auml;chstes</div>
+      <div class="value" id="nextUpVal">-</div>
     </div>
     <div style="color:var(--muted);font-size:20px;">&#x203A;</div>
   </div>
 
   <div class="timer-controls">
     <button class="btn-control btn-pause" id="pauseBtn" onclick="togglePause()">&#x23F8; Pause</button>
-    <button class="btn-control btn-skip" onclick="skipPhase()">Überspringen &#x203A;</button>
+    <button class="btn-control btn-skip" onclick="skipPhase()">&Uuml;berspringen &#x203A;</button>
   </div>
 </div>
 
-<!-- ═══════════════ DONE SCREEN ═══════════════ -->
+<!-- =============== DONE SCREEN =============== -->
 <div id="doneScreen" class="screen">
   <div class="done-icon">&#x1F525;</div>
   <div class="done-title">Geschafft!</div>
@@ -385,11 +385,11 @@
   <button class="btn-again" onclick="goBack()">Nochmal starten</button>
 </div>
 
-<!-- ═══════════════ RENAME MODAL ═══════════════ -->
+<!-- =============== RENAME MODAL =============== -->
 <div class="modal-backdrop" id="renameModal">
   <div class="modal">
     <div class="modal-title">Training umbenennen</div>
-    <input type="text" id="renameInput" placeholder="Name…">
+    <input type="text" id="renameInput" placeholder="Name...">
     <div class="modal-btns">
       <button class="modal-cancel" onclick="closeModal()">Abbrechen</button>
       <button class="modal-confirm" onclick="confirmRename()">Speichern</button>
@@ -398,9 +398,9 @@
 </div>
 
 <script>
-// ══════════════════════════════
+// ==============================
 // STORAGE
-// ══════════════════════════════
+// ==============================
 const STORAGE_KEY = 'intervall_trainings';
 
 function loadTrainings() {
@@ -412,9 +412,9 @@ function saveTrainings(list) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
 }
 
-// ══════════════════════════════
+// ==============================
 // STATE
-// ══════════════════════════════
+// ==============================
 let trainings = loadTrainings();
 let editingId = null;      // null = new training
 let intervals = [];
@@ -429,9 +429,9 @@ let remaining = 0;
 let paused = false;
 const CIRCUMFERENCE = 2 * Math.PI * 84;
 
-// ══════════════════════════════
+// ==============================
 // WAKE LOCK
-// ══════════════════════════════
+// ==============================
 let wakeLock = null;
 async function requestWakeLock() {
   if ('wakeLock' in navigator) {
@@ -445,9 +445,9 @@ document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible' && timer && !paused) requestWakeLock();
 });
 
-// ══════════════════════════════
+// ==============================
 // AUDIO
-// ══════════════════════════════
+// ==============================
 let audioCtx = null;
 function getAudioCtx() {
   if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -467,8 +467,8 @@ function beep(frequency = 880, duration = 0.12, volume = 0.6) {
     osc.start(ctx.currentTime); osc.stop(ctx.currentTime + duration);
   } catch {}
 }
-document.addEventListener('touchstart', () => { getAudioCtx(); unlockSpeech(); }, { once: true });
-document.addEventListener('click',      () => { getAudioCtx(); unlockSpeech(); }, { once: true });
+document.addEventListener('touchstart', () => { getAudioCtx(); }, { once: true });
+document.addEventListener('click',      () => { getAudioCtx(); }, { once: true });
 
 let countdownBeepedSet = new Set();
 function maybeCountdown(rem) {
@@ -478,9 +478,9 @@ function maybeCountdown(rem) {
   }
 }
 
-// ══════════════════════════════
+// ==============================
 // HOME SCREEN
-// ══════════════════════════════
+// ==============================
 function renderHome() {
   const el = document.getElementById('trainingList');
   trainings = loadTrainings();
@@ -489,7 +489,7 @@ function renderHome() {
     el.innerHTML = `
       <div class="empty-state">
         <div class="empty-icon">&#x1F3CB;&#xFE0F;</div>
-        <div class="empty-text">Noch keine Trainings gespeichert.<br>Tippe auf „+ Neu" um loszulegen.</div>
+        <div class="empty-text">Noch keine Trainings gespeichert.<br>Tippe auf "+ Neu" um loszulegen.</div>
       </div>`;
     return;
   }
@@ -503,11 +503,11 @@ function renderHome() {
       <div class="training-icon">&#x1F4AA;</div>
       <div class="training-info">
         <div class="training-name">${escHtml(t.name)}</div>
-        <div class="training-meta">${t.intervals.length} Intervalle · ${t.rounds} Runden · ${formatTime(totalSec)}</div>
+        <div class="training-meta">${t.intervals.length} Intervalle &middot; ${t.rounds} Runden &middot; ${formatTime(totalSec)}</div>
       </div>
       <div class="training-actions">
         <button class="btn-icon" onclick="event.stopPropagation();editTraining('${t.id}')" title="Bearbeiten">&#x270F;&#xFE0F;</button>
-        <button class="btn-icon danger" onclick="event.stopPropagation();deleteTraining('${t.id}')" title="Löschen">&#x1F5D1;&#xFE0F;</button>
+        <button class="btn-icon danger" onclick="event.stopPropagation();deleteTraining('${t.id}')" title="L&ouml;schen">&#x1F5D1;&#xFE0F;</button>
       </div>
     `;
     card.addEventListener('click', () => startTrainingById(t.id));
@@ -543,7 +543,7 @@ function editTraining(id) {
 }
 
 function deleteTraining(id) {
-  if (!confirm('Training wirklich löschen?')) return;
+  if (!confirm('Training wirklich l&ouml;schen?')) return;
   trainings = trainings.filter(t => t.id !== id);
   saveTrainings(trainings);
   renderHome();
@@ -557,9 +557,9 @@ function startTrainingById(id) {
   launchTimer();
 }
 
-// ══════════════════════════════
+// ==============================
 // SETUP SCREEN
-// ══════════════════════════════
+// ==============================
 function addInterval(name = 'Arbeit', duration = 30, type = 'work') {
   intervals.push({ name, duration, type });
   renderList();
@@ -618,7 +618,7 @@ function collectFormData() {
 function saveTraining() {
   collectFormData();
   const name = document.getElementById('trainingNameInput').value.trim() || 'Unbenanntes Training';
-  if (intervals.length === 0) { alert('Füge mindestens ein Intervall hinzu.'); return; }
+  if (intervals.length === 0) { alert('F&uuml;ge mindestens ein Intervall hinzu.'); return; }
 
   if (editingId) {
     const idx = trainings.findIndex(t => t.id === editingId);
@@ -638,7 +638,7 @@ function saveTraining() {
 
 function saveAndStart() {
   collectFormData();
-  if (intervals.length === 0) { alert('Füge mindestens ein Intervall hinzu.'); return; }
+  if (intervals.length === 0) { alert('F&uuml;ge mindestens ein Intervall hinzu.'); return; }
   // auto-save with current name
   const name = document.getElementById('trainingNameInput').value.trim() || 'Unbenanntes Training';
   if (editingId) {
@@ -652,9 +652,9 @@ function saveAndStart() {
   launchTimer();
 }
 
-// ══════════════════════════════
+// ==============================
 // RENAME MODAL
-// ══════════════════════════════
+// ==============================
 function closeModal() {
   document.getElementById('renameModal').classList.remove('open');
 }
@@ -666,9 +666,9 @@ function confirmRename() {
   closeModal();
 }
 
-// ══════════════════════════════
+// ==============================
 // TIMER
-// ══════════════════════════════
+// ==============================
 function launchTimer() {
   phases = [];
   for (let r = 0; r < rounds; r++) {
@@ -731,7 +731,7 @@ function tick() {
   document.getElementById('ringProg').style.strokeDashoffset = CIRCUMFERENCE * (1 - frac);
   const next = phases[phaseIdx + 1];
   document.getElementById('nextUpVal').textContent = next
-    ? `${next.name} · ${formatTime(next.duration)}` : 'Letztes Intervall';
+    ? `${next.name} &middot; ${formatTime(next.duration)}` : 'Letztes Intervall';
   maybeCountdown(remaining);
   if (remaining <= 0) {
     clearInterval(timer);
@@ -740,8 +740,7 @@ function tick() {
     phaseIdx++;
     const isLast = phaseIdx >= phases.length;
     if (isLast) {
-      speakMotivation();
-      setTimeout(showDone, 800);
+      setTimeout(showDone, 400);
     } else {
       setTimeout(beginPhase, 400);
     }
@@ -759,36 +758,13 @@ function skipPhase() {
   beginPhase();
 }
 
-// ── SPEECH ──
-let speechUnlocked = false;
-function unlockSpeech() {
-  if (speechUnlocked || !window.speechSynthesis) return;
-  const u = new SpeechSynthesisUtterance(' ');
-  u.volume = 0;
-  u.lang = 'de-DE';
-  window.speechSynthesis.speak(u);
-  speechUnlocked = true;
-}
 
-function speakMotivation() {
-  if (!window.speechSynthesis) return;
-  window.speechSynthesis.cancel();
-  // Small delay so cancel() has time to flush, then speak
-  setTimeout(() => {
-    const u = new SpeechSynthesisUtterance('Geil gemacht, du bist eine Maschine!');
-    u.lang = 'de-DE';
-    u.rate = 0.95;
-    u.pitch = 1.2;
-    u.volume = 1;
-    window.speechSynthesis.speak(u);
-  }, 100);
-}
 
 function showDone() {
   clearInterval(timer); releaseWakeLock();
   const total = phases.reduce((s, p) => s + p.duration, 0);
   document.getElementById('doneSub').textContent =
-    `${rounds} Runde${rounds > 1 ? 'n' : ''} · ${formatTime(total)} Gesamtzeit`;
+    `${rounds} Runde${rounds > 1 ? 'n' : ''} &middot; ${formatTime(total)} Gesamtzeit`;
   showScreen('doneScreen');
 }
 
@@ -798,9 +774,9 @@ function goBack() {
   renderHome();
 }
 
-// ══════════════════════════════
+// ==============================
 // UTILS
-// ══════════════════════════════
+// ==============================
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
@@ -815,9 +791,9 @@ function escHtml(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-// ══════════════════════════════
+// ==============================
 // INIT
-// ══════════════════════════════
+// ==============================
 renderHome();
 </script>
 </body>
