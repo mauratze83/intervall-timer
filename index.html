@@ -407,8 +407,8 @@ function loadTrainings() {
   catch { return []; }
 }
 
-function saveTrainings(list) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+function saveTrainings() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(trainings)); } catch {}
 }
 
 // ==============================
@@ -482,7 +482,6 @@ function maybeCountdown(rem) {
 // ==============================
 function renderHome() {
   const el = document.getElementById('trainingList');
-  trainings = loadTrainings();
 
   if (trainings.length === 0) {
     el.innerHTML = `
@@ -543,7 +542,7 @@ function editTraining(id) {
 function deleteTraining(id) {
   if (!confirm('Training wirklich l&ouml;schen?')) return;
   trainings = trainings.filter(t => t.id !== id);
-  saveTrainings(trainings);
+  saveTrainings();
   renderHome();
 }
 
@@ -626,7 +625,7 @@ function saveTraining() {
     trainings.push({ id, name, rounds, intervals: JSON.parse(JSON.stringify(intervals)) });
     editingId = id;
   }
-  saveTrainings(trainings);
+  saveTrainings();
   document.getElementById('setupTitle').textContent = 'Training bearbeiten';
   // brief visual feedback
   const btn = event.target;
@@ -646,7 +645,7 @@ function saveAndStart() {
     const id = 'T' + Date.now();
     trainings.push({ id, name, rounds, intervals: JSON.parse(JSON.stringify(intervals)) });
   }
-  saveTrainings(trainings);
+  saveTrainings();
   launchTimer();
 }
 
@@ -660,7 +659,7 @@ function confirmRename() {
   const name = document.getElementById('renameInput').value.trim();
   if (!name) return;
   const t = trainings.find(x => x.id === renameId);
-  if (t) { t.name = name; saveTrainings(trainings); renderHome(); }
+  if (t) { t.name = name; saveTrainings(); renderHome(); }
   closeModal();
 }
 
