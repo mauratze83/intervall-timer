@@ -169,7 +169,12 @@ body{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direct
 .kb-anim-wrap svg{width:min(220px,60vw);height:min(220px,60vw);}
 .kb-info{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;-webkit-flex-shrink:0;flex-shrink:0;}
 .kb-ex-name{font-size:18px;font-weight:700;font-family:'Space Grotesk',sans-serif;}
-.kb-ex-desc{font-size:13px;color:var(--muted);margin-top:6px;line-height:1.5;}
+.kb-ex-desc{font-size:13px;color:var(--muted);margin-top:10px;line-height:1.5;}
+.kb-ex-desc ul{list-style:none;padding:0;margin:0;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;gap:6px;}
+.kb-ex-desc ul li{padding-left:16px;position:relative;}
+.kb-ex-desc ul li::before{content:'';position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%;background:var(--kb);}
+.kb-rest-label-small{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--rest);margin-bottom:6px;}
+.kb-next-preview-name{font-size:16px;font-weight:700;font-family:'Space Grotesk',sans-serif;color:var(--text);margin-bottom:8px;}
 .kb-timer-row{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:space-between;justify-content:space-between;-webkit-flex-shrink:0;flex-shrink:0;}
 .kb-timer-big{font-family:'Space Grotesk',sans-serif;font-size:clamp(48px,16vw,72px);font-weight:700;letter-spacing:-2px;color:var(--kb);}
 .kb-timer-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;text-align:right;}
@@ -409,36 +414,36 @@ var ICON_CLOSE='<svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><l
 /* ===================== KB EXERCISE DATABASE ===================== */
 var KB_DB = {
   beginner: [
-    {id:'swing',name:'Kettlebell Swing',desc:'Startposition: Fuesse etwas mehr als schulterbreit, KB ca. 30cm vor den Fuessen auf dem Boden. KB mit beiden Haenden greifen, leicht in die Kniebeuge gehen und die KB zwischen den Beinen hindurch nach hinten pendeln lassen. Dann explosiv die Huefte nach vorne stossen - nicht die Arme heben, die Huefte ist der Motor. Die KB schwingt durch die Hueftkraft bis auf Schulterhoehe. Oben: Koerper gerade, Gesaess und Bauch fest angespannt. Wichtig: Ruecken immer gerade, kein Rundrucken.',workSec:30,restSec:20},
-    {id:'deadlift',name:'KB Deadlift',desc:'KB steht zwischen den Fuessen (schulterbreit). Huefte nach hinten schieben, Knie leicht beugen und KB mit geradem Ruecken greifen. Schultern ueber oder leicht hinter der KB. Spannung im Ruecken aufbauen, dann KB durch Strecken der Huef-te und Knie vom Boden heben. Oben komplett aufrichten, Gesaess anspannen. Langsam und kontrolliert absenken - Huefte zuerst, dann Knie. Kein Rundrucken, Brust bleibt offen.',workSec:30,restSec:20},
-    {id:'goblet',name:'Goblet Squat',desc:'KB mit beiden Haenden am sogenannten Horns greifen (die seitlichen Griffe) und vor der Brust halten, Ellenbogen zeigen nach unten. Fuesse schulterbreit bis hueiftbreit, Zehen leicht nach aussen. Tief in die Kniebeuge: Brust bleibt aufrecht, Knie druecken aktiv nach aussen (in Richtung der Zehen), Fersen bleiben am Boden. So tief wie moeglich, dann kraftvoll hochdruecken. Oben Gesaess aktiv anspannen.',workSec:30,restSec:20},
-    {id:'rdl',name:'KB Romanian Deadlift',desc:'KB in beiden Haenden vor dem Koerper halten, stehend. Fuesse hueiftbreit, leichte Kniebeu-gung die sich waehrend der Bewegung nicht veraendert. Jetzt Rumpf nach vorne kippen - Huefte wandert nach hinten, KB gleitet eng an den Beinen entlang nach unten. Dehnung in der hinteren Oberschenkelmuskulatur spueren. Ruecken bleibt die ganze Zeit neutral (kein Rundrucken). Wenn maximale Dehnung erreicht ist, Huefte wieder nach vorne druecken und aufrichten.',workSec:30,restSec:20},
-    {id:'row',name:'KB Single Row',desc:'Eine Hand und das gleichseitige Knie auf einer Bank oder stabilem Stuhl abstuetzen. Koerper ist parallel zum Boden. KB haengt mit gestrecktem Arm herunter. Jetzt den Ellenbogen nah am Koerper nach hinten und oben ziehen - wie eine Saege. Schulterblatt am Ende der Bewegung zusammenzuziehen. Langsam absenken. Nach der Haelfte der Zeit Seite wechseln. Kein Verdrehen des Rumpfes.',workSec:30,restSec:20},
-    {id:'press',name:'KB Floor Press',desc:'Auf dem Ruecken liegen, Knie angewinkelt, Fuss aufgestellt. KB in einer Hand, Oberarm liegt mit ca. 45 Grad zum Koerper auf dem Boden. Handgelenk gerade, KB liegt auf dem Unterarm. Jetzt KB senkrecht nach oben druecken - Ellenbogen bis zur Streckung. Langsam und kontrolliert absenken bis der Arm wieder den Boden beruehrt. Nach Haelfte der Zeit Seite wechseln. Schulterblatt bleibt aktiv nach unten gezogen.',workSec:30,restSec:20},
-    {id:'halo',name:'KB Halo',desc:'KB kopfueber halten - beide Haende greifen das Horns, der Ball zeigt nach oben. Stehend oder im Kniesitz. KB langsam um den Kopf kreisen: von vorne zur Seite, nach hinten, zur anderen Seite und wieder nach vorne. Ellenbogen bleiben dabei nah am Kopf. Rumpf bleibt stabil und aufrecht - nur die Arme bewegen sich. Nach der Haelfte die Richtung wechseln. Schultern locker lassen.',workSec:25,restSec:20},
-    {id:'suitcase',name:'Suitcase Carry',desc:'KB in einer Hand halten, wie einen schweren Koffer. Aufrecht gehen - Schultern bleiben auf gleicher Hoehe, Huefte kippt nicht zur Seite. Core aktiv anspannen um das Kippen zu verhindern. Blick geradeaus, Schritte gleichmaessig. Die Seite, die die KB haelt, arbeitet gegen das seitliche Kippen - das trainiert intensiv den seitlichen Rumpf (Quadratus lumborum). Nach Haelfte der Zeit Seite wechseln.',workSec:25,restSec:20}
+    {id:'swing',name:'Kettlebell Swing',desc:'Fuesse schulterbreit, KB zwischen den Beinen|Huefte nach hinten schieben (Hip Hinge), nicht in die Knie|Explosiv Huefte nach vorne stossen - Arme nur mitgehen|KB schwingt bis Schulterhoehe, oben Gesaess & Core anspannen|Ruecken immer gerade, kein Rundrucken',workSec:30,restSec:20},
+    {id:'deadlift',name:'KB Deadlift',desc:'KB zwischen den Fuessen, Huefte zurueck, Ruecken neutral|Schultern leicht vor oder ueber der KB|Spannung aufbauen, dann durch Huefte & Knie strecken|Oben komplett aufrichten, Gesaess fest anspannen|Kontrolliert absenken: Huefte zuerst, dann Knie',workSec:30,restSec:20},
+    {id:'goblet',name:'Goblet Squat',desc:'KB am Horns halten, vor der Brust, Ellenbogen nach unten|Fuesse schulterbreit, Zehen leicht nach aussen|Tief in die Kniebeuge - Brust aufrecht, Fersen am Boden|Knie aktiv nach aussen druecken (Richtung Zehen)|Kraftvoll hochdruecken, oben Gesaess anspannen',workSec:30,restSec:20},
+    {id:'rdl',name:'KB Romanian Deadlift',desc:'KB beidhaendig vor dem Koerper, Fuesse hueiftbreit|Leichte Kniebeu-gung, die sich nicht veraendert|Huefte nach hinten schieben, Rumpf kippt nach vorne|KB gleitet nah an den Beinen entlang nach unten|Dehnung hinten spueren, dann Huefte zurueck nach vorne',workSec:30,restSec:20},
+    {id:'row',name:'KB Single Row',desc:'Hand & Knie der gleichen Seite auf Bank abstuetzen|Koerper parallel zum Boden, KB haengt herunter|Ellenbogen nah am Koerper nach hinten & oben ziehen|Schulterblatt am Ende zusammenzuziehen|Langsam absenken - nach Haelfte Seite wechseln',workSec:30,restSec:20},
+    {id:'press',name:'KB Floor Press',desc:'Rueckenlage, Knie angewinkelt, Fuss aufgestellt|KB in einer Hand, Oberarm 45 Grad zum Koerper am Boden|Handgelenk gerade, KB auf dem Unterarm|Senkrecht nach oben druecken bis zur vollen Streckung|Langsam absenken bis Arm den Boden beruehrt - Seite wechseln',workSec:30,restSec:20},
+    {id:'halo',name:'KB Halo',desc:'KB kopfueber halten (Ball oben, Horns in den Haenden)|Stehend oder im Kniesitz, Core angespannt|KB langsam um den Kopf kreisen - Ellenbogen nah am Kopf|Rumpf bleibt stabil, nur die Arme bewegen sich|Nach Haelfte Richtung wechseln',workSec:25,restSec:20},
+    {id:'suitcase',name:'Suitcase Carry',desc:'KB in einer Hand wie einen Koffer halten|Aufrecht gehen - Schultern auf gleicher Hoehe|Core maximal anspannen um seitliches Kippen zu verhindern|Gleichmaessige Schritte, Blick geradeaus|Nach Haelfte Seite wechseln',workSec:25,restSec:20}
   ],
   intermediate: [
-    {id:'swing',name:'Kettlebell Swing',desc:'Wie der Basis-Swing, aber mit hoeherer Intensitaet: KB schwingt bis auf Augenhoehe. Harter Lock-out oben - Gesaess und Core werden bei jedem Schwung fest angespannt. Atemrhythmus beachten: beim Hochschwingen ausatmen (Schnauben), beim Zurueckschwingen einatmen. Die Kraft kommt ausschliesslich von der Huefte, die Arme sind nur eine Verbindung. Hohes Tempo anstreben.',workSec:40,restSec:20},
-    {id:'clean',name:'KB Clean',desc:'Wie ein Swing, aber die KB wird statt nach vorne in die sogenannte Rack-Position gebracht. Startbewegung ist identisch mit dem Swing: explosive Huefte. Wenn die KB auf Bauchhoehe ist, den Arm anwinkeln und die KB "corkscrew" (eindrehen) in die Rack-Position bringen. Rack: KB liegt auf dem Unterarm, der Unterarm ist an den Koerper gelehnt, Ellenbogen zeigt nach unten, Hand nahe der Schulter. Weiche Landung - kein harter Aufschlag auf den Unterarm. Seite nach der Haelfte wechseln.',workSec:40,restSec:20},
-    {id:'press',name:'KB Press',desc:'Aus der Rack-Position (KB auf Unterarm, Ellenbogen unten, Hand bei Schulter). Spanne den Core und Gesaess an. Dann KB senkrecht nach oben druecken - am Anfang den Ellenbogen leicht nach vorne, oben den Arm komplett strecken und Schulter aktiv nach oben druecken (Schulterblatt hebt sich). Langsam und kontrolliert zurueck in Rack. Keine Beinarbeit - reine Schulter- und Armkraft. Seite nach Haelfte wechseln.',workSec:35,restSec:20},
-    {id:'goblet',name:'Goblet Squat',desc:'Wie Anfaenger, aber mit Pause unten: 1-2 Sekunden in der tiefsten Position halten, dann explosiv hochdruecken. Das eliminiert den Dehnreflex und macht die Uebung deutlich schwerer. Knie bleiben aktiv nach aussen, Fersen fest am Boden. Alternativ: Tempo-Squats - 3 Sekunden runter, 1 Sekunde hoch.',workSec:35,restSec:20},
-    {id:'lunge',name:'KB Lunge',desc:'KB in einer Hand (oder beiden) halten. Grossen Schritt nach vorne, das hintere Knie senkt sich fast auf den Boden - ca. 2-3cm Abstand. Oberkoel bleibt aufrecht, kein Vorneigen. Das vordere Knie bleibt ueber dem Fuss (nicht darueber hinaus). Kraftvoll mit dem vorderen Bein hochdruecken zurueck in die Startposition. Abwechselnd links-rechts oder alle Wiederholungen eine Seite.',workSec:40,restSec:20},
-    {id:'deadlift2',name:'Single Leg Deadlift',desc:'KB in einer Hand halten (gegenueber dem Standbein oder gleichseitig). Auf einem Bein stehen, leichte Kniebeu-gung. Rumpf jetzt nach vorne kippen waehrend das freie Bein kontrolliert nach hinten geht - Koerper und Bein bilden eine Linie. KB bleibt nah am Standbein. Kein Verdrehen des Beckens. Langsam zurueck in die Startposition. Das Standbein stabilisiert komplett. Nach Haelfte Seite wechseln.',workSec:35,restSec:20},
-    {id:'row',name:'KB Bent Row',desc:'Fuesse hueiftbreit, leicht in die Kniebeuge, Rumpf ca. 45 Grad nach vorne geneigt. KB haengt mit beiden Haenden (oder einer Hand) vor dem Koerper. Jetzt beide Ellenbogen gleichzeitig nach hinten und oben ziehen - KB kommt zum Bauch/unteren Brustbereich. Am Ende die Schulterblatter aktiv zusammenzuziehen und kurz halten. Kontrolliert absenken. Ruecken bleibt die ganze Zeit neutral.',workSec:35,restSec:20},
-    {id:'situp',name:'KB Russian Twist',desc:'Auf dem Boden sitzen, Knie angewinkelt, Fuesse entweder aufgestellt oder leicht angehoben (schwerer). Oberkoel ca. 45 Grad nach hinten geneigt - Spannung im Core. KB mit beiden Haenden vor dem Bauch halten. Jetzt den Oberkoel nach rechts rotieren, KB begleitet die Bewegung bis fast zum Boden, dann zur anderen Seite. Die Bewegung kommt aus der Rotation der Wirbelsaeule, nicht aus den Armen.',workSec:30,restSec:20},
-    {id:'swing2',name:'Single Arm Swing',desc:'Einarmschwung - technisch anspruchsvoller als der beihaendige Swing. Eine Hand haelt die KB, die andere Arm schwingt als Gegengewicht. Schulter der KB-Seite bleibt aktiv stabilisiert - nicht hochziehen lassen. Die Rotation des Rumpfes kontrollieren. Entweder: nach jedem Schwung oben den Griff wechseln, oder eine Haelfte der Zeit pro Seite. Hueftkraft identisch mit normalem Swing.',workSec:35,restSec:20}
+    {id:'swing',name:'Kettlebell Swing',desc:'Wie Basis-Swing, KB schwingt bis Augenhoehe|Harter Lock-out oben: Gesaess & Core fest|Atemrhythmus: ausatmen beim Hochschwingen (Schnauben)|Kraft kommt nur von der Huefte, Arme sind passiv|Hohes Tempo anstreben',workSec:40,restSec:20},
+    {id:'clean',name:'KB Clean',desc:'Startet wie ein Einarm-Swing mit explosiver Huefte|Ab Bauchhoehe: Ellenbogen hoch, KB eindrehen (Corkscrew)|Weiche Landung in der Rack-Position anstreben|Rack: KB auf Unterarm, Ellenbogen tief, Hand bei Schulter|Kein harter Aufschlag auf den Unterarm - Seite wechseln',workSec:40,restSec:20},
+    {id:'press',name:'KB Press',desc:'Aus perfekter Rack-Position starten|Core & Gesaess fest anspannen vor dem Druecken|KB senkrecht nach oben, oben Schulter aktiv hochdruecken|Langsam in 3 Sek. in Rack absenken|Keine Beinarbeit - reine Schulter/Armkraft - Seite wechseln',workSec:35,restSec:20},
+    {id:'goblet',name:'Goblet Squat',desc:'Wie Basis, aber mit 1-2 Sek. Pause unten|Oder: 3 Sek. runter, explosiv hoch (Tempo-Squat)|Eliminiert den Dehnreflex - deutlich schwerer|Knie aktiv nach aussen, Fersen am Boden|Brust bleibt aufrecht die gesamte Bewegung',workSec:35,restSec:20},
+    {id:'lunge',name:'KB Lunge',desc:'KB in einer oder beiden Haenden|Grossen Schritt nach vorne, hinteres Knie fast auf Boden|Vorderes Knie ueber dem Fuss - nicht darueber hinaus|Oberkoel bleibt aufrecht, kein Vorneigen|Kraftvoll mit dem vorderen Bein hochdruecken',workSec:40,restSec:20},
+    {id:'deadlift2',name:'Single Leg Deadlift',desc:'KB in einer Hand, auf einem Bein stehen|Standbein leicht gebeugt, Core angespannt|Rumpf nach vorne kippen, freies Bein geht nach hinten|Koerper & Bein bilden eine gerade Linie|Kein Verdrehen des Beckens - nach Haelfte Seite wechseln',workSec:35,restSec:20},
+    {id:'row',name:'KB Bent Row',desc:'Fuesse hueiftbreit, leicht in Kniebeuge, Rumpf 45 Grad geneigt|KB haengt vor dem Koerper (ein- oder beidhaendig)|Ellenbogen nach hinten & oben ziehen zur Bauchhoehe|Schulterblatter am Ende zusammenzuziehen & kurz halten|Kontrolliert absenken, Ruecken bleibt neutral',workSec:35,restSec:20},
+    {id:'situp',name:'KB Russian Twist',desc:'Rueckenlage, Knie angewinkelt - Fuesse aufstellen oder anheben|Oberkoel 45 Grad nach hinten, KB beidhaendig vor dem Bauch|Rotation nach rechts & links - KB fast bis zum Boden|Bewegung aus der Wirbelsaeulen-Rotation, nicht den Armen|Fuesse angehoben = schwerer',workSec:30,restSec:20},
+    {id:'swing2',name:'Single Arm Swing',desc:'Eine Hand haelt die KB, andere schwingt als Gegengewicht|Schulter der KB-Seite aktiv stabilisieren|Rumpfrotation kontrollieren und minimieren|Oben Griff wechseln oder halbe Zeit pro Seite|Hueftkraft identisch mit normalem Swing',workSec:35,restSec:20}
   ],
   advanced: [
-    {id:'snatch',name:'KB Snatch',desc:'Beginnt wie ein Einarm-Swing. Wenn die KB auf Hueft/Bauchhoehe ist, wird der Arm gebeugt und die KB "hochgezogen" - Ellenbogen hoch, KB bleibt nah am Koerper. Im letzten Moment streckt man den Arm explosiv und die KB "dreht" sich um die Hand - der Knoechen der Hand zeigt nach oben. Endposition: Arm gerade ueber dem Kopf, Schulter aktiv ins Gelenk gedrueckt, Koerper gerade. Absenken: kontrolliert in den Swing zurueck.',workSec:45,restSec:15},
-    {id:'clean',name:'KB Clean',desc:'Fortgeschrittener Clean: Fokus auf perfekte Technik und Geschwindigkeit. Die KB soll so wenig wie moeglich vom Koerper entfernt sein. Der Zug beginnt erst wenn die Huefte vollstaendig gestreckt ist. Ellenbogen fuehrt die Bewegung nach oben. Rack-Position: KB liegt auf dem Unterarm, der Ellenbogen zeigt tief nach unten, Hand entspannt - die KB wird nicht "gehalten" sondern "liegt". Hohe Wiederholungszahl anstreben.',workSec:45,restSec:15},
-    {id:'press',name:'KB Strict Press',desc:'Strenger Press ohne jegliche Beinarbeit oder Impuls. Aus perfekter Rack-Position: Core maximal angespannt, Gesaess fest. KB langsam nach oben druecken - der Weg ist leicht bogenfoermig (um den Kopf herum). Oben: Arm komplett gestreckt, Schulter aktiv nach oben gedrueckt (Scapula aufwaerts rotiert). Langsam absenken in 3-4 Sekunden. Fokus auf den scharfen Kontrast: oben alles fest angespannt.',workSec:40,restSec:15},
-    {id:'windmill',name:'KB Windmill',desc:'KB ueber dem Kopf halten - Arm gerade, Blick auf die KB. Der Fuss unter der KB-Seite zeigt ca. 45-60 Grad nach aussen, der andere Fuss steht parallel oder leicht nach innen. Jetzt seitlich nach unten beugen: Huefte schiebt in Richtung des KB-Arms, freier Arm gleitet das Bein entlang nach unten. Der KB-Arm bleibt die ganze Zeit senkrecht und gerade. Tief gehen bis die freie Hand den Boden oder das Bein beruehrt. Langsam zurueck.',workSec:35,restSec:15},
-    {id:'tgu',name:'Turkish Get Up',desc:'Auf dem Ruecken liegen. KB senkrecht ueber dem Kopf, Arm gerade. Gleichseitiges Knie anwinkeln. Schritt 1: Auf den gegenueberliegenden Ellenbogen aufrollen. Schritt 2: Auf die flache Hand druecken. Schritt 3: Huefte heben. Schritt 4: freies Bein unter dem Koerper hindurch in den Ausfallschritt. Schritt 5: Aufrichten. Der KB-Arm bleibt die GANZE Zeit senkrecht. Dann den Weg zurueck. Eine Seite pro Satz. Extrem langsam und kontrolliert.',workSec:50,restSec:20},
-    {id:'swing3',name:'Double KB Swing',desc:'Zwei KBs gleichzeitig schwingen - mit je einer in jeder Hand. Die KBs befinden sich etwas weiter aussen als beim normalen Swing. Die Koordination und das Gewicht erfordern noch mehr Stabilitaet. Ruecken muss absolut gerade bleiben - durch das groessere Gewicht ist die Versuchung groesser, in einen Rundrucken zu verfallen. Maximaler Huefteinsatz, starkes Lock-out oben.',workSec:40,restSec:15},
-    {id:'clean2',name:'KB Clean and Press',desc:'Eine Verbunduebung aus Clean und Press. Erst einen sauberen Clean in die Rack-Position ausfuehren (explosive Huefte, weiche Landung). Ohne Pause direkt aus der Rack-Position pressen. Oben den Arm strecken und Schulter aktiv hochdruecken. Kontrolliert in Rack absenken, dann wieder aus dem Rack in den naechsten Clean. Fliessendes Tempo. Die Verbindung zwischen den Bewegungen kostet zusaetzlich Kraft - maximale Kraftausdauer.',workSec:45,restSec:15},
-    {id:'lunge',name:'KB Lunge Komplex',desc:'KB in der Rack-Position halten (oder beidhaendig). Ausfallschritt nach vorne. In der unteren Position zusaetzlich: Oberkoel aufrichten und kurz halten. Dann zurueck hoch und direkt das Knie nach vorne oben ziehen (Knieheben). Dann direkt in den naechsten Ausfallschritt. Diese Kombination trainiert Stabilitaet, Kraft und Gleichgewicht gleichzeitig. Fliessendes Tempo, Core permanent angespannt.',workSec:40,restSec:15},
-    {id:'situp',name:'KB Sit Up',desc:'KB vor der Brust halten oder ueber dem Kopf. Auf dem Ruecken liegen, Beine gestreckt oder leicht angewinkelt. Jetzt komplett aufrichten - nicht nur Crunchen, sondern wirklich bis in den aufrechten Sitz kommen. Am oberen Ende die KB nach vorne oder nach oben strecken. Kontrolliert absenken bis der Ruecken komplett am Boden liegt. Keine Schwungbewegung - langsame exzentrische Phase (Absenken) ist besonders wirkungsvoll.',workSec:35,restSec:15}
+    {id:'snatch',name:'KB Snatch',desc:'Startet wie Einarm-Swing, explosive Huefte|Ab Huefthoehe: Ellenbogen hoch, KB nah am Koerper ziehen|Im letzten Moment Arm strecken, KB dreht sich um die Hand|Endposition: Arm gerade oben, Schulter aktiv ins Gelenk|Absenken: kontrolliert zurueck in den Swing',workSec:45,restSec:15},
+    {id:'clean',name:'KB Clean',desc:'Fokus auf Geschwindigkeit & saubere Technik|KB bleibt die ganze Zeit nah am Koerper|Zug beginnt erst bei vollstaendig gestreckter Huefte|Rack: KB liegt locker auf dem Unterarm, nicht "gehalten"|Hohe Wiederholungszahl mit sauberer Form anstreben',workSec:45,restSec:15},
+    {id:'press',name:'KB Strict Press',desc:'Strenger Press: absolut keine Beinarbeit|Core & Gesaess maximal angespannt|Weg leicht bogenfoermig um den Kopf herum|Oben: Arm gestreckt, Schulterblatt aufwaerts rotiert|Absenken in 3-4 Sek. - maximale Kontrolle',workSec:40,restSec:15},
+    {id:'windmill',name:'KB Windmill',desc:'KB ueber dem Kopf, Arm gerade, Blick auf KB|Fuss unter KB-Seite 45-60 Grad nach aussen|Huefte zur KB-Seite schieben, seitlich nach unten beugen|KB-Arm bleibt die ganze Zeit senkrecht & gerade|Tief bis freie Hand den Boden beruehrt - langsam zurueck',workSec:35,restSec:15},
+    {id:'tgu',name:'Turkish Get Up',desc:'Rueckenlage, KB senkrecht ueber dem Kopf|Schritt 1: auf Ellenbogen rollen / Schritt 2: auf flache Hand|Schritt 3: Huefte heben / Schritt 4: Bein hindurch in Ausfallschritt|Schritt 5: aufrichten - dann alles rueckwaerts|KB-Arm bleibt IMMER senkrecht - eine Seite pro Satz',workSec:50,restSec:20},
+    {id:'swing3',name:'Double KB Swing',desc:'Zwei KBs gleichzeitig, je eine pro Hand|KBs etwas weiter aussen als beim normalen Swing|Mehr Gewicht erfordert mehr Stabilitaet im Rumpf|Ruecken absolut gerade - kein Rundrucken durch hohes Gewicht|Maximaler Huefteinsatz, starkes Lock-out oben',workSec:40,restSec:15},
+    {id:'clean2',name:'KB Clean and Press',desc:'Sauberer Clean in die Rack-Position|Ohne Pause direkt aus Rack pressen|Oben: Arm strecken, Schulter aktiv hochdruecken|Kontrolliert in Rack absenken, naechsten Clean|Verbundene Bewegung = maximale Kraftausdauer',workSec:45,restSec:15},
+    {id:'lunge',name:'KB Lunge Komplex',desc:'KB in Rack-Position halten|Ausfallschritt nach vorne, kurz halten|Hoch und direkt Knie nach vorne oben ziehen|Direkt in naechsten Ausfallschritt|Core permanent angespannt - fliessendes Tempo',workSec:40,restSec:15},
+    {id:'situp',name:'KB Sit Up',desc:'Rueckenlage, KB vor Brust oder ueber Kopf|Komplett bis in aufrechten Sitz aufrichten (kein Crunch)|KB am Ende nach vorne oder oben strecken|Langsam & kontrolliert absenken bis Ruecken am Boden|Exzentrische Phase (Absenken) besonders wirkungsvoll',workSec:35,restSec:15}
   ]
 };
 
@@ -639,7 +644,7 @@ function renderKbPreview(){
           +'<div class="preview-card-dur">'+fmt(ex.workSec+ex.restSec)+'</div>'
           +'<div class="preview-card-chevron">&#9660;</div>'
         +'</div>'
-        +'<div class="preview-card-desc">'+escHtml(ex.desc)+'</div>';
+        +'<div class="preview-card-desc">'+renderDesc(ex.desc)+'</div>';
       card.addEventListener('click', function(){
         card.classList.toggle('open');
       });
@@ -713,6 +718,13 @@ function launchKbWorkout(exercises){
   beginKbPhase();
 }
 
+function renderDesc(desc, color){
+  var bullets = desc.split('|');
+  var items = bullets.map(function(b){ return '<li>'+escHtml(b.trim())+'</li>'; }).join('');
+  var style = color ? 'style="--kb:'+color+';"' : '';
+  return '<ul '+style+'>'+items+'</ul>';
+}
+
 function beginKbPhase(){
   if(kbPhaseIdx>=kbPhases.length){showKbDone();return;}
   var p=kbPhases[kbPhaseIdx];
@@ -720,7 +732,7 @@ function beginKbPhase(){
   kbPaused=false;
   document.getElementById('kbPauseBtn').textContent='Pause';
 
-  var exIdx=0,count=0;
+  var count=0;
   for(var i=0;i<=kbPhaseIdx;i++){if(kbPhases[i].type==='work') count++;}
   document.getElementById('kbExIdx').textContent=count;
 
@@ -729,15 +741,19 @@ function beginKbPhase(){
 
   if(p.type==='work'){
     document.getElementById('kbExName').textContent=p.ex.name;
-    document.getElementById('kbExDesc').textContent=p.ex.desc;
+    document.getElementById('kbExDesc').innerHTML=renderDesc(p.ex.desc);
     document.getElementById('kbTimerLabel').textContent='ARBEIT';
     document.getElementById('kbTimerBig').style.color='var(--kb)';
     var nextP=kbPhases[kbPhaseIdx+1];
-    document.getElementById('kbNextName').textContent=nextP?(nextP.type==='rest'?'Pause':''+nextP.ex.name):'-';
+    document.getElementById('kbNextName').textContent=nextP?(nextP.type==='rest'?'Pause':nextP.ex.name):'-';
   } else {
+    // During rest: show next exercise name + description
+    var nx=p.nextEx;
+    document.getElementById('kbExName').innerHTML='<div class="kb-rest-label-small">Pause - naechste Uebung:</div>'+(nx?'<div class="kb-next-preview-name">'+escHtml(nx.name)+'</div>':'');
+    document.getElementById('kbExDesc').innerHTML=nx?renderDesc(nx.desc,'#22c55e'):'';
     document.getElementById('kbTimerLabel').textContent='PAUSE';
     document.getElementById('kbTimerBig').style.color='var(--rest)';
-    document.getElementById('kbNextName').textContent=p.nextEx?p.nextEx.name:'-';
+    document.getElementById('kbNextName').textContent=nx?nx.name:'-';
   }
   document.getElementById('kbTimerBig').textContent=fmt(kbRemaining);
 
