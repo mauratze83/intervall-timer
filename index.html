@@ -145,7 +145,27 @@ body{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direct
 .kb-option-row{display:-webkit-flex;display:flex;gap:8px;-webkit-flex-shrink:0;flex-shrink:0;}
 .kb-opt{-webkit-flex:1;flex:1;padding:12px 8px;border-radius:12px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;text-align:center;}
 .kb-opt.active{border-color:var(--kb);background:var(--kb-dim);color:var(--kb);}
-.kb-dur-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:space-between;justify-content:space-between;-webkit-flex-shrink:0;flex-shrink:0;}
+.kb-config-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;gap:12px;-webkit-flex-shrink:0;flex-shrink:0;}
+.kb-config-name{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:2px 12px;}
+.kb-config-name.error{border-color:var(--err);background:var(--err-dim);}
+.kb-config-name input{background:transparent;border:none;color:var(--text);font-size:15px;font-weight:600;width:100%;outline:none;font-family:inherit;padding:9px 0;}
+.kb-config-name input::-webkit-input-placeholder{color:var(--muted);}
+.kb-config-name input::placeholder{color:var(--muted);}
+.kb-config-row{display:-webkit-flex;display:flex;gap:10px;-webkit-align-items:flex-end;align-items:flex-end;}
+.kb-config-group{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;gap:5px;}
+.kb-config-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);}
+.kb-seg{display:-webkit-flex;display:flex;background:var(--surface2);border-radius:8px;padding:2px;gap:2px;}
+.kb-seg-btn{-webkit-flex:1;flex:1;padding:6px 8px;border-radius:6px;border:none;background:transparent;color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap;}
+.kb-seg-btn.active{background:var(--kb);color:#fff;}
+.kb-mini-stepper{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;gap:4px;background:var(--surface2);border-radius:8px;padding:4px 6px;}
+.kb-mini-btn{width:28px;height:28px;border-radius:6px;border:none;background:var(--border);color:var(--text);font-size:16px;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;cursor:pointer;font-family:inherit;-webkit-flex-shrink:0;flex-shrink:0;}
+.kb-mini-btn:active{background:var(--kb);color:#fff;}
+.kb-mini-val{font-size:16px;font-weight:700;min-width:22px;text-align:center;color:var(--text);}
+.kb-mini-unit{font-size:11px;color:var(--muted);margin-left:1px;}
+.kb-filter-row{display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;gap:5px;}
+.kb-filter{padding:6px 11px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;}
+.kb-filter.active{background:var(--kb-dim);border-color:var(--kb);color:var(--kb);}
+.kb-filter:active{opacity:0.7;}
 .kb-dur-row span{font-size:14px;}
 .preview-list{overflow-y:auto;-webkit-overflow-scrolling:touch;-webkit-flex:1;flex:1;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;gap:8px;}
 .preview-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;-webkit-flex-shrink:0;flex-shrink:0;cursor:pointer;transition:border-color 0.2s;}
@@ -173,8 +193,12 @@ body{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direct
 .kb-ex-desc ul,.preview-card-desc ul{list-style:none;padding:0;margin:0;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;gap:7px;}
 .kb-ex-desc ul li,.preview-card-desc ul li{padding-left:18px;position:relative;font-size:13px;line-height:1.4;}
 .kb-ex-desc ul li::before,.preview-card-desc ul li::before{content:'';position:absolute;left:0;top:6px;width:7px;height:7px;border-radius:50%;background:var(--kb);}
+.kb-ex-meta{display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;gap:6px;margin-top:8px;margin-bottom:4px;}
+.kb-tag{font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;letter-spacing:0.3px;}
+.kb-tag-group{background:var(--kb-dim);color:var(--kb);}
+.kb-tag-muscle{background:var(--surface2);color:var(--muted);border:1px solid var(--border);}
 .kb-rest-label-small{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--rest);margin-bottom:6px;}
-.kb-next-preview-name{font-size:16px;font-weight:700;font-family:'Space Grotesk',sans-serif;color:var(--text);margin-bottom:10px;}
+.kb-next-preview-name{font-size:16px;font-weight:700;font-family:'Space Grotesk',sans-serif;color:var(--text);margin-bottom:6px;}
 .kb-timer-row{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:space-between;justify-content:space-between;-webkit-flex-shrink:0;flex-shrink:0;}
 .kb-timer-big{font-family:'Space Grotesk',sans-serif;font-size:clamp(48px,16vw,72px);font-weight:700;letter-spacing:-2px;color:var(--kb);}
 .kb-timer-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;text-align:right;}
@@ -259,31 +283,47 @@ body{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direct
     <button class="btn-back" onclick="goHome()">Zurueck</button>
     <div style="font-size:13px;color:var(--muted);font-weight:500;">Kettlebell Workout</div>
   </div>
-  <div class="name-row" id="kbNameRow">
-    <input type="text" id="kbNameInput" placeholder="Workout benennen...">
-  </div>
-  <div style="-webkit-flex-shrink:0;flex-shrink:0;">
-    <div class="section-label">Schwierigkeitsgrad</div>
-    <div class="kb-option-row" id="kbLevelRow">
-      <button class="kb-opt active" onclick="setKbLevel('beginner')">Anfaenger</button>
-      <button class="kb-opt" onclick="setKbLevel('intermediate')">Mittel</button>
-      <button class="kb-opt" onclick="setKbLevel('advanced')">Fortgeschritten</button>
+
+  <!-- compact config card -->
+  <div class="kb-config-card">
+    <!-- Name -->
+    <div class="kb-config-name" id="kbNameRow">
+      <input type="text" id="kbNameInput" placeholder="Workout benennen...">
     </div>
-  </div>
-  <div style="-webkit-flex-shrink:0;flex-shrink:0;">
-    <div class="section-label">Dauer</div>
-    <div class="kb-dur-row">
-      <span id="kbDurLabel">20 Minuten</span>
-      <div class="stepper">
-        <button class="step-btn" onclick="changeKbDur(-5)">-</button>
-        <div class="step-val" id="kbDurVal">20</div>
-        <button class="step-btn" onclick="changeKbDur(5)">+</button>
+    <!-- Level + Dauer in einer Zeile -->
+    <div class="kb-config-row">
+      <div class="kb-config-group" style="-webkit-flex:1;flex:1;">
+        <div class="kb-config-label">Level</div>
+        <div class="kb-seg" id="kbLevelRow">
+          <button class="kb-seg-btn active" onclick="setKbLevel('beginner')">Anf.</button>
+          <button class="kb-seg-btn" onclick="setKbLevel('intermediate')">Mittel</button>
+          <button class="kb-seg-btn" onclick="setKbLevel('advanced')">Adv.</button>
+        </div>
+      </div>
+      <div class="kb-config-group">
+        <div class="kb-config-label">Dauer</div>
+        <div class="kb-mini-stepper">
+          <button class="kb-mini-btn" onclick="changeKbDur(-5)">-</button>
+          <span id="kbDurVal" class="kb-mini-val">20</span>
+          <span class="kb-mini-unit">min</span>
+          <button class="kb-mini-btn" onclick="changeKbDur(5)">+</button>
+        </div>
       </div>
     </div>
+    <!-- Muskelgruppen Filter -->
+    <div class="kb-config-label" style="margin-bottom:6px;">Fokus</div>
+    <div class="kb-filter-row" id="kbFilterRow">
+      <button class="kb-filter active" onclick="toggleKbFilter('all')">Alle</button>
+      <button class="kb-filter" onclick="toggleKbFilter('Ganzkoerper')">Ganzkorp.</button>
+      <button class="kb-filter" onclick="toggleKbFilter('Beine')">Beine</button>
+      <button class="kb-filter" onclick="toggleKbFilter('Core')">Core</button>
+      <button class="kb-filter" onclick="toggleKbFilter('Ruecken')">Ruecken</button>
+      <button class="kb-filter" onclick="toggleKbFilter('Oberkoerper')">Oberkoerp.</button>
+      <button class="kb-filter" onclick="toggleKbFilter('Schultern')">Schultern</button>
+      <button class="kb-filter" onclick="toggleKbFilter('Arme')">Arme</button>
+    </div>
   </div>
-  <div style="-webkit-flex-shrink:0;flex-shrink:0;">
-    <div class="section-label">Vorschau</div>
-  </div>
+
   <div class="preview-list" id="kbPreviewList"></div>
   <div class="bottom-area">
     <button class="btn-add" onclick="generateKbWorkout()" style="border-color:var(--kb);color:var(--kb);">Neu generieren</button>
@@ -414,36 +454,36 @@ var ICON_CLOSE='<svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><l
 /* ===================== KB EXERCISE DATABASE ===================== */
 var KB_DB = {
   beginner: [
-    {id:'swing',name:'Kettlebell Swing',desc:'Fuesse schulterbreit, KB zwischen den Beinen|Huefte nach hinten schieben (Hip Hinge), nicht in die Knie|Explosiv Huefte nach vorne stossen - Arme nur mitgehen|KB schwingt bis Schulterhoehe, oben Gesaess & Core anspannen|Ruecken immer gerade, kein Rundrucken',workSec:30,restSec:20},
-    {id:'deadlift',name:'KB Deadlift',desc:'KB zwischen den Fuessen, Huefte zurueck, Ruecken neutral|Schultern leicht vor oder ueber der KB|Spannung aufbauen, dann durch Huefte & Knie strecken|Oben komplett aufrichten, Gesaess fest anspannen|Kontrolliert absenken: Huefte zuerst, dann Knie',workSec:30,restSec:20},
-    {id:'goblet',name:'Goblet Squat',desc:'KB am Horns halten, vor der Brust, Ellenbogen nach unten|Fuesse schulterbreit, Zehen leicht nach aussen|Tief in die Kniebeuge - Brust aufrecht, Fersen am Boden|Knie aktiv nach aussen druecken (Richtung Zehen)|Kraftvoll hochdruecken, oben Gesaess anspannen',workSec:30,restSec:20},
-    {id:'rdl',name:'KB Romanian Deadlift',desc:'KB beidhaendig vor dem Koerper, Fuesse hueiftbreit|Leichte Kniebeu-gung, die sich nicht veraendert|Huefte nach hinten schieben, Rumpf kippt nach vorne|KB gleitet nah an den Beinen entlang nach unten|Dehnung hinten spueren, dann Huefte zurueck nach vorne',workSec:30,restSec:20},
-    {id:'row',name:'KB Single Row',desc:'Hand & Knie der gleichen Seite auf Bank abstuetzen|Koerper parallel zum Boden, KB haengt herunter|Ellenbogen nah am Koerper nach hinten & oben ziehen|Schulterblatt am Ende zusammenzuziehen|Langsam absenken - nach Haelfte Seite wechseln',workSec:30,restSec:20},
-    {id:'press',name:'KB Floor Press',desc:'Rueckenlage, Knie angewinkelt, Fuss aufgestellt|KB in einer Hand, Oberarm 45 Grad zum Koerper am Boden|Handgelenk gerade, KB auf dem Unterarm|Senkrecht nach oben druecken bis zur vollen Streckung|Langsam absenken bis Arm den Boden beruehrt - Seite wechseln',workSec:30,restSec:20},
-    {id:'halo',name:'KB Halo',desc:'KB kopfueber halten (Ball oben, Horns in den Haenden)|Stehend oder im Kniesitz, Core angespannt|KB langsam um den Kopf kreisen - Ellenbogen nah am Kopf|Rumpf bleibt stabil, nur die Arme bewegen sich|Nach Haelfte Richtung wechseln',workSec:25,restSec:20},
-    {id:'suitcase',name:'Suitcase Carry',desc:'KB in einer Hand wie einen Koffer halten|Aufrecht gehen - Schultern auf gleicher Hoehe|Core maximal anspannen um seitliches Kippen zu verhindern|Gleichmaessige Schritte, Blick geradeaus|Nach Haelfte Seite wechseln',workSec:25,restSec:20}
+    {id:'swing',name:'Kettlebell Swing',group:'Ganzkoerper',muscles:'Gesaess, Hintere Oberschenkel, Rueckenstrecker, Core',desc:'Fuesse schulterbreit, KB zwischen den Beinen|Huefte nach hinten schieben (Hip Hinge), nicht in die Knie|Explosiv Huefte nach vorne stossen - Arme nur mitgehen|KB schwingt bis Schulterhoehe, oben Gesaess & Core anspannen|Ruecken immer gerade, kein Rundrucken',workSec:30,restSec:20},
+    {id:'deadlift',name:'KB Deadlift',group:'Beine & Ruecken',muscles:'Gesaess, Oberschenkel, Rueckenstrecker, Trapez',desc:'KB zwischen den Fuessen, Huefte zurueck, Ruecken neutral|Schultern leicht vor oder ueber der KB|Spannung aufbauen, dann durch Huefte & Knie strecken|Oben komplett aufrichten, Gesaess fest anspannen|Kontrolliert absenken: Huefte zuerst, dann Knie',workSec:30,restSec:20},
+    {id:'goblet',name:'Goblet Squat',group:'Beine',muscles:'Quadrizeps, Gesaess, Adduktoren, Core',desc:'KB am Horns halten, vor der Brust, Ellenbogen nach unten|Fuesse schulterbreit, Zehen leicht nach aussen|Tief in die Kniebeuge - Brust aufrecht, Fersen am Boden|Knie aktiv nach aussen druecken (Richtung Zehen)|Kraftvoll hochdruecken, oben Gesaess anspannen',workSec:30,restSec:20},
+    {id:'rdl',name:'KB Romanian Deadlift',group:'Beine & Ruecken',muscles:'Hintere Oberschenkel, Gesaess, Rueckenstrecker',desc:'KB beidhaendig vor dem Koerper, Fuesse hueiftbreit|Leichte Kniebeu-gung, die sich nicht veraendert|Huefte nach hinten schieben, Rumpf kippt nach vorne|KB gleitet nah an den Beinen entlang nach unten|Dehnung hinten spueren, dann Huefte zurueck nach vorne',workSec:30,restSec:20},
+    {id:'row',name:'KB Single Row',group:'Ruecken & Arme',muscles:'Latissimus, Rhomboiden, Bizeps, hintere Schulter',desc:'Hand & Knie der gleichen Seite auf Bank abstuetzen|Koerper parallel zum Boden, KB haengt herunter|Ellenbogen nah am Koerper nach hinten & oben ziehen|Schulterblatt am Ende zusammenzuziehen|Langsam absenken - nach Haelfte Seite wechseln',workSec:30,restSec:20},
+    {id:'press',name:'KB Floor Press',group:'Oberkoerper',muscles:'Brustmuskel, Trizeps, vordere Schulter',desc:'Rueckenlage, Knie angewinkelt, Fuss aufgestellt|KB in einer Hand, Oberarm 45 Grad zum Koerper am Boden|Handgelenk gerade, KB auf dem Unterarm|Senkrecht nach oben druecken bis zur vollen Streckung|Langsam absenken bis Arm den Boden beruehrt - Seite wechseln',workSec:30,restSec:20},
+    {id:'halo',name:'KB Halo',group:'Schultern & Core',muscles:'Schultern, Trizeps, Core, Nacken-Stabilisatoren',desc:'KB kopfueber halten (Ball oben, Horns in den Haenden)|Stehend oder im Kniesitz, Core angespannt|KB langsam um den Kopf kreisen - Ellenbogen nah am Kopf|Rumpf bleibt stabil, nur die Arme bewegen sich|Nach Haelfte Richtung wechseln',workSec:25,restSec:20},
+    {id:'suitcase',name:'Suitcase Carry',group:'Core',muscles:'Seitlicher Core (Quadratus lumborum), Schulter-Stabilisatoren, Unterarme',desc:'KB in einer Hand wie einen Koffer halten|Aufrecht gehen - Schultern auf gleicher Hoehe|Core maximal anspannen um seitliches Kippen zu verhindern|Gleichmaessige Schritte, Blick geradeaus|Nach Haelfte Seite wechseln',workSec:25,restSec:20}
   ],
   intermediate: [
-    {id:'swing',name:'Kettlebell Swing',desc:'Wie Basis-Swing, KB schwingt bis Augenhoehe|Harter Lock-out oben: Gesaess & Core fest|Atemrhythmus: ausatmen beim Hochschwingen (Schnauben)|Kraft kommt nur von der Huefte, Arme sind passiv|Hohes Tempo anstreben',workSec:40,restSec:20},
-    {id:'clean',name:'KB Clean',desc:'Startet wie ein Einarm-Swing mit explosiver Huefte|Ab Bauchhoehe: Ellenbogen hoch, KB eindrehen (Corkscrew)|Weiche Landung in der Rack-Position anstreben|Rack: KB auf Unterarm, Ellenbogen tief, Hand bei Schulter|Kein harter Aufschlag auf den Unterarm - Seite wechseln',workSec:40,restSec:20},
-    {id:'press',name:'KB Press',desc:'Aus perfekter Rack-Position starten|Core & Gesaess fest anspannen vor dem Druecken|KB senkrecht nach oben, oben Schulter aktiv hochdruecken|Langsam in 3 Sek. in Rack absenken|Keine Beinarbeit - reine Schulter/Armkraft - Seite wechseln',workSec:35,restSec:20},
-    {id:'goblet',name:'Goblet Squat',desc:'Wie Basis, aber mit 1-2 Sek. Pause unten|Oder: 3 Sek. runter, explosiv hoch (Tempo-Squat)|Eliminiert den Dehnreflex - deutlich schwerer|Knie aktiv nach aussen, Fersen am Boden|Brust bleibt aufrecht die gesamte Bewegung',workSec:35,restSec:20},
-    {id:'lunge',name:'KB Lunge',desc:'KB in einer oder beiden Haenden|Grossen Schritt nach vorne, hinteres Knie fast auf Boden|Vorderes Knie ueber dem Fuss - nicht darueber hinaus|Oberkoel bleibt aufrecht, kein Vorneigen|Kraftvoll mit dem vorderen Bein hochdruecken',workSec:40,restSec:20},
-    {id:'deadlift2',name:'Single Leg Deadlift',desc:'KB in einer Hand, auf einem Bein stehen|Standbein leicht gebeugt, Core angespannt|Rumpf nach vorne kippen, freies Bein geht nach hinten|Koerper & Bein bilden eine gerade Linie|Kein Verdrehen des Beckens - nach Haelfte Seite wechseln',workSec:35,restSec:20},
-    {id:'row',name:'KB Bent Row',desc:'Fuesse hueiftbreit, leicht in Kniebeuge, Rumpf 45 Grad geneigt|KB haengt vor dem Koerper (ein- oder beidhaendig)|Ellenbogen nach hinten & oben ziehen zur Bauchhoehe|Schulterblatter am Ende zusammenzuziehen & kurz halten|Kontrolliert absenken, Ruecken bleibt neutral',workSec:35,restSec:20},
-    {id:'situp',name:'KB Russian Twist',desc:'Rueckenlage, Knie angewinkelt - Fuesse aufstellen oder anheben|Oberkoel 45 Grad nach hinten, KB beidhaendig vor dem Bauch|Rotation nach rechts & links - KB fast bis zum Boden|Bewegung aus der Wirbelsaeulen-Rotation, nicht den Armen|Fuesse angehoben = schwerer',workSec:30,restSec:20},
-    {id:'swing2',name:'Single Arm Swing',desc:'Eine Hand haelt die KB, andere schwingt als Gegengewicht|Schulter der KB-Seite aktiv stabilisieren|Rumpfrotation kontrollieren und minimieren|Oben Griff wechseln oder halbe Zeit pro Seite|Hueftkraft identisch mit normalem Swing',workSec:35,restSec:20}
+    {id:'swing',name:'Kettlebell Swing',group:'Ganzkoerper',muscles:'Gesaess, Hintere Oberschenkel, Rueckenstrecker, Core',desc:'Wie Basis-Swing, KB schwingt bis Augenhoehe|Harter Lock-out oben: Gesaess & Core fest|Atemrhythmus: ausatmen beim Hochschwingen (Schnauben)|Kraft kommt nur von der Huefte, Arme sind passiv|Hohes Tempo anstreben',workSec:40,restSec:20},
+    {id:'clean',name:'KB Clean',group:'Ganzkoerper',muscles:'Gesaess, Oberschenkel, Ruecken, Schultern, Core',desc:'Startet wie ein Einarm-Swing mit explosiver Huefte|Ab Bauchhoehe: Ellenbogen hoch, KB eindrehen (Corkscrew)|Weiche Landung in der Rack-Position anstreben|Rack: KB auf Unterarm, Ellenbogen tief, Hand bei Schulter|Kein harter Aufschlag auf den Unterarm - Seite wechseln',workSec:40,restSec:20},
+    {id:'press',name:'KB Press',group:'Oberkoerper',muscles:'Schultern, Trizeps, oberer Brustmuskel, Core',desc:'Aus perfekter Rack-Position starten|Core & Gesaess fest anspannen vor dem Druecken|KB senkrecht nach oben, oben Schulter aktiv hochdruecken|Langsam in 3 Sek. in Rack absenken|Keine Beinarbeit - reine Schulter/Armkraft - Seite wechseln',workSec:35,restSec:20},
+    {id:'goblet',name:'Goblet Squat',group:'Beine',muscles:'Quadrizeps, Gesaess, Adduktoren, Core',desc:'Wie Basis, aber mit 1-2 Sek. Pause unten|Oder: 3 Sek. runter, explosiv hoch (Tempo-Squat)|Eliminiert den Dehnreflex - deutlich schwerer|Knie aktiv nach aussen, Fersen am Boden|Brust bleibt aufrecht die gesamte Bewegung',workSec:35,restSec:20},
+    {id:'lunge',name:'KB Lunge',group:'Beine',muscles:'Quadrizeps, Gesaess, Hintere Oberschenkel, Waden',desc:'KB in einer oder beiden Haenden|Grossen Schritt nach vorne, hinteres Knie fast auf Boden|Vorderes Knie ueber dem Fuss - nicht darueber hinaus|Oberkoel bleibt aufrecht, kein Vorneigen|Kraftvoll mit dem vorderen Bein hochdruecken',workSec:40,restSec:20},
+    {id:'deadlift2',name:'Single Leg Deadlift',group:'Beine & Core',muscles:'Hintere Oberschenkel, Gesaess, Core, Gleichgewichts-Stabilisatoren',desc:'KB in einer Hand, auf einem Bein stehen|Standbein leicht gebeugt, Core angespannt|Rumpf nach vorne kippen, freies Bein geht nach hinten|Koerper & Bein bilden eine gerade Linie|Kein Verdrehen des Beckens - nach Haelfte Seite wechseln',workSec:35,restSec:20},
+    {id:'row',name:'KB Bent Row',group:'Ruecken & Arme',muscles:'Latissimus, Rhomboiden, Bizeps, hintere Schulter, Rueckenstrecker',desc:'Fuesse hueiftbreit, leicht in Kniebeuge, Rumpf 45 Grad geneigt|KB haengt vor dem Koerper (ein- oder beidhaendig)|Ellenbogen nach hinten & oben ziehen zur Bauchhoehe|Schulterblatter am Ende zusammenzuziehen & kurz halten|Kontrolliert absenken, Ruecken bleibt neutral',workSec:35,restSec:20},
+    {id:'situp',name:'KB Russian Twist',group:'Core',muscles:'Schraege Bauchmuskulatur, gerader Bauchmuskel, Hueftbeuger',desc:'Rueckenlage, Knie angewinkelt - Fuesse aufstellen oder anheben|Oberkoel 45 Grad nach hinten, KB beidhaendig vor dem Bauch|Rotation nach rechts & links - KB fast bis zum Boden|Bewegung aus der Wirbelsaeulen-Rotation, nicht den Armen|Fuesse angehoben = schwerer',workSec:30,restSec:20},
+    {id:'swing2',name:'Single Arm Swing',group:'Ganzkoerper',muscles:'Gesaess, Hintere Oberschenkel, Core, Schulter-Stabilisatoren',desc:'Eine Hand haelt die KB, andere schwingt als Gegengewicht|Schulter der KB-Seite aktiv stabilisieren|Rumpfrotation kontrollieren und minimieren|Oben Griff wechseln oder halbe Zeit pro Seite|Hueftkraft identisch mit normalem Swing',workSec:35,restSec:20}
   ],
   advanced: [
-    {id:'snatch',name:'KB Snatch',desc:'Startet wie Einarm-Swing, explosive Huefte|Ab Huefthoehe: Ellenbogen hoch, KB nah am Koerper ziehen|Im letzten Moment Arm strecken, KB dreht sich um die Hand|Endposition: Arm gerade oben, Schulter aktiv ins Gelenk|Absenken: kontrolliert zurueck in den Swing',workSec:45,restSec:15},
-    {id:'clean',name:'KB Clean',desc:'Fokus auf Geschwindigkeit & saubere Technik|KB bleibt die ganze Zeit nah am Koerper|Zug beginnt erst bei vollstaendig gestreckter Huefte|Rack: KB liegt locker auf dem Unterarm, nicht "gehalten"|Hohe Wiederholungszahl mit sauberer Form anstreben',workSec:45,restSec:15},
-    {id:'press',name:'KB Strict Press',desc:'Strenger Press: absolut keine Beinarbeit|Core & Gesaess maximal angespannt|Weg leicht bogenfoermig um den Kopf herum|Oben: Arm gestreckt, Schulterblatt aufwaerts rotiert|Absenken in 3-4 Sek. - maximale Kontrolle',workSec:40,restSec:15},
-    {id:'windmill',name:'KB Windmill',desc:'KB ueber dem Kopf, Arm gerade, Blick auf KB|Fuss unter KB-Seite 45-60 Grad nach aussen|Huefte zur KB-Seite schieben, seitlich nach unten beugen|KB-Arm bleibt die ganze Zeit senkrecht & gerade|Tief bis freie Hand den Boden beruehrt - langsam zurueck',workSec:35,restSec:15},
-    {id:'tgu',name:'Turkish Get Up',desc:'Rueckenlage, KB senkrecht ueber dem Kopf|Schritt 1: auf Ellenbogen rollen / Schritt 2: auf flache Hand|Schritt 3: Huefte heben / Schritt 4: Bein hindurch in Ausfallschritt|Schritt 5: aufrichten - dann alles rueckwaerts|KB-Arm bleibt IMMER senkrecht - eine Seite pro Satz',workSec:50,restSec:20},
-    {id:'swing3',name:'Double KB Swing',desc:'Zwei KBs gleichzeitig, je eine pro Hand|KBs etwas weiter aussen als beim normalen Swing|Mehr Gewicht erfordert mehr Stabilitaet im Rumpf|Ruecken absolut gerade - kein Rundrucken durch hohes Gewicht|Maximaler Huefteinsatz, starkes Lock-out oben',workSec:40,restSec:15},
-    {id:'clean2',name:'KB Clean and Press',desc:'Sauberer Clean in die Rack-Position|Ohne Pause direkt aus Rack pressen|Oben: Arm strecken, Schulter aktiv hochdruecken|Kontrolliert in Rack absenken, naechsten Clean|Verbundene Bewegung = maximale Kraftausdauer',workSec:45,restSec:15},
-    {id:'lunge',name:'KB Lunge Komplex',desc:'KB in Rack-Position halten|Ausfallschritt nach vorne, kurz halten|Hoch und direkt Knie nach vorne oben ziehen|Direkt in naechsten Ausfallschritt|Core permanent angespannt - fliessendes Tempo',workSec:40,restSec:15},
-    {id:'situp',name:'KB Sit Up',desc:'Rueckenlage, KB vor Brust oder ueber Kopf|Komplett bis in aufrechten Sitz aufrichten (kein Crunch)|KB am Ende nach vorne oder oben strecken|Langsam & kontrolliert absenken bis Ruecken am Boden|Exzentrische Phase (Absenken) besonders wirkungsvoll',workSec:35,restSec:15}
+    {id:'snatch',name:'KB Snatch',group:'Ganzkoerper',muscles:'Gesaess, Oberschenkel, Ruecken, Schultern, Core, Trizeps',desc:'Startet wie Einarm-Swing, explosive Huefte|Ab Huefthoehe: Ellenbogen hoch, KB nah am Koerper ziehen|Im letzten Moment Arm strecken, KB dreht sich um die Hand|Endposition: Arm gerade oben, Schulter aktiv ins Gelenk|Absenken: kontrolliert zurueck in den Swing',workSec:45,restSec:15},
+    {id:'clean',name:'KB Clean',group:'Ganzkoerper',muscles:'Gesaess, Oberschenkel, Ruecken, Schultern, Core',desc:'Fokus auf Geschwindigkeit & saubere Technik|KB bleibt die ganze Zeit nah am Koerper|Zug beginnt erst bei vollstaendig gestreckter Huefte|Rack: KB liegt locker auf dem Unterarm, nicht "gehalten"|Hohe Wiederholungszahl mit sauberer Form anstreben',workSec:45,restSec:15},
+    {id:'press',name:'KB Strict Press',group:'Oberkoerper',muscles:'Schultern, Trizeps, Serratus anterior, Core',desc:'Strenger Press: absolut keine Beinarbeit|Core & Gesaess maximal angespannt|Weg leicht bogenfoermig um den Kopf herum|Oben: Arm gestreckt, Schulterblatt aufwaerts rotiert|Absenken in 3-4 Sek. - maximale Kontrolle',workSec:40,restSec:15},
+    {id:'windmill',name:'KB Windmill',group:'Core & Schultern',muscles:'Seitlicher Core, Schulter-Stabilisatoren, Huefte, Hintere Oberschenkel',desc:'KB ueber dem Kopf, Arm gerade, Blick auf KB|Fuss unter KB-Seite 45-60 Grad nach aussen|Huefte zur KB-Seite schieben, seitlich nach unten beugen|KB-Arm bleibt die ganze Zeit senkrecht & gerade|Tief bis freie Hand den Boden beruehrt - langsam zurueck',workSec:35,restSec:15},
+    {id:'tgu',name:'Turkish Get Up',group:'Ganzkoerper',muscles:'Schultern, Core, Huefte, Beine, Ruecken - kompletter Koerper',desc:'Rueckenlage, KB senkrecht ueber dem Kopf|Schritt 1: auf Ellenbogen rollen / Schritt 2: auf flache Hand|Schritt 3: Huefte heben / Schritt 4: Bein hindurch in Ausfallschritt|Schritt 5: aufrichten - dann alles rueckwaerts|KB-Arm bleibt IMMER senkrecht - eine Seite pro Satz',workSec:50,restSec:20},
+    {id:'swing3',name:'Double KB Swing',group:'Ganzkoerper',muscles:'Gesaess, Hintere Oberschenkel, Rueckenstrecker, Core, Schultern',desc:'Zwei KBs gleichzeitig, je eine pro Hand|KBs etwas weiter aussen als beim normalen Swing|Mehr Gewicht erfordert mehr Stabilitaet im Rumpf|Ruecken absolut gerade - kein Rundrucken durch hohes Gewicht|Maximaler Huefteinsatz, starkes Lock-out oben',workSec:40,restSec:15},
+    {id:'clean2',name:'KB Clean and Press',group:'Ganzkoerper',muscles:'Gesaess, Oberschenkel, Ruecken, Schultern, Trizeps, Core',desc:'Sauberer Clean in die Rack-Position|Ohne Pause direkt aus Rack pressen|Oben: Arm strecken, Schulter aktiv hochdruecken|Kontrolliert in Rack absenken, naechsten Clean|Verbundene Bewegung = maximale Kraftausdauer',workSec:45,restSec:15},
+    {id:'lunge',name:'KB Lunge Komplex',group:'Beine & Core',muscles:'Quadrizeps, Gesaess, Hueftbeuger, Core, Gleichgewicht',desc:'KB in Rack-Position halten|Ausfallschritt nach vorne, kurz halten|Hoch und direkt Knie nach vorne oben ziehen|Direkt in naechsten Ausfallschritt|Core permanent angespannt - fliessendes Tempo',workSec:40,restSec:15},
+    {id:'situp',name:'KB Sit Up',group:'Core',muscles:'Gerader Bauchmuskel, Hueftbeuger, schraege Bauchmuskulatur',desc:'Rueckenlage, KB vor Brust oder ueber Kopf|Komplett bis in aufrechten Sitz aufrichten (kein Crunch)|KB am Ende nach vorne oder oben strecken|Langsam & kontrolliert absenken bis Ruecken am Boden|Exzentrische Phase (Absenken) besonders wirkungsvoll',workSec:35,restSec:15}
   ]
 };
 
@@ -578,24 +618,54 @@ function saveTraining(){ if(!validate())return; upsertTraining(document.getEleme
 function saveAndStart(){ if(!validate())return; upsertTraining(document.getElementById('trainingNameInput').value.trim()); launchTimer(); }
 
 /* ===================== KB WORKOUT CRUD ===================== */
-var kbLevel='beginner', kbDurMin=20, kbEditId=null, kbGenerated=[];
+var kbLevel='beginner', kbDurMin=20, kbEditId=null, kbGenerated=[], kbFilters=[];
 
 function showKbSetup(){
-  kbEditId=null; kbLevel='beginner'; kbDurMin=20;
+  kbEditId=null; kbLevel='beginner'; kbDurMin=20; kbFilters=[];
   document.getElementById('kbNameInput').value='';
   document.getElementById('kbDurVal').textContent='20';
-  document.getElementById('kbDurLabel').textContent='20 Minuten';
+  
   document.getElementById('kbNameRow').classList.remove('error');
-  var btns=document.getElementById('kbLevelRow').querySelectorAll('.kb-opt');
+  var btns=document.getElementById('kbLevelRow').querySelectorAll('.kb-seg-btn');
   for(var i=0;i<btns.length;i++) btns[i].classList.remove('active');
   btns[0].classList.add('active');
+  var fbtns=document.getElementById('kbFilterRow').querySelectorAll('.kb-filter');
+  for(var i=0;i<fbtns.length;i++) fbtns[i].classList.remove('active');
+  fbtns[0].classList.add('active');
   generateKbWorkout();
   showScreen('kbSetupScreen');
 }
 
+function toggleKbFilter(val){
+  var fbtns=document.getElementById('kbFilterRow').querySelectorAll('.kb-filter');
+  if(val==='all'){
+    kbFilters=[];
+    for(var i=0;i<fbtns.length;i++) fbtns[i].classList.remove('active');
+    fbtns[0].classList.add('active');
+  } else {
+    // deactivate "Alle"
+    fbtns[0].classList.remove('active');
+    var idx=kbFilters.indexOf(val);
+    if(idx===-1){
+      kbFilters.push(val);
+    } else {
+      kbFilters.splice(idx,1);
+    }
+    // update button states
+    for(var i=1;i<fbtns.length;i++){
+      var fval=fbtns[i].textContent.trim();
+      if(kbFilters.indexOf(fval)!==-1) fbtns[i].classList.add('active');
+      else fbtns[i].classList.remove('active');
+    }
+    // if nothing selected, reset to "Alle"
+    if(kbFilters.length===0) fbtns[0].classList.add('active');
+  }
+  generateKbWorkout();
+}
+
 function setKbLevel(lvl){
   kbLevel=lvl;
-  var btns=document.getElementById('kbLevelRow').querySelectorAll('.kb-opt');
+  var btns=document.getElementById('kbLevelRow').querySelectorAll('.kb-seg-btn');
   var map={beginner:0,intermediate:1,advanced:2};
   for(var i=0;i<btns.length;i++) btns[i].classList.remove('active');
   btns[map[lvl]].classList.add('active');
@@ -605,12 +675,27 @@ function setKbLevel(lvl){
 function changeKbDur(d){
   kbDurMin=Math.max(20,Math.min(30,kbDurMin+d));
   document.getElementById('kbDurVal').textContent=kbDurMin;
-  document.getElementById('kbDurLabel').textContent=kbDurMin+' Minuten';
+  
   generateKbWorkout();
 }
 
 function generateKbWorkout(){
   var pool=KB_DB[kbLevel].slice();
+  // apply muscle group filter
+  if(kbFilters.length>0){
+    pool=pool.filter(function(ex){
+      if(!ex.group) return false;
+      for(var f=0;f<kbFilters.length;f++){
+        // match if group contains the filter keyword
+        if(ex.group.toLowerCase().indexOf(kbFilters[f].toLowerCase())!==-1) return true;
+        // also match muscles string
+        if(ex.muscles && ex.muscles.toLowerCase().indexOf(kbFilters[f].toLowerCase())!==-1) return true;
+      }
+      return false;
+    });
+    // fallback to full pool if filter yields nothing
+    if(pool.length===0) pool=KB_DB[kbLevel].slice();
+  }
   var totalSec=kbDurMin*60;
   var result=[];
   var used=[];
@@ -620,7 +705,7 @@ function generateKbWorkout(){
     var idx=Math.floor(Math.random()*available.length);
     var ex=available[idx];
     used.push(ex.id);
-    result.push({id:ex.id,name:ex.name,desc:ex.desc,workSec:ex.workSec,restSec:ex.restSec});
+    result.push({id:ex.id,name:ex.name,group:ex.group,muscles:ex.muscles,desc:ex.desc,workSec:ex.workSec,restSec:ex.restSec});
     var spent=result.reduce(function(s,e){return s+e.workSec+e.restSec;},0);
     if(spent>=totalSec) break;
     if(result.length>40) break;
@@ -644,7 +729,7 @@ function renderKbPreview(){
           +'<div class="preview-card-dur">'+fmt(ex.workSec+ex.restSec)+'</div>'
           +'<div class="preview-card-chevron">&#9660;</div>'
         +'</div>'
-        +'<div class="preview-card-desc">'+renderDesc(ex.desc)+'</div>';
+        +'<div class="preview-card-desc">'+renderDesc(ex)+'</div>';
       card.addEventListener('click', function(){
         card.classList.toggle('open');
       });
@@ -718,11 +803,16 @@ function launchKbWorkout(exercises){
   beginKbPhase();
 }
 
-function renderDesc(desc, color){
-  var bullets = desc.split('|');
+function renderDesc(ex, restColor){
+  if(!ex) return '';
+  var bullets = ex.desc.split('|');
   var items = bullets.map(function(b){ return '<li>'+escHtml(b.trim())+'</li>'; }).join('');
-  var style = color ? 'style="--kb:'+color+';"' : '';
-  return '<ul '+style+'>'+items+'</ul>';
+  var ulStyle = restColor ? 'style="--kb:'+restColor+';"' : '';
+  var muscles = ex.muscles ? ex.muscles.split(',') : [];
+  var muscleTags = muscles.map(function(m){ return '<span class="kb-tag kb-tag-muscle">'+escHtml(m.trim())+'</span>'; }).join('');
+  var groupTag = ex.group ? '<span class="kb-tag kb-tag-group">'+escHtml(ex.group)+'</span>' : '';
+  var meta = (groupTag||muscleTags) ? '<div class="kb-ex-meta">'+groupTag+muscleTags+'</div>' : '';
+  return meta+'<ul '+ulStyle+'>'+items+'</ul>';
 }
 
 function beginKbPhase(){
@@ -741,7 +831,7 @@ function beginKbPhase(){
 
   if(p.type==='work'){
     document.getElementById('kbExName').textContent=p.ex.name;
-    document.getElementById('kbExDesc').innerHTML=renderDesc(p.ex.desc);
+    document.getElementById('kbExDesc').innerHTML=renderDesc(p.ex);
     document.getElementById('kbTimerLabel').textContent='ARBEIT';
     document.getElementById('kbTimerBig').style.color='var(--kb)';
     var nextP=kbPhases[kbPhaseIdx+1];
@@ -750,7 +840,7 @@ function beginKbPhase(){
     // During rest: show next exercise name + description
     var nx=p.nextEx;
     document.getElementById('kbExName').innerHTML='<div class="kb-rest-label-small">Pause - naechste Uebung:</div>'+(nx?'<div class="kb-next-preview-name">'+escHtml(nx.name)+'</div>':'');
-    document.getElementById('kbExDesc').innerHTML=nx?renderDesc(nx.desc,'#22c55e'):'';
+    document.getElementById('kbExDesc').innerHTML=nx?renderDesc(nx,'#22c55e'):'';
     document.getElementById('kbTimerLabel').textContent='PAUSE';
     document.getElementById('kbTimerBig').style.color='var(--rest)';
     document.getElementById('kbNextName').textContent=nx?nx.name:'-';
